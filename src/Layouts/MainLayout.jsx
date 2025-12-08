@@ -1,8 +1,8 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "../components/Shared/Header/Header";
-import Footer from "../components/Shared/Footer/Footer";
+import Header from "../components/Shared/Header";
+import Footer from "../components/Shared/Footer";
 import { Outlet } from "react-router";
 
 const MainLayout = () => {
