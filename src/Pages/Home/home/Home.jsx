@@ -1,7 +1,8 @@
 import React from "react";
 import Hero from "../Hero";
-import Meals from "./Meals/Meals";
+import Meals from "../Meals/Meals";
 import FeaturesSection from "../FeaturesSection";
+import Testimonial from "../Testimonial.jsx";
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Hero />
       <Meals />
       <FeaturesSection />
+      <Testimonial />
     </div>
   );
 };
