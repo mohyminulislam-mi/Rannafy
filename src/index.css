@@ -15,3 +15,6 @@ body {
   font-family: "Poppins", sans-serif;
   font-style: normal;
 }
+.rannafy-btn{
+  @apply bg-orange-500 mt-3 text-white py-1.5 px-2 rounded-md hover:bg-orange-600 transition-colors cursor-pointer
+}
