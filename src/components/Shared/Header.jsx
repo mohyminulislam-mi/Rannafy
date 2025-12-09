@@ -14,7 +14,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-toastify";
 
 export default function FoodHeader() {
-  const { user, singOutUser } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const location = useLocation();
@@ -23,7 +23,7 @@ export default function FoodHeader() {
   const userDropdownRef = useRef(null);
 
   const handleSingOut = () => {
-    singOutUser()
+    logOut()
       .then(() => {
         toast.success("Logout successful");
         navigate("/login");

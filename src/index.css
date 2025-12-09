@@ -16,5 +16,5 @@ body {
   font-style: normal;
 }
 .rannafy-btn{
-  @apply bg-orange-500 mt-3 text-white py-1.5 px-2 rounded-md hover:bg-orange-600 transition-colors cursor-pointer
+  @apply bg-orange-500 mt-3 text-white py-3 px-2 rounded-sm hover:bg-orange-600 transition-colors cursor-pointer
 }
