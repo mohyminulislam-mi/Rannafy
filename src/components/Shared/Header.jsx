@@ -11,7 +11,7 @@ import {
 import { IoHome } from "react-icons/io5";
 import Logo from "./Logo";
 import { AuthContext } from "../../Context/AuthContext";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export default function FoodHeader() {
   const { user, logOut } = useContext(AuthContext);
@@ -23,26 +23,42 @@ export default function FoodHeader() {
   const userDropdownRef = useRef(null);
 
   const handleSingOut = () => {
-    logOut()
-      .then(() => {
-        toast.success("Logout successful");
-        navigate("/login");
-      })
-      .catch((error) => console.log(error));
+    Swal.fire({
+      title: "Are you sure?",
+      text: `${user.displayName}. If you're logging out, you can't access!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#f54a00",
+      cancelButtonColor: "#ff0000",
+      confirmButtonText: "Logout",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOut()
+          .then(() => {
+            navigate("/login");
+          })
+          .catch((error) => console.log(error));
+        Swal.fire({
+          title: "Logout successful",
+          text: "Thanks for staying with RannaFy!",
+          icon: "success",
+        });
+      }
+    });
   };
 
+  // Public menu
   const menuItems = [
     { name: "Home", path: "/", icon: IoHome },
     { name: "Meals", path: "/meals", icon: CookingPot },
-    { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
   ];
 
+  // User menu dropdown for mobiles
   const userMenuItems = [
-    { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
+    // { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
     { name: "Profile", icon: UserCircle, path: "/profile" },
   ];
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -65,7 +81,6 @@ export default function FoodHeader() {
   return (
     <div>
       <div className="flex items-center justify-between h-16 md:h-20">
-        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <Logo />
         </Link>
@@ -89,9 +104,24 @@ export default function FoodHeader() {
               </Link>
             );
           })}
+
+          {/* Dashboard only for logged-in user */}
+          {user && (
+            <Link
+              to="/dashboard"
+              className={`flex items-center transition-colors font-medium ${
+                isActive("/dashboard")
+                  ? "text-orange-500"
+                  : "text-gray-700 hover:text-orange-500"
+              }`}
+            >
+              <LayoutDashboard className="w-4 h-4 mr-1" />
+              Dashboard
+            </Link>
+          )}
         </nav>
 
-        {/* Right Side Icons */}
+        {/* Right Icons */}
         <div className="flex items-center space-x-4">
           <div className="hidden sm:block relative" ref={userDropdownRef}>
             {user ? (
@@ -126,10 +156,9 @@ export default function FoodHeader() {
                       );
                     })}
 
-                    {/* Logout button */}
                     <button
                       onClick={handleSingOut}
-                      className="w-full flex items-center px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
+                      className="w-full flex items-center px-4 py-2 hover:bg-orange-50 text-orange-500 transition-colors"
                     >
                       <LogOut className="w-5 h-5 mr-3" />
                       Logout
@@ -155,7 +184,7 @@ export default function FoodHeader() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 text-gray-700 hover:text-orange-500 transition-colors"
@@ -192,7 +221,12 @@ export default function FoodHeader() {
               );
             })}
 
-            {/* Mobile User Items */}
+            {/* Dashboard only on login */}
+            {/* {user && (
+              <button>Add more menus</button>
+            )} */}
+
+            {/* User items in mobile */}
             {user && (
               <div className="border-t border-gray-200 pt-3 mt-3">
                 {userMenuItems.map((item) => {
@@ -210,7 +244,6 @@ export default function FoodHeader() {
                   );
                 })}
 
-                {/* Logout mobile */}
                 <button
                   onClick={handleSingOut}
                   className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 rounded-lg transition-colors"

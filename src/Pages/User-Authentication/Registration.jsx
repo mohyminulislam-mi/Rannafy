@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
@@ -23,7 +23,9 @@ const Registration = () => {
   const [showConfirmPass, setShowConfirmPass] = useState(false);
 
   const passwordValue = watch("password");
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleRegister = (data) => {
     const profileImg = data.photo[0];
     console.log("data", data);
@@ -46,6 +48,7 @@ const Registration = () => {
             email: data.email,
             displayName: data.name,
             photoURL: photoURL,
+            address: data.address,
           };
 
           axiosSecure.post("/users", userInfo);
@@ -66,8 +69,8 @@ const Registration = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto md:p-6 p-4 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10 my-15">
-      <div className="w-full max-w-7xl grid md:grid-cols-2 gap-12 items-center">
+    <div className="w-11/12 mx-auto md:p-6 p-4 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10 my-6">
+      <div className="w-full max-w-7xl grid md:grid-cols-2 gap-12 items-center py-14">
         <div>
           <div className="bg-white p-12 md:p-16 flex flex-col justify-center h-2/3 md:border-r-2 md:border-orange-600">
             {/* logo  */}
@@ -78,7 +81,7 @@ const Registration = () => {
             <h1 className="text-5xl text-center md:text-left font-bold leading-tight mb-6">
               Join With
               <br />
-              <span className="text-orange-600">RannaFy</span>
+              <span className="text-orange-600 text-7xl">RannaFy</span>
             </h1>
 
             <p className="text-xl md:text-2xl md:text-left text-center opacity-95 leading-relaxed">

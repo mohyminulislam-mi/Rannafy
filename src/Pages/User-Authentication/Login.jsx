@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import logo from "/favicon.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
@@ -19,13 +20,16 @@ const Login = () => {
   const handleLogin = (data) => {
     singInUser(data.email, data.password)
       .then((result) => {
-        console.log("after login", result.user);
+        toast.success("Welcome back!")
         navigate(location?.state || "/");
       })
       .catch((error) => {
         console.log(error);
       });
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="min-h-screen md:p-6 p-4 text-left text-sm">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10">
