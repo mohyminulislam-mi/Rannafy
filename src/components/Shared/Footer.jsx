@@ -1,5 +1,6 @@
-import { ChefHat, Mail, Facebook, Instagram, Twitter } from "lucide-react";
+import { Mail, Facebook, Instagram, Twitter } from "lucide-react";
 import { Link } from "react-router";
+import Logo from "../Shared/Logo";
 
 export default function Footer() {
   return (
@@ -9,16 +10,13 @@ export default function Footer() {
           {/* Brand and Tagline */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <ChefHat className="w-10 h-10 text-orange-500" />
-              <span className="text-3xl font-bold text-white">
-                Flavor Vault
-              </span>
+              <Logo />
             </div>
             <p className="text-gray-400 leading-relaxed">
               Your daily dose of delicious recipes made by real home cooks —
               just like you.
             </p>
-            <p className="text-orange-500 font-semibold mt-4">
+            <p className="text-primary font-semibold mt-4">
               Cook. Share. Enjoy.
             </p>
           </div>
@@ -28,49 +26,40 @@ export default function Footer() {
             <h3 className="text-xl font-bold text-white mb-6">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/" className="hover:text-orange-500 transition">
-                  Home
+                <Link href="/" className="hover:text-primary transition">
+                  About Us
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/recipes"
-                  className="hover:text-orange-500 transition"
-                >
-                  All Recipes
+                <Link href="/" className="hover:text-primary transition">
+                  Contact
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/addRecipes"
-                  className="hover:text-orange-500 transition"
-                >
-                  Add Recipe
+                <Link href="/" className="hover:text-primary transition">
+                  Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/manageRecipes"
-                  className="hover:text-orange-500 transition"
-                >
-                  My Recipes
+                <Link href="/" className="hover:text-primary transition">
+                  Terms of Service
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Community */}
+          {/* Working Hours */}
           <div>
-            <h3 className="text-xl font-bold text-white mb-6">Community</h3>
+            <h3 className="text-xl font-bold text-white mb-6">Working Hours</h3>
             <ul className="space-y-3">
-              <li className="hover:text-orange-500 transition">About Us</li>
-              <li className="hover:text-orange-500 transition">Contact</li>
-              <li className="hover:text-orange-500 transition">
-                Privacy Policy
+              <li className="hover:text-primary transition">
+                <span className="text-primary font-bold">Open: </span> Friday -
+                Saturday
               </li>
-              <li className="hover:text-orange-500 transition">
-                Terms of Service
+              <li className="hover:text-primary transition">
+                <span className="text-primary font-bold">Close: </span> No Close
               </li>
+              <li className="text-primary font-bold">Service 24/7</li>
             </ul>
           </div>
 
@@ -87,9 +76,9 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Your email"
-                className="flex-1 px-5 py-3 rounded-full bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 w-2/4 md:w-full"
+                className="flex-1 px-5 py-3 rounded-full bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary w-2/4 md:w-full"
               />
-              <button className="bg-orange-600 hover:bg-orange-500 text-white p-3 rounded-full transition">
+              <button className="bg-primary hover:bg-primary text-white p-3 rounded-full transition cursor-pointer">
                 <Mail size={20} />
               </button>
             </div>
@@ -120,12 +109,16 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-          <p>&copy; 2025 RannaFy. All rights reserved.</p>
+          <p>
+            &copy; 2025 <span className="text-primary"> RannaFy.</span> All
+            rights reserved.
+          </p>
           <p className="mt-4 md:mt-0">
             Developed By{" "}
             <a
-              href="https://www.linkedin.com/in/mohyminulislam"
-              className="text-orange-500"
+              href="https://www.linkedin.com/in/mohyminulislam/"
+              className="text-primary"
+              target="blank"
             >
               Mohyminul Islam
             </a>

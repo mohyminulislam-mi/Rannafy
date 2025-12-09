@@ -7,12 +7,12 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #f54a00;
+  --color-primary: #F54900;
   --color-secondary: teal;
 }
 
 .swal2-confirm {
-  background-color: #f54a00 !important;
+  background-color: #F54900 !important;
 }
 
 body {
