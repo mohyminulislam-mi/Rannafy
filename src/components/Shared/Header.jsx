@@ -1,14 +1,26 @@
-import React, { useContext } from "react";
-import { Link, NavLink, useNavigate } from "react-router";
+import { useState, useRef, useEffect, useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+import {
+  Menu,
+  X,
+  LogOut,
+  LayoutDashboard,
+  UserCircle,
+  CookingPot,
+} from "lucide-react";
+import { IoHome } from "react-icons/io5";
+import Logo from "./Logo";
 import { AuthContext } from "../../Context/AuthContext";
-import { IoExitOutline, IoHome } from "react-icons/io5";
-import { CgProfile } from "react-icons/cg";
-import { PiPlantBold } from "react-icons/pi";
 import { toast } from "react-toastify";
 
-const Header = () => {
+export default function FoodHeader() {
   const { user, singOutUser } = useContext(AuthContext);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const userDropdownRef = useRef(null);
 
   const handleSingOut = () => {
     singOutUser()
@@ -19,136 +31,198 @@ const Header = () => {
       .catch((error) => console.log(error));
   };
 
-  const links = (
-    <>
-      <li>
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            `flex items-center gap-1 ${
-              isActive ? "text-orange-500 font-semibold" : ""
-            }`
-          }
-        >
-          <IoHome /> Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/recipes"
-          className={({ isActive }) =>
-            `flex items-center gap-1 ${
-              isActive ? "text-orange-500 font-semibold" : ""
-            }`
-          }
-        >
-          <PiPlantBold /> Recipes
-        </NavLink>
-      </li>
-    </>
-  );
+  const menuItems = [
+    { name: "Home", path: "/", icon: IoHome },
+    { name: "Meals", path: "/meals", icon: CookingPot },
+    { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+  ];
+
+  const userMenuItems = [
+    { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
+    { name: "Profile", icon: UserCircle, path: "/profile" },
+  ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        userDropdownRef.current &&
+        !userDropdownRef.current.contains(event.target)
+      ) {
+        setUserDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const isActive = (path) => {
+    if (path === "/") return location.pathname === "/";
+    return location.pathname.startsWith(path);
+  };
 
   return (
-    <div className="w-11/12 mx-auto navbar px-0 bg-base-100 ">
-      <div className="navbar-start">
-        {/* Mobile Dropdown */}
-        <div className="dropdown">
-          <button
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost lg:hidden"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box shadow mt-3 w-52 p-2"
-          >
-            {links}
-          </ul>
-        </div>
-
+    <div>
+      <div className="flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <span className="text-2xl font-bold text-orange-500">RannaFy</span>
+          <Logo />
         </Link>
-      </div>
 
-      {/* Desktop Menu */}
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
-      </div>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-8">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`flex items-center transition-colors font-medium ${
+                  isActive(item.path)
+                    ? "text-orange-500"
+                    : "text-gray-700 hover:text-orange-500"
+                }`}
+              >
+                <Icon className="w-4 h-4 mr-1" />
+                {item.name}
+              </Link>
+            );
+          })}
+        </nav>
 
-      {/* Right Side */}
-      <div className="navbar-end">
-        {user ? (
-          <div className="dropdown dropdown-end">
-            <button
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="User Avatar"
-                  src={user?.photoURL || "https://i.ibb.co/8xM1d0B/avatar.png"}
-                />
-              </div>
-            </button>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box shadow mt-3 w-52 p-2 z-50"
-            >
-              <li>
-                <Link
-                  to="/my-profile"
-                  className="font-bold flex items-center gap-1 justify-center hover:bg-orange-50"
+        {/* Right Side Icons */}
+        <div className="flex items-center space-x-4">
+          <div className="hidden sm:block relative" ref={userDropdownRef}>
+            {user ? (
+              <>
+                <button
+                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                  className="p-2 text-gray-700 hover:text-orange-500 transition-colors"
                 >
-                  <CgProfile /> Profile
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    alt="User Avatar"
+                    src={
+                      user?.photoURL || "https://i.ibb.co/8xM1d0B/avatar.png"
+                    }
+                  />
+                </button>
+
+                {userDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 border border-gray-200">
+                    {userMenuItems.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <Link
+                          key={item.name}
+                          to={item.path}
+                          onClick={() => setUserDropdownOpen(false)}
+                          className="flex items-center px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
+                        >
+                          <Icon className="w-5 h-5 mr-3" />
+                          {item.name}
+                        </Link>
+                      );
+                    })}
+
+                    {/* Logout button */}
+                    <button
+                      onClick={handleSingOut}
+                      className="w-full flex items-center px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
+                    >
+                      <LogOut className="w-5 h-5 mr-3" />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="space-x-2">
+                <Link
+                  to="/login"
+                  className="bg-orange-500 text-white px-4 py-2 rounded font-semibold"
+                >
+                  Login
                 </Link>
-              </li>
-              <li>
+                <Link
+                  to="/registration"
+                  className="border border-orange-500 text-orange-500 px-4 py-2 rounded font-semibold"
+                >
+                  Signup
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-gray-700 hover:text-orange-500 transition-colors"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden py-4 border-t border-gray-200">
+          <nav className="flex flex-col space-y-3">
+            {menuItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center px-4 py-2 rounded-lg transition-colors font-medium ${
+                    isActive(item.path)
+                      ? "bg-orange-50 text-orange-500"
+                      : "text-gray-700 hover:bg-orange-50 hover:text-orange-500"
+                  }`}
+                >
+                  <Icon className="w-5 h-5 mr-2" />
+                  {item.name}
+                </Link>
+              );
+            })}
+
+            {/* Mobile User Items */}
+            {user && (
+              <div className="border-t border-gray-200 pt-3 mt-3">
+                {userMenuItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 rounded-lg transition-colors"
+                    >
+                      <Icon className="w-5 h-5 mr-3" />
+                      {item.name}
+                    </Link>
+                  );
+                })}
+
+                {/* Logout mobile */}
                 <button
                   onClick={handleSingOut}
-                  className="mt-2 bg-orange-500 text-white font-semibold py-2 rounded flex items-center justify-center gap-1"
+                  className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 rounded-lg transition-colors"
                 >
-                  <IoExitOutline /> Sign Out
+                  <LogOut className="w-5 h-5 mr-3" />
+                  Logout
                 </button>
-              </li>
-            </ul>
-          </div>
-        ) : (
-          <div className="space-x-2">
-            <Link
-              to="/login"
-              className="bg-orange-500 text-white px-4 py-2 rounded font-semibold"
-            >
-              Login
-            </Link>
-            <Link
-              to="/registration"
-              className="border border-orange-500 text-orange-500 px-4 py-2 rounded font-semibold"
-            >
-              Signup
-            </Link>
-          </div>
-        )}
-      </div>
+              </div>
+            )}
+          </nav>
+        </div>
+      )}
     </div>
   );
-};
-
-export default Header;
+}
