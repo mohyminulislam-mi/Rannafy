@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { FaStar, FaMapMarkerAlt, FaClock, FaUserTie } from "react-icons/fa";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router";
 
 const MealDetails = () => {
-  const meal = {
-    foodName: "Chicken Curry",
-    chefName: "John Doe",
-    chefId: "C101",
-    image:
-      "https://tse4.mm.bing.net/th/id/OIP.k7knSQw4Y8b_8BeqpFVM8gHaEE?rs=1&pid=ImgDetMain&o=7&rm=3",
-    price: 12,
-    rating: 4.5,
-    ingredients: ["Chicken", "Spices", "Onion", "Garlic"],
-    deliveryArea: "Downtown",
-    deliveryTime: "30 mins",
-    chefExperience: 5,
-  };
+  const axiosSecure = useAxiosSecure();
+  const { id } = useParams();
+
+  const { data: meal = [] } = useQuery({
+    queryKey: ["meals", id],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/meal-details/${id}`);
+      return res.data;
+    },
+  });
 
   const [reviews, setReviews] = useState([
     { id: 1, user: "Alice", comment: "Delicious and fresh!", rating: 5 },
@@ -44,7 +44,7 @@ const MealDetails = () => {
     <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
       {/* Food Image */}
       <img
-        src={meal.image}
+        src={meal.foodImage}
         alt={meal.foodName}
         className="w-full h-64 object-cover"
       />
@@ -57,7 +57,7 @@ const MealDetails = () => {
         </p>
 
         <div className="mt-3 space-y-1">
-          <p className="text-lg font-semibold text-green-600">
+          <p className="text-lg font-semibold text-primary">
             Price: ${meal.price}
           </p>
           <p className="flex items-center text-yellow-500">
@@ -68,19 +68,19 @@ const MealDetails = () => {
             {meal.deliveryArea}
           </p>
           <p className="flex items-center text-gray-600">
-            <FaClock className="mr-1" /> Estimated Delivery: {meal.deliveryTime}
+            <FaClock className="mr-1" /> Estimated Delivery: {meal.estimatedDeliveryTime}
           </p>
           <p className="flex items-center text-gray-600">
             <FaUserTie className="mr-1" /> Chef Experience:{" "}
             {meal.chefExperience} years
           </p>
           <p className="text-gray-600">
-            Ingredients: {meal.ingredients.join(", ")}
+            Ingredients: {meal.ingredients}
           </p>
         </div>
 
         {/* Order Button */}
-        <button className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors">
+        <button className="mt-4 w-full bg-primary text-white py-2 rounded-md hover:bg-orange-600 transition-colors cursor-pointer">
           Order Now
         </button>
       </div>
@@ -111,7 +111,7 @@ const MealDetails = () => {
           />
           <button
             type="submit"
-            className="bg-green-500 text-white px-4 rounded-r-md hover:bg-green-600"
+            className="bg-primary text-white px-4 rounded-r-md hover:bg-orange-600"
           >
             Submit
           </button>

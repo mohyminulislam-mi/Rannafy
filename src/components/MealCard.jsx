@@ -1,5 +1,6 @@
 import React from "react";
 import { MdOutlineStar } from "react-icons/md";
+import { Link } from "react-router";
 
 const MealCard = ({ meal }) => {
   return (
@@ -30,7 +31,9 @@ const MealCard = ({ meal }) => {
           <p className="text-sm text-gray-500">Chef ID: {meal.chefId}</p>
         </div>
         {/* See Details Button */}
-        <button className="rannafy-btn w-full">See Details</button>
+        <Link to={`/meal-details/${meal._id}`} className="rannafy-btn w-full">
+          See Details
+        </Link>
       </div>
     </div>
   );
