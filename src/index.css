@@ -21,5 +21,5 @@ body {
 }
 
 .rannafy-btn {
-  @apply bg-orange-500 mt-3 text-white py-3 px-2 rounded-sm hover:bg-orange-600 transition-colors cursor-pointer
+  @apply bg-orange-500 mt-3 text-white py-2.5 px-3.5 rounded-sm hover:bg-orange-600 transition-colors cursor-pointer
 }
