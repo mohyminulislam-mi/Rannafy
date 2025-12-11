@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  FaStar,
-  FaRegStar,
-  FaMapMarkerAlt,
-  FaClock,
-  FaUserTie,
-} from "react-icons/fa";
+import React, { useEffect } from "react";
+import { FaStar, FaRegStar, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import { SiCodechef } from "react-icons/si";
 import { TbToolsKitchen3 } from "react-icons/tb";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -17,13 +11,12 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Rating from "react-rating";
 import { toast } from "react-toastify";
+import { useForm, Controller } from "react-hook-form";
 
 const MealDetails = () => {
   const axiosSecure = useAxiosSecure();
   const { id } = useParams();
   const { user } = useAuth();
-  const [rating, setRating] = useState(0);
-  const [userReview, setUserReview] = useState("");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -37,28 +30,64 @@ const MealDetails = () => {
     },
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // get reviews data from database
+  const { data: reviews = [], refetch } = useQuery({
+    queryKey: ["meals-reviews", id],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/meals-reviews/${id}`);
+      return res.data;
+    },
+  });
 
+  // react-hook-form setup
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      text: "",
+      rating: 0,
+    },
+  });
+
+  const handleCustomerReviews = async (data) => {
     const reviewData = {
       mealId: meal._id,
       userName: user?.displayName,
       userEmail: user?.email,
       UserPhoto: user?.photoURL,
-      text: userReview,
-      rating: rating,
+      text: data.text,
+      rating: data.rating,
     };
 
     const res = await axiosSecure.post("/meals-reviews", reviewData);
     console.log(res.data);
-
-    setUserReview("");
-    setRating(0);
-    toast.success("Thanks for sharing reviews");
+    toast.success("Review submitted successfully!");
+    refetch();
+    reset();
   };
+
+  const handleAddFavorite = async () => {
+    const favoriteData = {
+      mealId: meal._id,
+      userEmail: user?.email,
+      mealName: meal.foodName,
+      chefName: meal.chefName,
+      chefId: meal.chefId,
+      price: meal.price,
+    };
+    const res = await axiosSecure.post("/favorites", favoriteData);
+    console.log(res);
+    toast.success("Add favorites successfully!");
+  };
+
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <div className="max-w-9/12 mx-auto overflow-hidden">
       {/* Food Image */}
@@ -93,11 +122,11 @@ const MealDetails = () => {
             </p>
 
             <p className="text-gray-600 flex">
-              {" "}
               <TbToolsKitchen3 className="mt-0.5 mr-2 text-2xl text-primary" />{" "}
               Ingredients: {meal.ingredients}
             </p>
           </div>
+
           {/* chef information */}
           <div className="mt-5 bg-orange-50 py-2 px-1 rounded space-y-1">
             <p className="text-gray-600 flex items-center">
@@ -114,9 +143,15 @@ const MealDetails = () => {
           </div>
 
           {/* Order Button */}
-          <button className="mt-4 w-full bg-primary text-white py-2 rounded-md hover:bg-orange-600 transition-colors cursor-pointer">
-            Order Now
-          </button>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
+            <button className="mt-4 w-full rannafy-btn ">Order Now</button>
+            <button
+              className="mt-4 w-full rannafy-btn"
+              onClick={handleAddFavorite}
+            >
+              Add Favorite
+            </button>
+          </div>
         </div>
       </div>
 
@@ -125,7 +160,7 @@ const MealDetails = () => {
         <h3 className="text-xl font-semibold mb-3">Reviews</h3>
         <div className="space-y-2">
           <Tabs>
-            {/* ==== TAB MENU ==== */}
+            {/* Tab Menu */}
             <TabList className="flex gap-3">
               <Tab
                 selectedClassName="bg-red-600 text-white rounded px-4 py-1 cursor-pointer"
@@ -133,7 +168,6 @@ const MealDetails = () => {
               >
                 Customer Reviews
               </Tab>
-
               <Tab
                 selectedClassName="bg-red-600 text-white rounded px-4 py-1 cursor-pointer"
                 className="bg-gray-200 px-4 py-1 rounded cursor-pointer"
@@ -142,33 +176,57 @@ const MealDetails = () => {
               </Tab>
             </TabList>
 
-            {/* ==== TAB 1: CUSTOMER REVIEWS ==== */}
+            {/* tab customer review */}
             <TabPanel>
               <div className="mt-5 space-y-3">
-                {/* {reviews.map((r, idx) => (
-                  <div key={idx} className="p-3 border rounded bg-gray-50">
-                    <h4 className="font-semibold">{r.name}</h4>
-                    <p>{r.text}</p>
+                {reviews.map((review, idx) => (
+                  <div key={idx} className="p-3 rounded bg-orange-50">
+                    <p>{review.text}</p>
+                    <div className="grid grid-cols-2 gap-5">
+                      <div> 
+                        <img src={review.UserPhoto} alt="User" className="h-10 w-10 rounded-full" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">{review.userName}</h4>
+                        <span>{review.createdAt}</span>
+                      </div>
+                    </div>
                   </div>
-                ))} */}
-                Hello reviews
+                ))}
               </div>
             </TabPanel>
 
-            {/* ==== TAB 2: REVIEW FORM ==== */}
+            {/* tab-2 review from */}
             <TabPanel>
-              <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+              <form
+                onSubmit={handleSubmit(handleCustomerReviews)}
+                className="mt-5 space-y-4"
+              >
                 {/* Star Rating */}
                 <div className="flex items-center gap-3">
                   <span className="font-semibold">Your Rating:</span>
-                  <Rating
-                    initialRating={rating}
-                    onChange={(value) => setRating(value)}
-                    emptySymbol={
-                      <FaRegStar className="text-primary text-3xl" />
-                    }
-                    fullSymbol={<FaStar className="text-primary text-3xl" />}
+                  <Controller
+                    name="rating"
+                    control={control}
+                    rules={{ required: "Rating is required" }}
+                    render={({ field }) => (
+                      <Rating
+                        initialRating={field.value}
+                        onChange={field.onChange}
+                        emptySymbol={
+                          <FaRegStar className="text-primary text-3xl" />
+                        }
+                        fullSymbol={
+                          <FaStar className="text-primary text-3xl" />
+                        }
+                      />
+                    )}
                   />
+                  {errors.rating && (
+                    <p className="text-red-500 text-sm">
+                      {errors.rating.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Input textarea */}
@@ -176,15 +234,17 @@ const MealDetails = () => {
                   className="w-full border p-3 rounded"
                   rows="4"
                   placeholder="Write your review..."
-                  value={userReview}
-                  onChange={(e) => setUserReview(e.target.value)}
+                  {...register("text", { required: "Review text is required" })}
                 />
+                {errors.text && (
+                  <p className="text-red-500 text-sm">{errors.text.message}</p>
+                )}
 
                 <button
                   type="submit"
-                  className="bg-red-600 text-white px-4 py-2 rounded"
+                  className="bg-red-600 text-white px-4 py-2 rounded cursor-pointer"
                 >
-                  Submit Review
+                  Give Review
                 </button>
               </form>
             </TabPanel>
