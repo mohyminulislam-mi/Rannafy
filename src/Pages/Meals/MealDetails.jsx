@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaStar, FaMapMarkerAlt, FaClock, FaUserTie } from "react-icons/fa";
+import { SiCodechef } from "react-icons/si";
+import { TbToolsKitchen3 } from "react-icons/tb";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
@@ -7,6 +9,9 @@ import { useParams } from "react-router";
 const MealDetails = () => {
   const axiosSecure = useAxiosSecure();
   const { id } = useParams();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const { data: meal = [] } = useQuery({
     queryKey: ["meals", id],
@@ -41,48 +46,55 @@ const MealDetails = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="max-w-9/12 mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
       {/* Food Image */}
-      <img
-        src={meal.foodImage}
-        alt={meal.foodName}
-        className="w-full h-64 object-cover"
-      />
-
-      {/* Meal Info */}
-      <div className="p-6">
-        <h2 className="text-2xl font-bold text-gray-800">{meal.foodName}</h2>
-        <p className="text-gray-600">
-          Chef: {meal.chefName} (ID: {meal.chefId})
-        </p>
-
-        <div className="mt-3 space-y-1">
-          <p className="text-lg font-semibold text-primary">
-            Price: ${meal.price}
-          </p>
-          <p className="flex items-center text-yellow-500">
-            <FaStar className="mr-1" /> Rating: {meal.rating}
-          </p>
-          <p className="flex items-center text-gray-600">
-            <FaMapMarkerAlt className="mr-1" /> Delivery Area:{" "}
-            {meal.deliveryArea}
-          </p>
-          <p className="flex items-center text-gray-600">
-            <FaClock className="mr-1" /> Estimated Delivery: {meal.estimatedDeliveryTime}
-          </p>
-          <p className="flex items-center text-gray-600">
-            <FaUserTie className="mr-1" /> Chef Experience:{" "}
-            {meal.chefExperience} years
-          </p>
-          <p className="text-gray-600">
-            Ingredients: {meal.ingredients}
-          </p>
+      <div className="grid grid-cols-2">
+        <div>
+          <img
+            src={meal.foodImage}
+            alt={meal.foodName}
+            className="w-full h-12/12 object-cover"
+          />
         </div>
+        {/* Meal Info */}
+        <div className="p-6">
+          <h2 className="text-2xl font-bold text-gray-800">{meal.foodName}</h2>
 
-        {/* Order Button */}
-        <button className="mt-4 w-full bg-primary text-white py-2 rounded-md hover:bg-orange-600 transition-colors cursor-pointer">
-          Order Now
-        </button>
+          <div className="mt-2 space-y-2">
+            <p className="text-lg font-semibold text-primary">
+              Price: ${meal.price}
+            </p>
+            <p className="flex items-center mt-3 text-yellow-500">
+              <FaStar className="mr-2 text-primary" /> Rating: {meal.rating}
+            </p>
+            <p className="flex items-center text-gray-600">
+              <FaMapMarkerAlt className="mr-2 text-primary" /> Delivery Area:{" "}
+              {meal.deliveryArea}
+            </p>
+            <p className="flex items-center text-gray-600">
+              <FaClock className="mr-2 text-primary" /> Estimated Delivery:{" "}
+              <span className="text-primary ml-2 font-semibold">{meal.estimatedDeliveryTime}</span>
+            </p>
+
+            <p className="text-gray-600 flex"> <TbToolsKitchen3 className="mt-0.5 mr-2 text-2xl text-primary"/> Ingredients: {meal.ingredients}</p>
+          </div>
+          {/* chef information */}
+          <div className="mt-5 bg-orange-50 py-2 px-1 rounded space-y-1">
+            <p className="text-gray-600 flex items-center">
+             
+              <SiCodechef className="mr-2 text-2xl text-primary" /> {meal.chefName}  <span className="text-primary ml-2 font-semibold">ID: {meal.chefId}</span> 
+            </p>
+            <p className=" text-gray-600 ml-8">
+               Chef Experience:{" "}
+              <span className="font-semibold">{meal.chefExperience}</span>
+            </p>
+          </div>
+
+          {/* Order Button */}
+          <button className="mt-4 w-full bg-primary text-white py-2 rounded-md hover:bg-orange-600 transition-colors cursor-pointer">
+            Order Now
+          </button>
+        </div>
       </div>
 
       {/* Review Section */}
