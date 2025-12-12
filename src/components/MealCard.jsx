@@ -1,5 +1,6 @@
 import React from "react";
 import { MdOutlineStar } from "react-icons/md";
+import { SiCodechef } from "react-icons/si";
 import { Link } from "react-router";
 
 const MealCard = ({ meal }) => {
@@ -14,7 +15,13 @@ const MealCard = ({ meal }) => {
 
       {/* Card Content */}
       <div className="p-4">
-        <h2 className="text-lg font-semibold text-gray-800">{meal.foodName}</h2>
+        {/* Chef Info */}
+        <div className="mt-2">
+          <h2 className="text-lg font-semibold text-gray-800 flex items-center">
+            <SiCodechef className="text-xl font-bold text-primary mr-1" /> {meal.chefName}
+          </h2>
+          <p className="text-sm text-gray-500">Chef ID: {meal.chefId}</p>
+        </div>
 
         {/* Food Info */}
         <p className="mt-2 text-gray-700 font-medium">Price: ${meal.price}</p>
@@ -22,18 +29,12 @@ const MealCard = ({ meal }) => {
           Rating: <MdOutlineStar className="text-orange-500" /> {meal.rating}
         </p>
         <p className="text-gray-600">Delivery Area: {meal.deliveryArea}</p>
-
-        {/* Chef Info */}
-        <div className="my-2 p-2 bg-orange-50">
-          <h2 className="text-lg font-semibold text-gray-800">
-            Chef: {meal.chefName}
-          </h2>
-          <p className="text-sm text-gray-500">Chef ID: {meal.chefId}</p>
-        </div>
         {/* See Details Button */}
-        <Link to={`/meal-details/${meal._id}`} className="rannafy-btn w-full">
+        <div className="pb-4 mt-5">
+          <Link to={`/meal-details/${meal._id}`} className="rannafy-btn w-full">
           See Details
         </Link>
+        </div>
       </div>
     </div>
   );

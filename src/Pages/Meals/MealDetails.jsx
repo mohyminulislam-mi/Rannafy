@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { FaStar, FaRegStar, FaMapMarkerAlt, FaClock } from "react-icons/fa";
+import { FaStar, FaMapMarkerAlt, FaClock, FaQuoteLeft } from "react-icons/fa";
+import { MdOutlineStarPurple500, MdOutlineStarOutline } from "react-icons/md";
 import { SiCodechef } from "react-icons/si";
 import { TbToolsKitchen3 } from "react-icons/tb";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import Loading from "../../components/Shared/Loading";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
@@ -79,9 +80,18 @@ const MealDetails = () => {
       chefId: meal.chefId,
       price: meal.price,
     };
-    const res = await axiosSecure.post("/favorites", favoriteData);
-    console.log(res);
-    toast.success("Add favorites successfully!");
+
+    try {
+      const res = await axiosSecure.post("/favorites", favoriteData);
+
+      if (res.data.message === "Already in favorites") {
+        toast.error("Already in favorites!");
+      } else {
+        toast.success("Added to favorites successfully!");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
   };
 
   if (isLoading) {
@@ -107,7 +117,7 @@ const MealDetails = () => {
             <p className="text-lg font-semibold text-primary">
               Price: ${meal.price}
             </p>
-            <p className="flex items-center mt-3 text-yellow-500">
+            <p className="flex items-center mt-3 font-semibold">
               <FaStar className="mr-2 text-primary" /> Rating: {meal.rating}
             </p>
             <p className="flex items-center text-gray-600">
@@ -130,7 +140,7 @@ const MealDetails = () => {
           {/* chef information */}
           <div className="mt-5 bg-orange-50 py-2 px-1 rounded space-y-1">
             <p className="text-gray-600 flex items-center">
-              <SiCodechef className="mr-2 text-2xl text-primary" />{" "}
+              <SiCodechef className="mr-2 text-3xl font-bold text-primary" />{" "}
               {meal.chefName}{" "}
               <span className="text-primary ml-2 font-semibold">
                 ID: ({meal.chefId})
@@ -143,8 +153,10 @@ const MealDetails = () => {
           </div>
 
           {/* Order Button */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
-            <button className="mt-4 w-full rannafy-btn ">Order Now</button>
+          <div className="grid grid-cols-2 gap-2">
+            <Link to="/order" className="mt-4 w-full rannafy-btn text-center">
+              Order Now
+            </Link>
             <button
               className="mt-4 w-full rannafy-btn"
               onClick={handleAddFavorite}
@@ -156,21 +168,21 @@ const MealDetails = () => {
       </div>
 
       {/* Review Section */}
-      <div className="p-6">
-        <h3 className="text-xl font-semibold mb-3">Reviews</h3>
+      <div className="py-10 lg:p-6">
+        <h3 className="text-xl font-semibold mb-2">Reviews</h3>
         <div className="space-y-2">
           <Tabs>
             {/* Tab Menu */}
             <TabList className="flex gap-3">
               <Tab
-                selectedClassName="bg-red-600 text-white rounded px-4 py-1 cursor-pointer"
-                className="bg-gray-200 px-4 py-1 rounded cursor-pointer"
+                selectedClassName="rannafy-select-tab"
+                className="bg-orange-200 mt-3 text-orange-600 py-2.5 px-3.5  hover:bg-orange-600 hover:text-white transition-colors cursor-pointer"
               >
                 Customer Reviews
               </Tab>
               <Tab
-                selectedClassName="bg-red-600 text-white rounded px-4 py-1 cursor-pointer"
-                className="bg-gray-200 px-4 py-1 rounded cursor-pointer"
+                selectedClassName="rannafy-select-tab"
+                className="bg-orange-200 mt-3 text-orange-600 py-2.5 px-3.5  hover:bg-orange-600 hover:text-white transition-colors cursor-pointer"
               >
                 Give Review
               </Tab>
@@ -179,20 +191,32 @@ const MealDetails = () => {
             {/* tab customer review */}
             <TabPanel>
               <div className="mt-5 space-y-3">
-                {reviews.map((review, idx) => (
-                  <div key={idx} className="p-3 rounded bg-orange-50">
-                    <p>{review.text}</p>
-                    <div className="grid grid-cols-2 gap-5">
-                      <div> 
-                        <img src={review.UserPhoto} alt="User" className="h-10 w-10 rounded-full" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold">{review.userName}</h4>
-                        <span>{review.createdAt}</span>
+                {reviews.length !== 0 ? (
+                  reviews.map((review, idx) => (
+                    <div key={idx} className="p-3 rounded bg-orange-50">
+                      <p className="flex items-center gap-2">
+                        <FaQuoteLeft className="text-primary text-xl" />{" "}
+                        {review.text}
+                      </p>
+
+                      <div className="flex items-center gap-2 mt-7">
+                        <div>
+                          <img
+                            src={review.UserPhoto}
+                            alt="User"
+                            className="h-12 w-12 rounded-full"
+                          />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold">{review.userName}</h4>
+                          <span>{review.createdAt}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <>No reviews for this product</>
+                )}
               </div>
             </TabPanel>
 
@@ -203,30 +227,45 @@ const MealDetails = () => {
                 className="mt-5 space-y-4"
               >
                 {/* Star Rating */}
-                <div className="flex items-center gap-3">
-                  <span className="font-semibold">Your Rating:</span>
-                  <Controller
-                    name="rating"
-                    control={control}
-                    rules={{ required: "Rating is required" }}
-                    render={({ field }) => (
-                      <Rating
-                        initialRating={field.value}
-                        onChange={field.onChange}
-                        emptySymbol={
-                          <FaRegStar className="text-primary text-3xl" />
-                        }
-                        fullSymbol={
-                          <FaStar className="text-primary text-3xl" />
-                        }
+                <div>
+                  <div className="flex items-center gap-2 mt-7">
+                    <div>
+                      <img
+                        src={user?.photoURL}
+                        alt="User"
+                        className="h-12 w-12 rounded-full"
                       />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">{user?.displayName}</h4>
+                      <span>{user?.email}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 mt-5">
+                    <span className="font-semibold">Your Rating:</span>
+                    <Controller
+                      name="rating"
+                      control={control}
+                      rules={{ required: "Rating is required" }}
+                      render={({ field }) => (
+                        <Rating
+                          initialRating={field.value}
+                          onChange={field.onChange}
+                          emptySymbol={
+                            <MdOutlineStarOutline className="text-primary text-2xl mt-1.5" />
+                          }
+                          fullSymbol={
+                            <MdOutlineStarPurple500 className="text-primary text-2xl mt-1.5" />
+                          }
+                        />
+                      )}
+                    />
+                    {errors.rating && (
+                      <p className="text-red-500 text-sm">
+                        {errors.rating.message}
+                      </p>
                     )}
-                  />
-                  {errors.rating && (
-                    <p className="text-red-500 text-sm">
-                      {errors.rating.message}
-                    </p>
-                  )}
+                  </div>
                 </div>
 
                 {/* Input textarea */}
@@ -240,10 +279,7 @@ const MealDetails = () => {
                   <p className="text-red-500 text-sm">{errors.text.message}</p>
                 )}
 
-                <button
-                  type="submit"
-                  className="bg-red-600 text-white px-4 py-2 rounded cursor-pointer"
-                >
+                <button type="submit" className="rannafy-btn">
                   Give Review
                 </button>
               </form>
