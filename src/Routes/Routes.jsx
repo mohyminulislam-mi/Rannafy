@@ -5,6 +5,7 @@ import Login from "../Pages/User-Authentication/Login";
 import Registration from "../Pages/User-Authentication/Registration";
 import Meals from "../Pages/Meals/Meals";
 import MealDetails from "../Pages/Meals/MealDetails";
+import Order from "../Dashboard/Order/Order";
 
 const router = createBrowserRouter([
   {
@@ -13,10 +14,15 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "/meals", element: <Meals /> },
-      { path: "/meal-details/:id", element: <MealDetails /> },
+      { path: "/meals/:id", element: <MealDetails /> },
       { path: "/login", element: <Login /> },
       { path: "/registration", element: <Registration /> },
     ],
+  },
+  // Dashboard layout
+  {
+    path: "/dashboard/order/:id",
+    element: <Order />,
   },
 ]);
 

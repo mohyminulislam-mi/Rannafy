@@ -26,7 +26,7 @@ const MealDetails = () => {
   const { data: meal = [], isLoading } = useQuery({
     queryKey: ["meals", id],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/meal-details/${id}`);
+      const res = await axiosSecure.get(`/meals/${id}`);
       return res.data;
     },
   });
@@ -154,7 +154,10 @@ const MealDetails = () => {
 
           {/* Order Button */}
           <div className="grid grid-cols-2 gap-2">
-            <Link to="/order" className="mt-4 w-full rannafy-btn text-center">
+            <Link
+              to={`/dashboard/order/${meal._id}`}
+              className="mt-4 w-full rannafy-btn text-center"
+            >
               Order Now
             </Link>
             <button
@@ -209,7 +212,16 @@ const MealDetails = () => {
                         </div>
                         <div>
                           <h4 className="font-semibold">{review.userName}</h4>
-                          <span>{review.createdAt}</span>
+                          <span>
+                            {new Date(review.createdAt).toLocaleDateString(
+                              "en-US",
+                              {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              }
+                            )}
+                          </span>
                         </div>
                       </div>
                     </div>

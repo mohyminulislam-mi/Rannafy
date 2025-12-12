@@ -31,7 +31,7 @@ const MealCard = ({ meal }) => {
         <p className="text-gray-600">Delivery Area: {meal.deliveryArea}</p>
         {/* See Details Button */}
         <div className="pb-4 mt-5">
-          <Link to={`/meal-details/${meal._id}`} className="rannafy-btn w-full">
+          <Link to={`/meals/${meal._id}`} className="rannafy-btn w-full">
           See Details
         </Link>
         </div>
