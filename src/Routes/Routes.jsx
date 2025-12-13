@@ -6,6 +6,8 @@ import Registration from "../Pages/User-Authentication/Registration";
 import Meals from "../Pages/Meals/Meals";
 import MealDetails from "../Pages/Meals/MealDetails";
 import Order from "../Dashboard/Order/Order";
+import DashboardLayout from "../Layouts/DashboardLayout";
+import Dashboard from "../Dashboard/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -17,12 +19,17 @@ const router = createBrowserRouter([
       { path: "/meals/:id", element: <MealDetails /> },
       { path: "/login", element: <Login /> },
       { path: "/registration", element: <Registration /> },
+      { path: "/order/:id", element: <Order /> },
     ],
   },
   // Dashboard layout
   {
-    path: "/dashboard/order/:id",
-    element: <Order />,
+    path: "/dashboard",
+    element: <DashboardLayout />,
+  },
+  {
+    path: "/dashboard-two",
+    element: <Dashboard />,
   },
 ]);
 

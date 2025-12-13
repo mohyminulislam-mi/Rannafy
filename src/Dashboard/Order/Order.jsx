@@ -63,7 +63,7 @@ const Order = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .post("/orders", { ...data, price: finalPrice })
+          .post("/orders", {mealId:order._id, ...data, price: finalPrice,  })
           .then((res) => {
             if (res.data.insertedId) {
               nevigate("/");
@@ -85,7 +85,7 @@ const Order = () => {
   }
   return (
     <div className="w-8/12 mx-auto p-4">
-      <h1>Order page</h1>
+      <h1>Order page{order._id} </h1>
       <form onSubmit={handleSubmit(handlePlaceOrder)}>
         <fieldset className="fieldset">
           {/* user Email */}

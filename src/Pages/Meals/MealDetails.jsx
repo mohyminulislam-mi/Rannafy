@@ -155,7 +155,7 @@ const MealDetails = () => {
           {/* Order Button */}
           <div className="grid grid-cols-2 gap-2">
             <Link
-              to={`/dashboard/order/${meal._id}`}
+              to={`/order/${meal._id}`}
               className="mt-4 w-full rannafy-btn text-center"
             >
               Order Now
