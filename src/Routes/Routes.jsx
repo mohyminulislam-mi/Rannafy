@@ -5,9 +5,8 @@ import Login from "../Pages/User-Authentication/Login";
 import Registration from "../Pages/User-Authentication/Registration";
 import Meals from "../Pages/Meals/Meals";
 import MealDetails from "../Pages/Meals/MealDetails";
-import Order from "../Dashboard/Order/Order";
+import Order from "../Pages/Order/Order";
 import DashboardLayout from "../Layouts/DashboardLayout";
-import Dashboard from "../Dashboard/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
