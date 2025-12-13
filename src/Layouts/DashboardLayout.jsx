@@ -21,6 +21,9 @@ import FavoriteMeals from "../Dashboard/User/FavoriteMeals";
 import MyMeals from "../Dashboard/Chef/MyMeals";
 import OrderRequests from "../Dashboard/Chef/OrderRequests";
 import CreateMeal from "../Dashboard/Chef/CreateMeal";
+import ManageUsers from "../Dashboard/Admin/ManageUsers";
+import ManageRequests from "../Dashboard/Admin/ManageRequests";
+import PlatformStatistics from "../Dashboard/Admin/PlatformStatistics";
 
 // Navigation Hook
 const useNavigation = () => {
@@ -95,155 +98,6 @@ export default function App() {
     navigate(path);
     setSidebarOpen(false);
   };
-
-  // Page Components
-
-  const ManageUsers = () => (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Manage Users</h1>
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  User
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Email
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Role
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {[1, 2, 3, 4].map((u) => (
-                <tr key={u}>
-                  <td className="px-6 py-4 whitespace-nowrap">User {u}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    user{u}@example.com
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">
-                      User
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs">
-                      Active
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <button className="text-blue-600 hover:underline mr-3">
-                      Edit
-                    </button>
-                    <button className="text-red-600 hover:underline">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-
-  const ManageRequests = () => (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Manage Requests</h1>
-      <div className="grid gap-4">
-        {[1, 2, 3].map((req) => (
-          <div key={req} className="bg-white rounded-lg shadow p-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <div className="flex-1">
-                <h3 className="font-semibold text-lg">
-                  Chef Application #{req}
-                </h3>
-                <p className="text-gray-600">From: Chef Candidate {req}</p>
-                <p className="text-sm text-gray-500 mt-1">
-                  Submitted on Dec {req}, 2024
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-                  Approve
-                </button>
-                <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-                  Reject
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
-  const PlatformStatistics = () => (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
-        Platform Statistics
-      </h1>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between mb-4">
-            <Users className="text-blue-600" size={32} />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-800">1,234</h3>
-          <p className="text-gray-600">Total Users</p>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between mb-4">
-            <ChefHat className="text-green-600" size={32} />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-800">89</h3>
-          <p className="text-gray-600">Active Chefs</p>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between mb-4">
-            <ShoppingBag className="text-purple-600" size={32} />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-800">5,678</h3>
-          <p className="text-gray-600">Total Orders</p>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between mb-4">
-            <BarChart3 className="text-orange-600" size={32} />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-800">$45.2K</h3>
-          <p className="text-gray-600">Revenue</p>
-        </div>
-      </div>
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          Recent Activity
-        </h2>
-        <div className="space-y-3">
-          {[1, 2, 3, 4].map((activity) => (
-            <div
-              key={activity}
-              className="flex items-center justify-between py-3 border-b last:border-b-0"
-            >
-              <div>
-                <p className="font-medium text-gray-800">New order placed</p>
-                <p className="text-sm text-gray-500">{activity} hour ago</p>
-              </div>
-              <span className="text-green-600 font-semibold">+$25.99</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
 
   // Render current page
   const renderPage = () => {
