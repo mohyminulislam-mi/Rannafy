@@ -27,10 +27,6 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <DashboardLayout />,
   },
-  {
-    path: "/dashboard-two",
-    element: <Dashboard />,
-  },
 ]);
 
 export default router;

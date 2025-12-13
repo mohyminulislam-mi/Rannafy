@@ -24,6 +24,8 @@ import CreateMeal from "../Dashboard/Chef/CreateMeal";
 import ManageUsers from "../Dashboard/Admin/ManageUsers";
 import ManageRequests from "../Dashboard/Admin/ManageRequests";
 import PlatformStatistics from "../Dashboard/Admin/PlatformStatistics";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Navigation Hook
 const useNavigation = () => {
@@ -168,9 +170,9 @@ export default function App() {
                   <li key={item.path}>
                     <button
                       onClick={() => handleNavigate(item.path)}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-full text-left ${
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-full text-left cursor-pointer ${
                         isActive
-                          ? "bg-blue-50 text-blue-600"
+                          ? "bg-orange-50 text-primary"
                           : "text-gray-700 hover:bg-gray-100"
                       }`}
                     >
@@ -230,6 +232,16 @@ export default function App() {
           onClick={() => setSidebarOpen(false)}
         />
       )}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover={false}
+        draggable
+        theme="light"
+      />
     </div>
   );
 }
