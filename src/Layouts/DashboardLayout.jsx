@@ -18,6 +18,9 @@ import MyProfile from "../Dashboard/User/MyProfile";
 import MyOrders from "../Dashboard/User/MyOrders";
 import MyReviews from "../Dashboard/User/MyReviews";
 import FavoriteMeals from "../Dashboard/User/FavoriteMeals";
+import MyMeals from "../Dashboard/Chef/MyMeals";
+import OrderRequests from "../Dashboard/Chef/OrderRequests";
+import CreateMeal from "../Dashboard/Chef/CreateMeal";
 
 // Navigation Hook
 const useNavigation = () => {
@@ -94,136 +97,6 @@ export default function App() {
   };
 
   // Page Components
-
-  const CreateMeal = () => (
-    <div className="max-w-4xl">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Create New Meal</h1>
-      <div className="bg-white rounded-lg shadow p-6">
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Meal Name
-            </label>
-            <input
-              type="text"
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="Enter meal name"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Description
-            </label>
-            <textarea
-              className="w-full px-4 py-2 border rounded-lg"
-              rows="4"
-              placeholder="Describe your meal"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Price
-            </label>
-            <input
-              type="number"
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="0.00"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Category
-            </label>
-            <select className="w-full px-4 py-2 border rounded-lg">
-              <option>Italian</option>
-              <option>Asian</option>
-              <option>Mexican</option>
-            </select>
-          </div>
-          <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Image
-            </label>
-            <input type="file" className="w-full px-4 py-2 border rounded-lg" />
-          </div>
-        </div>
-        <button className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-          Create Meal
-        </button>
-      </div>
-    </div>
-  );
-
-  const MyMeals = () => (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">My Meals</h1>
-        <button
-          onClick={() => navigate("/dashboard/create-meal")}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          Add New
-        </button>
-      </div>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[1, 2, 3].map((meal) => (
-          <div
-            key={meal}
-            className="bg-white rounded-lg shadow overflow-hidden"
-          >
-            <div className="h-48 bg-gradient-to-br from-purple-400 to-pink-500" />
-            <div className="p-4">
-              <h3 className="font-semibold text-lg mb-2">My Meal {meal}</h3>
-              <p className="text-gray-600 text-sm mb-3">
-                Custom dish description
-              </p>
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-lg font-bold text-gray-800">
-                  ${20 + meal}.99
-                </span>
-                <span className="text-sm text-green-600">24 orders</span>
-              </div>
-              <div className="flex gap-2">
-                <button className="flex-1 px-3 py-2 bg-gray-100 rounded-lg hover:bg-gray-200">
-                  Edit
-                </button>
-                <button className="flex-1 px-3 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200">
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
-  const OrderRequests = () => (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Order Requests</h1>
-      <div className="grid gap-4">
-        {[1, 2, 3].map((order) => (
-          <div key={order} className="bg-white rounded-lg shadow p-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <div className="flex-1">
-                <h3 className="font-semibold text-lg">Order #{2000 + order}</h3>
-                <p className="text-gray-600">Customer: John Smith</p>
-                <p className="text-sm text-gray-500 mt-1">2 items • $38.99</p>
-              </div>
-              <div className="flex gap-2">
-                <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-                  Accept
-                </button>
-                <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-                  Decline
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 
   const ManageUsers = () => (
     <div>
