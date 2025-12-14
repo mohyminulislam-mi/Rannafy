@@ -4,6 +4,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import { format } from "date-fns";
+import { SiCodechef } from "react-icons/si";
 
 const MyOrders = () => {
   const { user } = useAuth();
@@ -26,35 +27,49 @@ const MyOrders = () => {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
                 <h3 className="font-semibold text-lg">{order.MealName}</h3>
-                <p className=" text-gray-600">
-                  {format(new Date(order.orderTime), "dd MMM yyyy, hh:mm a")}
-                </p>
+                {/* chef details  */}
+                <div>
+                  <span className="text-sm font-semibold text-gray-500 mt-1 mb-2 flex">
+                 <SiCodechef className="text-xl text-primary mr-1" /> {order.chefName}
+                </span>
                 <p className="text-sm text-gray-500 mt-1 mb-2">
+                  {order.chefId}
+                </p>
+                </div>
+                <p className="text-sm mt-1 mb-2 text-primary">
                   {order.quantity} items • ${order.price}
                 </p>
-                <span
-                  className={`px-4 py-2  rounded-full text-sm font-medium ${
-                    order.orderStatus === "delivered"
-                      ? "bg-green-100 text-green-700"
-                      : order.orderStatus === "rejected"
-                      ? "bg-red-300 text-red-800"
-                      : "bg-yellow-300 text-yellow-800"
-                  }`}
-                >
-                  {order.orderStatus}
-                </span>
+                <p className=" text-sm text-gray-600">
+                  {format(new Date(order.orderTime), "dd MMM yyyy, hh:mm a")}
+                </p>
+                <div className="mt-2">
+                  <span className="font-semibold mr-2">Order Status:</span>
+                  <span
+                    className={`px-3 py-1  rounded-full text-sm font-medium ${
+                      order.orderStatus === "delivered"
+                        ? "bg-green-100 text-green-700"
+                        : order.orderStatus === "rejected"
+                        ? "bg-red-300 text-red-800"
+                        : "bg-yellow-300 text-yellow-800"
+                    }`}
+                  >
+                    {order.orderStatus}
+                  </span>
+                </div>
               </div>
-              <div className={`px-4 py-2  rounded-full text-sm font-medium ${
-                order.paymentStatus === "paid" ? (
-                  "bg-green-100 text-green-700"
-                ) : order.paymentStatus === "pending" ? (
-                  "bg-yellow-300 text-yellow-800"
-                ) : (
-                  <Link to="/" className="bg-red-100 text-red-700">
-                    pay
-                  </Link>
-                )
-              }`}>
+              <div
+                className={`px-4 py-2  rounded-full text-sm font-medium ${
+                  order.paymentStatus === "paid" ? (
+                    "bg-green-100 text-green-700"
+                  ) : order.paymentStatus === "pending" ? (
+                    "bg-orange-300 text-orange-800"
+                  ) : (
+                    <Link to="/" className="bg-red-100 text-red-700">
+                      pay
+                    </Link>
+                  )
+                }`}
+              >
                 {order.paymentStatus}
               </div>
             </div>

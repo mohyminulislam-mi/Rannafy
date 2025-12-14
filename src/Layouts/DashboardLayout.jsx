@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Menu,
   X,
@@ -100,10 +100,14 @@ export default function App() {
     navigate(path);
     setSidebarOpen(false);
   };
+  console.log(currentPath);
 
+  useEffect(() => {}, []);
+
+  // return <div>Hello</div>;
   // Render current page
-  const renderPage = () => {
-    switch (currentPath) {
+  const renderPage = (c) => {
+    switch (c) {
       case "/dashboard/profile":
         return <MyProfile />;
       case "/dashboard/orders":
@@ -222,7 +226,7 @@ export default function App() {
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0 min-h-screen">
-        <div className="p-4 lg:p-8">{renderPage()}</div>
+        <div className="p-4 lg:p-8">{renderPage(currentPath)}</div>
       </main>
 
       {/* Overlay */}

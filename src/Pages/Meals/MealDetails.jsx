@@ -57,6 +57,7 @@ const MealDetails = () => {
   const handleCustomerReviews = async (data) => {
     const reviewData = {
       mealId: meal._id,
+      mealName: meal.foodName,
       userName: user?.displayName,
       userEmail: user?.email,
       UserPhoto: user?.photoURL,

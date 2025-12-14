@@ -63,7 +63,12 @@ const Order = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .post("/orders", {mealId:order._id, ...data, price: finalPrice,  })
+          .post("/orders", {
+            mealId: order._id,
+            chefName: order.chefName,
+            ...data,
+            price: finalPrice,
+          })
           .then((res) => {
             if (res.data.insertedId) {
               nevigate("/");
