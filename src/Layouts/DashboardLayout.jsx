@@ -100,7 +100,6 @@ export default function App() {
     navigate(path);
     setSidebarOpen(false);
   };
-  console.log(currentPath);
 
   useEffect(() => {}, []);
 

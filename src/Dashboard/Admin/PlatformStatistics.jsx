@@ -1,4 +1,4 @@
-import { BarChart3, ChefHat, ShoppingBag, Users } from "lucide-react";
+import { BarChart3, ChefHat, PackageCheck, ShoppingBag, Users } from "lucide-react";
 import React from "react";
 
 const PlatformStatistics = () => {
@@ -10,34 +10,35 @@ const PlatformStatistics = () => {
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-4">
-            <Users className="text-blue-600" size={32} />
+            <BarChart3 className="text-orange-600" size={32} />
           </div>
-          <h3 className="text-2xl font-bold text-gray-800">1,234</h3>
-          <p className="text-gray-600">Total Users</p>
+          <h3 className="text-2xl font-bold text-gray-800">$1.2K</h3>
+          <p className="text-gray-600">Total Payment</p>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-4">
-            <ChefHat className="text-green-600" size={32} />
+            <Users className="text-blue-600" size={32} />
           </div>
-          <h3 className="text-2xl font-bold text-gray-800">89</h3>
-          <p className="text-gray-600">Active Chefs</p>
+          <h3 className="text-2xl font-bold text-gray-800">34</h3>
+          <p className="text-gray-600">Total Users</p>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-4">
             <ShoppingBag className="text-purple-600" size={32} />
           </div>
-          <h3 className="text-2xl font-bold text-gray-800">5,678</h3>
-          <p className="text-gray-600">Total Orders</p>
+          <h3 className="text-2xl font-bold text-gray-800">03</h3>
+          <p className="text-gray-600">Orders Pending</p>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between mb-4">
-            <BarChart3 className="text-orange-600" size={32} />
+            <PackageCheck className="text-green-600" size={32}/>
           </div>
-          <h3 className="text-2xl font-bold text-gray-800">$45.2K</h3>
-          <p className="text-gray-600">Revenue</p>
+          <h3 className="text-2xl font-bold text-gray-800">103</h3>
+          <p className="text-gray-600">Orders Delivered</p>
         </div>
+        
       </div>
-      <div className="bg-white rounded-lg shadow p-6">
+      {/* <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
           Recent Activity
         </h2>
@@ -55,7 +56,7 @@ const PlatformStatistics = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

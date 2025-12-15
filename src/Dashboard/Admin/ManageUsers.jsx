@@ -1,6 +1,24 @@
 import React from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../components/Shared/Loading";
 
 const ManageUsers = () => {
+  const axiosSecure = useAxiosSecure();
+  const { data: users = [], isLoading } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/users");
+      return res.data;
+    },
+  });
+  const handleMakeFraud = () => {
+    alert("make fraud user");
+  };
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Manage Users</h1>
@@ -9,47 +27,80 @@ const ManageUsers = () => {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="my-th">
                   User
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="my-th">
                   Email
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="my-th">
                   Role
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="my-th">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="my-th">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {[1, 2, 3, 4].map((u) => (
-                <tr key={u}>
-                  <td className="px-6 py-4 whitespace-nowrap">User {u}</td>
+              {users.map((user) => (
+                <tr key={user._id}>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    user{u}@example.com
+                    {" "}
+                    {user.displayName}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <p>
+                      {user.role === "admin" ? (
+                        <span className="rannafy-pending">
+                          {user.role}
+                        </span>
+                      ) : user.role === "fraud" ? (
+                        <span className="rannafy-status">
+                          {user.role}
+                        </span>
+                      ) : (
+                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">
+                          {user.role}
+                        </span>
+                      )}
+                    </p>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">
-                      User
+                    <span>
+                      {user.userStatus === "active" ? (
+                        <span className="rannafy-status-success">
+                          {" "}
+                          {user.userStatus}
+                        </span>
+                      ) : (
+                        <span className="rannafy-status">
+                          {" "}
+                          {user.userStatus}
+                        </span>
+                      )}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs">
-                      Active
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <button className="text-blue-600 hover:underline mr-3">
-                      Edit
-                    </button>
-                    <button className="text-red-600 hover:underline">
-                      Delete
-                    </button>
+                    {user.role === "admin" ? (
+                      <span className="rannafy-pending">
+                        Admin
+                      </span>
+                    ) : user.role === "fraud" ? (
+                      <span className="rannafy-status">
+                        fraud user
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => handleMakeFraud(user._id)}
+                        className="rannafy-delete"
+                      >
+                        Make Fraud
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
