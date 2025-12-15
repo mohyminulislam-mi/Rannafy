@@ -1,11 +1,26 @@
 import React from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Loading from "../../components/Shared/Loading";
+import { useQuery } from "@tanstack/react-query";
 
 const OrderRequests = () => {
+  const axiosSecure = useAxiosSecure();
+  const { data: chefOrders = {}, isLoading } = useQuery({
+    queryKey: ["chefOrders", chefId],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`orders?chefId=${chefId}`);
+      return res.data;
+    },
+  });
+
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div>
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Order Requests</h1>
       <div className="grid gap-4">
-        {[1, 2, 3].map((order) => (
+        {chefOrders.map((order) => (
           <div key={order} className="bg-white rounded-lg shadow p-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div className="flex-1">

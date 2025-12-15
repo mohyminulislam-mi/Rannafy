@@ -21,9 +21,11 @@ body {
 }
 
 .rannafy-btn {
-  @apply bg-[#ff6900] mt-3 text-white py-2.5 px-3.5 rounded-sm hover:bg-orange-600 transition-colors cursor-pointer
+  @apply bg-[#ff6900] hover:bg-orange-600  mt-3 text-white py-2.5 px-3.5 rounded-sm transition-colors duration-200 cursor-pointer
 }
-
+.rannafy-delete-btn{
+  @apply bg-red-500 hover:bg-red-600  mt-3 text-white py-2.5 px-3.5 rounded-sm transition-colors duration-200 cursor-pointer
+}
 .rannafy-select-tab {
   @apply bg-[#ff6900] mt-3 text-white py-2.5 px-3.5 hover:bg-orange-600 transition-colors cursor-pointer outline-0
 }
