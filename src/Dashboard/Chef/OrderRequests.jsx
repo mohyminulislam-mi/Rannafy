@@ -2,9 +2,12 @@ import React from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Loading from "../../components/Shared/Loading";
 import { useQuery } from "@tanstack/react-query";
+import useChef from "../../hooks/useChef";
 
 const OrderRequests = () => {
   const axiosSecure = useAxiosSecure();
+  const { chefId } = useChef();
+  
   const { data: chefOrders = {}, isLoading } = useQuery({
     queryKey: ["chefOrders", chefId],
     queryFn: async () => {

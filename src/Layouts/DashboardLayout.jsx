@@ -14,7 +14,7 @@ import {
   BarChart3,
   LogOut,
 } from "lucide-react";
-import MyProfile from "../Dashboard/User/MyProfile";
+import MyProfile from "../Dashboard/User/profile/MyProfile";
 import MyOrders from "../Dashboard/User/MyOrders";
 import MyReviews from "../Dashboard/User/MyReviews";
 import FavoriteMeals from "../Dashboard/User/FavoriteMeals";

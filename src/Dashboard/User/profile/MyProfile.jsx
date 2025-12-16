@@ -1,24 +1,35 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { FaUser, FaMapMarkerAlt, FaUserShield, FaEdit } from "react-icons/fa";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useAuth from "../../hooks/useAuth";
-import Loading from "../../components/Shared/Loading";
+import React, { useState } from "react";
+import {
+  FaUser,
+  FaMapMarkerAlt,
+  FaUserShield,
+  FaEdit,
+  FaRegCalendarAlt,
+} from "react-icons/fa";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
+import Loading from "../../../components/Shared/Loading";
 import { toast } from "react-toastify";
+import ProfilePopUp from "./ProfilePopUp";
 
 const MyProfile = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  console.log(user);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [selectedUpdate, setSelectedUpdate] = useState(null);
 
-  const { data: getUser = {}, isLoading } = useQuery({
+  const {
+    data: getUser = {},
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["users", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users?email=${user?.email}`);
+      const res = await axiosSecure.get(`users/email?email=${user?.email}`);
       return res.data;
     },
   });
-
   const handleRequest = async (type) => {
     const request = {
       userName: user?.displayName,
@@ -55,18 +66,24 @@ const MyProfile = () => {
           {/* Sidebar */}
           <div className="bg-linear-to-b from-primary to-orange-600 text-white flex flex-col items-center p-6 lg:w-1/3 relative">
             <img
-              src={getUser[0]?.photoURL || "https://via.placeholder.com/150"}
+              src={getUser?.photoURL || "https://via.placeholder.com/150"}
               alt="User"
               className="w-28 h-28 rounded-full border-4 border-white object-cover mb-4"
             />
-            <h2 className="text-2xl font-bold">{getUser[0]?.displayName}</h2>
+            <h2 className="text-2xl font-bold">{getUser?.displayName}</h2>
             <p className="text-sm opacity-80 wrap-break-word">
-              {getUser[0]?.email}
+              {getUser?.email}
             </p>
             <span className="mt-3 px-3 py-1 bg-white text-primary rounded-full text-xs font-semibold">
-              {getUser[0]?.role.toUpperCase()}
+              {getUser?.role}
             </span>
-            <button className="btn-primary hover:text-black cursor-pointer absolute right-3">
+            <button
+              onClick={() => {
+                setSelectedUpdate(getUser);
+                setShowUpdateModal(true);
+              }}
+              className="btn-primary hover:text-black cursor-pointer absolute right-3"
+            >
               <FaEdit className="text-2xl" />
             </button>
           </div>
@@ -80,43 +97,53 @@ const MyProfile = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex items-center gap-2 text-gray-700">
                 <FaMapMarkerAlt className="text-primary" />{" "}
-                {getUser[0]?.address || "No Address"}
+                {getUser?.address || "No Address"}
               </div>
               <div className="flex items-center gap-2 text-gray-700">
                 <FaUserShield className="text-primary" /> Status:{" "}
                 <span
                   className={`font-semibold ${
-                    getUser[0]?.userStatus === "active"
+                    getUser?.userStatus === "active"
                       ? "text-green-600"
                       : "text-red-600"
                   }`}
                 >
-                  {getUser[0]?.userStatus}
+                  {getUser?.userStatus}
                 </span>
               </div>
-              {getUser[0]?.role === "chef" && (
+              <div className="flex items-center gap-2 text-gray-700">
+                <FaRegCalendarAlt className="text-primary" /> Open:{" "}
+                <span>
+                  {new Date(getUser.createdAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
+              {getUser?.role === "chef" && (
                 <div className="flex items-center gap-2 text-gray-700">
                   <FaUser className="text-primary" /> Chef ID:{" "}
-                  <span className="font-semibold">123456</span>
+                  <span className="font-semibold">{getUser?.chefId}</span>
                 </div>
               )}
             </div>
 
             {/* Action Buttons */}
             <div className="mt-6 flex flex-wrap gap-3">
-              {getUser[0]?.role !== "chef" && getUser[0]?.role !== "admin" && (
+              {getUser?.role !== "chef" && getUser?.role !== "admin" && (
                 <button
                   onClick={() => handleRequest("chef")}
-                  className="px-4 py-2 cursor-pointer bg-primary text-white rounded-lg shadow hover:opacity-90 transition"
+                  className="rannafy-btn"
                 >
-                  Be a Chef
+                  Be an Chef
                 </button>
               )}
 
-              {getUser[0]?.role !== "admin" && (
+              {getUser?.role !== "admin" && (
                 <button
                   onClick={() => handleRequest("admin")}
-                  className="px-4 py-2 cursor-pointer bg-gray-800 text-white rounded-lg shadow hover:opacity-90 transition"
+                  className="rannafy-btn bg-green-500!"
                 >
                   Be an Admin
                 </button>
@@ -125,6 +152,14 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
+
+      {showUpdateModal && (
+        <ProfilePopUp
+          getUser={selectedUpdate}
+          setShowUpdateModal={setShowUpdateModal}
+          refetch={refetch}
+        />
+      )}
     </div>
   );
 };

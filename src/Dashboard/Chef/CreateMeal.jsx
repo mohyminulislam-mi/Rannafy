@@ -3,10 +3,14 @@ import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
+import useChef from "../../hooks/useChef";
 
 const CreateMeal = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const { chefId } = useChef();
+  console.log(chefId);
+
   const {
     register,
     handleSubmit,
@@ -15,7 +19,7 @@ const CreateMeal = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    toast.success("Waiting a moments, dont click");
+    toast.warning("Waiting a moments, dont click");
     try {
       //  image upload
       const profileImg = data.photo[0];
@@ -47,12 +51,12 @@ const CreateMeal = () => {
       // save meal to database
       await axiosSecure.post("/meals", mealData);
 
-      toast.success("🍽️ Meal created successfully!");
+      toast.success("Meal created successfully!");
       reset();
       console.log(data);
     } catch (error) {
       console.error(error);
-      toast.error("❌ Failed to create meal. Try again.");
+      toast.error("Failed to create meal. Try again.");
     }
   };
 
@@ -124,7 +128,7 @@ const CreateMeal = () => {
             <input
               type="file"
               {...register("photo", { required: true })}
-              className="file-input rounded-full w-full mt-1"
+              className="file-input rounded-lg w-full mt-1"
             />
             {errors.photo && <p className="text-red-500">Photo required</p>}
           </div>

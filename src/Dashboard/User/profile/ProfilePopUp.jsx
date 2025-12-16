@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { X } from "lucide-react";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const MealsPopUp = ({ setShowUpdateModal, meal, refetch }) => {
+const ProfilePopUp = ({ setShowUpdateModal, getUser, refetch }) => {
   const axiosSecure = useAxiosSecure();
+
   const {
     register,
     handleSubmit,
@@ -14,37 +15,36 @@ const MealsPopUp = ({ setShowUpdateModal, meal, refetch }) => {
   } = useForm();
 
   useEffect(() => {
-    if (meal) {
+    if (getUser) {
       reset({
-        foodName: meal.foodName,
-        foodImage: meal.foodImage,
-        price: meal.price,
-        ingredients: meal.ingredients.join(", "),
-        estimatedDeliveryTime: meal.estimatedDeliveryTime,
+        displayName: getUser.displayName,
+        email: getUser.email,
+        photoURL: getUser.photoURL,
+        address: getUser.address,
       });
     }
-  }, [meal, reset]);
+  }, [getUser, reset]);
 
   const onSubmit = async (data) => {
-    const updatedData = {
-      ...data,
-      ingredients: data.ingredients.split(",").map((i) => i.trim()),
-    };
-
+    const updatedData = { ...data };
     try {
-      await axiosSecure.patch(`/meals/${meal._id}`, updatedData);
+      await axiosSecure.patch(`/users/${getUser._id}`, updatedData);
       refetch();
       setShowUpdateModal(false);
-      toast.success("✅ Meal updated successfully!");
+      toast.success("Profile updated successfully!");
+      console.log("submit data ", data);
     } catch (error) {
       toast.error("❌ Update failed");
     }
   };
+
   return (
     <div className="fixed inset-0 backdrop-blur-sm bg-blend-color bg-opacity-50 flex items-center justify-center p-4 z-40 overflow-y-auto">
       <div className="bg-white rounded-xl p-6 max-w-2xl w-full my-8">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-2xl font-bold text-gray-800">Update Meal</h3>
+          <h3 className="text-2xl font-bold text-gray-800">
+            Update your profile!
+          </h3>
           <button
             onClick={() => setShowUpdateModal(false)}
             className="text-gray-500 hover:text-gray-700 cursor-pointer"
@@ -54,96 +54,91 @@ const MealsPopUp = ({ setShowUpdateModal, meal, refetch }) => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* food name  */}
+          {/* user name  */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Food Name
+              Name
             </label>
             <input
-              {...register("foodName", {
-                required: "Food name is required",
+              {...register("displayName", {
+                required: "Name is required",
               })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.foodName && (
+            {errors.displayName && (
               <p className="text-red-500 text-xs mt-1">
-                {errors.foodName.message}
+                {errors.displayName.message}
               </p>
             )}
           </div>
-          {/* food image  */}
+          {/* user email  */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Food Image URL
+              Email
             </label>
             <input
-              {...register("foodImage", {
-                required: "Image URL is required",
+              type="email"
+              readOnly
+              {...register("email", { required: "email is required" })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+          {/* image  */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Image URL
+            </label>
+            <input
+              {...register("photoURL", {
+                required: "photoURL URL is required",
               })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.foodImage && (
+            {errors.photoURL && (
               <p className="text-red-500 text-xs mt-1">
-                {errors.foodImage.message}
+                {errors.photoURL.message}
               </p>
             )}
           </div>
-          {/* food price  */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Price
+          {/*  Upload picture*/}
+          {/* <div>
+            <label className="block text-sm font-semibold text-gray-700">
+              Upload profile
             </label>
             <input
-              type="number"
-              step="0.01"
-              {...register("price", { required: "Price is required" })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="file"
+              {...register("photoURL", { required: true })}
+              className="file-input rounded-lg w-full mt-1"
             />
-            {errors.price && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.price.message}
-              </p>
-            )}
-          </div>
-          {/* food Ingredients  */}
+            {errors.photoURL && <p className="text-red-500">Photo required</p>}
+          </div> */}
+          {/* address  */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Ingredients (comma-separated)
-            </label>
-            <textarea
-              {...register("ingredients", {
-                required: "Ingredients are required",
-              })}
-              rows="3"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.ingredients && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.ingredients.message}
-              </p>
-            )}
-          </div>
-          {/* food Estimated Delivery Time  */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Estimated Delivery Time
+              Address
             </label>
             <input
-              {...register("estimatedDeliveryTime", {
-                required: "Delivery time is required",
+              type="text"
+              {...register("address", {
+                required: "address are required",
               })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.estimatedDeliveryTime && (
+            {errors.address && (
               <p className="text-red-500 text-xs mt-1">
-                {errors.estimatedDeliveryTime.message}
+                {errors.address.message}
               </p>
             )}
           </div>
-
+          {/* button  */}
           <div className="flex gap-3 pt-4">
             <button type="submit" className="flex-1 rannafy-success">
-              Update Meal
+              Update profile
             </button>
             <button
               type="button"
@@ -159,4 +154,4 @@ const MealsPopUp = ({ setShowUpdateModal, meal, refetch }) => {
   );
 };
 
-export default MealsPopUp;
+export default ProfilePopUp;
