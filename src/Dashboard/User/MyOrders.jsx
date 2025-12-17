@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import { format } from "date-fns";
 import { SiCodechef } from "react-icons/si";
+import { RiWechatPayLine } from "react-icons/ri";
 
 const MyOrders = () => {
   const { user } = useAuth();
@@ -30,11 +31,12 @@ const MyOrders = () => {
                 {/* chef details  */}
                 <div>
                   <span className="text-sm font-semibold text-gray-500 mt-1 mb-2 flex">
-                 <SiCodechef className="text-xl text-primary mr-1" /> {order.chefName}
-                </span>
-                <p className="text-sm text-gray-500 mt-1 mb-2">
-                  {order.chefId}
-                </p>
+                    <SiCodechef className="text-xl text-primary mr-1" />{" "}
+                    {order.chefName}
+                  </span>
+                  <p className="text-sm text-gray-500 mt-1 mb-2">
+                    {order.chefId}
+                  </p>
                 </div>
                 <p className="text-sm mt-1 mb-2 text-primary">
                   {order.quantity} items • ${order.price}
@@ -58,19 +60,24 @@ const MyOrders = () => {
                 </div>
               </div>
               <div
-                className={`px-4 py-2  rounded-full text-sm font-medium ${
-                  order.paymentStatus === "paid" ? (
-                    "bg-green-100 text-green-700"
-                  ) : order.paymentStatus === "pending" ? (
-                    "bg-orange-300 text-orange-800"
-                  ) : (
-                    <Link to="/" className="bg-red-100 text-red-700">
-                      pay
-                    </Link>
-                  )
-                }`}
+                // className={`px-4 py-2  rounded-full text-sm font-medium ${
+                //   order.paymentStatus === "paid" ? (
+                //     "bg-green-100 text-green-700"
+                //   ) : order.paymentStatus === "pending" ? (
+                //     "bg-orange-300 text-orange-800"
+                //   ) : (
+                //     <Link to="/" className="bg-red-100 text-red-700">
+                //       pay
+                //     </Link>
+                //   )
+                // }`}
+                
               >
-                {order.paymentStatus}
+                <Link to="/" className="rannafy-delete">
+                <RiWechatPayLine />  pay
+                </Link>
+
+                {/* {order.paymentStatus} */}
               </div>
             </div>
           </div>
