@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Menu,
   X,
-  User,
   ShoppingBag,
   Star,
   Heart,
@@ -13,57 +12,43 @@ import {
   FileText,
   BarChart3,
   LogOut,
+  House,
+  UserRound,
 } from "lucide-react";
-import MyProfile from "../Dashboard/User/profile/MyProfile";
-import MyOrders from "../Dashboard/User/MyOrders";
-import MyReviews from "../Dashboard/User/MyReviews";
-import FavoriteMeals from "../Dashboard/User/FavoriteMeals";
-import MyMeals from "../Dashboard/Chef/MyMeals";
-import OrderRequests from "../Dashboard/Chef/OrderRequests";
-import CreateMeal from "../Dashboard/Chef/CreateMeal";
-import ManageUsers from "../Dashboard/Admin/ManageUsers";
-import ManageRequests from "../Dashboard/Admin/ManageRequests";
-import PlatformStatistics from "../Dashboard/Admin/PlatformStatistics";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { NavLink, Outlet, useNavigate } from "react-router";
+import useAuth from "../hooks/useAuth";
+import Swal from "sweetalert2";
 
-// Navigation Hook
-const useNavigation = () => {
-  const [currentPath, setCurrentPath] = useState("/dashboard/profile");
-
-  const navigate = (path) => {
-    setCurrentPath(path);
-  };
-
-  return { currentPath, navigate };
-};
-
-// App Component
-export default function App() {
-  const [user, setUser] = useState({ role: "user", name: "John Doe" });
+const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { currentPath, navigate } = useNavigation();
+  const { user, logOut } = useAuth();
+  const navigate = useNavigate();
 
   const userMenuItems = [
-    { path: "/dashboard/profile", icon: User, label: "My Profile" },
+    { path: "/", icon: House, label: "Home" },
+    { path: "/dashboard", icon: UserRound, label: "My Profile" },
     { path: "/dashboard/orders", icon: ShoppingBag, label: "My Orders" },
     { path: "/dashboard/reviews", icon: Star, label: "My Reviews" },
     { path: "/dashboard/favorites", icon: Heart, label: "Favorite Meals" },
   ];
 
   const chefMenuItems = [
-    { path: "/dashboard/profile", icon: User, label: "My Profile" },
-    { path: "/dashboard/create-meal", icon: Plus, label: "Create Meal" },
+    { path: "/", icon: House, label: "Home" },
+    { path: "/dashboard", icon: UserRound, label: "My Profile" },
     { path: "/dashboard/my-meals", icon: ChefHat, label: "My Meals" },
     {
       path: "/dashboard/order-requests",
       icon: Package,
       label: "Order Requests",
     },
+    { path: "/dashboard/create-meal", icon: Plus, label: "Create Meal" },
   ];
 
   const adminMenuItems = [
-    { path: "/dashboard/profile", icon: User, label: "My Profile" },
+    { path: "/", icon: House, label: "Home" },
+    { path: "/dashboard", icon: UserRound, label: "My Profile" },
     { path: "/dashboard/manage-users", icon: Users, label: "Manage Users" },
     {
       path: "/dashboard/manage-requests",
@@ -78,58 +63,34 @@ export default function App() {
   ];
 
   const getMenuItems = () => {
-    switch (user.role) {
-      case "chef":
-        return chefMenuItems;
-      case "admin":
-        return adminMenuItems;
-      default:
-        return userMenuItems;
-    }
+    if (user?.role === "chef") return chefMenuItems;
+    if (user?.role === "admin") return adminMenuItems;
+    return userMenuItems;
   };
-
   const menuItems = getMenuItems();
-
-  const handleRoleSwitch = (role) => {
-    setUser({ ...user, role });
-    setSidebarOpen(false);
-    navigate("/dashboard/profile");
-  };
-
-  const handleNavigate = (path) => {
-    navigate(path);
-    setSidebarOpen(false);
-  };
-
-  useEffect(() => {}, []);
-
-  // return <div>Hello</div>;
-  // Render current page
-  const renderPage = (c) => {
-    switch (c) {
-      case "/dashboard/profile":
-        return <MyProfile />;
-      case "/dashboard/orders":
-        return <MyOrders />;
-      case "/dashboard/reviews":
-        return <MyReviews />;
-      case "/dashboard/favorites":
-        return <FavoriteMeals />;
-      case "/dashboard/create-meal":
-        return <CreateMeal />;
-      case "/dashboard/my-meals":
-        return <MyMeals />;
-      case "/dashboard/order-requests":
-        return <OrderRequests />;
-      case "/dashboard/manage-users":
-        return <ManageUsers />;
-      case "/dashboard/manage-requests":
-        return <ManageRequests />;
-      case "/dashboard/statistics":
-        return <PlatformStatistics />;
-      default:
-        return <MyProfile />;
-    }
+  const handleSingOut = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `${user.displayName}. If you're logging out, you can't access!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#f54a00",
+      cancelButtonColor: "#ff0000",
+      confirmButtonText: "Logout",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOut()
+          .then(() => {
+            navigate("/");
+          })
+          .catch((error) => console.log(error));
+        Swal.fire({
+          title: "Logout successful",
+          text: "Thanks for staying with RannaFy!",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
@@ -154,13 +115,15 @@ export default function App() {
           {/* Logo */}
           <div className="p-6 border-b">
             <h2 className="text-2xl font-bold text-gray-800">
-              {user.role === "chef"
+              {user?.role === "chef"
                 ? "👨‍🍳 Chef"
-                : user.role === "admin"
+                : user?.role === "admin"
                 ? "⚙️ Admin"
                 : "🍽️ Food"}
             </h2>
-            <p className="text-sm text-gray-500 mt-1">{user.name}</p>
+            <p className="text-sm text-primary font-semibold mt-1">
+              {user?.displayName || "Profile"}
+            </p>
           </div>
 
           {/* Navigation */}
@@ -168,54 +131,37 @@ export default function App() {
             <ul className="space-y-2">
               {menuItems.map((item) => {
                 const Icon = item.icon;
-                const isActive = currentPath === item.path;
                 return (
                   <li key={item.path}>
-                    <button
-                      onClick={() => handleNavigate(item.path)}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-full text-left cursor-pointer ${
-                        isActive
-                          ? "bg-orange-50 text-primary"
-                          : "text-gray-700 hover:bg-gray-100"
-                      }`}
+                    <NavLink
+                      to={item.path}
+                      end={item.path === "/dashboard"}
+                      onClick={() => {
+                        if (window.innerWidth < 1024) setSidebarOpen(false);
+                      }}
+                      className={({ isActive }) =>
+                        `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors w-full ${
+                          isActive
+                            ? "bg-orange-50 text-primary"
+                            : "text-gray-700 hover:bg-gray-100"
+                        }`
+                      }
                     >
                       <Icon size={20} />
                       <span className="font-medium">{item.label}</span>
-                    </button>
+                    </NavLink>
                   </li>
                 );
               })}
             </ul>
           </nav>
 
-          {/* Role Switcher (Demo) */}
-          <div className="p-4 border-t">
-            <p className="text-xs text-gray-500 mb-2">Switch Role (Demo):</p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => handleRoleSwitch("user")}
-                className="px-3 py-1 text-xs bg-gray-100 rounded hover:bg-gray-200"
-              >
-                User
-              </button>
-              <button
-                onClick={() => handleRoleSwitch("chef")}
-                className="px-3 py-1 text-xs bg-gray-100 rounded hover:bg-gray-200"
-              >
-                Chef
-              </button>
-              <button
-                onClick={() => handleRoleSwitch("admin")}
-                className="px-3 py-1 text-xs bg-gray-100 rounded hover:bg-gray-200"
-              >
-                Admin
-              </button>
-            </div>
-          </div>
-
           {/* Logout */}
           <div className="p-4 border-t">
-            <button className="flex items-center gap-3 px-4 py-3 w-full text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+            <button
+              onClick={handleSingOut}
+              className="flex items-center gap-3 px-4 py-3 w-full cursor-pointer text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            >
               <LogOut size={20} />
               <span className="font-medium">Logout</span>
             </button>
@@ -224,27 +170,21 @@ export default function App() {
       </aside>
 
       {/* Main Content */}
-      <main className="lg:ml-64 pt-16 lg:pt-0 min-h-screen">
-        <div className="p-4 lg:p-8">{renderPage(currentPath)}</div>
-      </main>
+      <div className="lg:ml-64 mt-8 p-8 min-h-screen">
+        <Outlet />
+      </div>
 
       {/* Overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
+          className="fixed inset-0 backdrop-blur-sm bg-blend-color bg-opacity-50 z-20 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnHover={false}
-        draggable
-        theme="light"
-      />
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
-}
+};
+
+export default DashboardLayout;

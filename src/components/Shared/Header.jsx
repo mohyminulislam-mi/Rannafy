@@ -12,8 +12,7 @@ import { IoHome } from "react-icons/io5";
 import Logo from "./Logo";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
-
-export default function FoodHeader() {
+const Header = () => {
   const { user, logOut } = useContext(AuthContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
@@ -51,12 +50,9 @@ export default function FoodHeader() {
   const menuItems = [
     { name: "Home", path: "/", icon: IoHome },
     { name: "Meals", path: "/meals", icon: CookingPot },
-  ];
-
-  // User menu dropdown for mobiles
-  const userMenuItems = [
-    // { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
-    { name: "Profile", icon: UserCircle, path: "/profile" },
+    ...(user
+      ? [{ name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" }]
+      : []),
   ];
 
   useEffect(() => {
@@ -104,21 +100,6 @@ export default function FoodHeader() {
               </Link>
             );
           })}
-
-          {/* Dashboard only for logged-in user */}
-          {user && (
-            <Link
-              to="/dashboard"
-              className={`flex items-center transition-colors font-medium ${
-                isActive("/dashboard")
-                  ? "text-orange-500"
-                  : "text-gray-700 hover:text-orange-500"
-              }`}
-            >
-              <LayoutDashboard className="w-4 h-4 mr-1" />
-              Dashboard
-            </Link>
-          )}
         </nav>
 
         {/* Right Icons */}
@@ -128,7 +109,7 @@ export default function FoodHeader() {
               <>
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="p-2 text-gray-700 hover:text-orange-500 transition-colors"
+                  className="p-2 text-gray-700 hover:text-orange-500 transition-colors cursor-pointer"
                 >
                   <img
                     className="w-10 h-10 rounded-full"
@@ -141,21 +122,13 @@ export default function FoodHeader() {
 
                 {userDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 border border-gray-200">
-                    {userMenuItems.map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <Link
-                          key={item.name}
-                          to={item.path}
-                          onClick={() => setUserDropdownOpen(false)}
-                          className="flex items-center px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
-                        >
-                          <Icon className="w-5 h-5 mr-3" />
-                          {item.name}
-                        </Link>
-                      );
-                    })}
-
+                    <Link
+                      to="/dashboard"
+                      className="flex items-center w-full cursor-pointer px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 rounded-lg transition-colors"
+                    >
+                      <UserCircle className="w-5 h-5 mr-3" />
+                      Profile
+                    </Link>
                     <button
                       onClick={handleSingOut}
                       className="w-full flex items-center px-4 py-2 hover:bg-orange-50 text-orange-500 transition-colors"
@@ -221,36 +194,41 @@ export default function FoodHeader() {
               );
             })}
 
-            {/* Dashboard only on login */}
-            {/* {user && (
-              <button>Add more menus</button>
-            )} */}
-
             {/* User items in mobile */}
-            {user && (
+            {user ? (
               <div className="border-t border-gray-200 pt-3 mt-3">
-                {userMenuItems.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <Link
-                      key={item.name}
-                      to={item.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 rounded-lg transition-colors"
-                    >
-                      <Icon className="w-5 h-5 mr-3" />
-                      {item.name}
-                    </Link>
-                  );
-                })}
-
+                <Link
+                  to="/dashboard"
+                  className="flex items-center w-full cursor-pointer px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 rounded-lg transition-colors"
+                >
+                  <UserCircle className="w-5 h-5 mr-3" />
+                  Profile
+                </Link>
                 <button
                   onClick={handleSingOut}
-                  className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 rounded-lg transition-colors"
+                  className="flex items-center w-full cursor-pointer px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 rounded-lg transition-colors"
                 >
                   <LogOut className="w-5 h-5 mr-3" />
                   Logout
                 </button>
+              </div>
+            ) : (
+              <div className="mt-6 flex flex-col gap-3 text-center">
+                <Link
+                  to="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="bg-orange-500 text-white px-4 py-2 rounded font-semibold w-full"
+                >
+                  {" "}
+                  Login{" "}
+                </Link>
+                <Link
+                  to="/registration"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="border border-orange-500 text-orange-500 px-4 py-2 rounded font-semibold"
+                >
+                  Signup
+                </Link>
               </div>
             )}
           </nav>
@@ -258,4 +236,6 @@ export default function FoodHeader() {
       )}
     </div>
   );
-}
+};
+
+export default Header;

@@ -7,9 +7,9 @@ import {
   FaEdit,
   FaRegCalendarAlt,
 } from "react-icons/fa";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useAuth from "../../../hooks/useAuth";
-import Loading from "../../../components/Shared/Loading";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+import Loading from "../../components/Shared/Loading";
 import { toast } from "react-toastify";
 import ProfilePopUp from "./ProfilePopUp";
 
@@ -60,7 +60,9 @@ const MyProfile = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-4">My Orders</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mt-9 lg:mt-0">
+        My Profile
+      </h1>
       <div className="flex justify-center items-center pt-[12%] px-4">
         <div className="bg-white shadow-xl rounded-xl overflow-hidden w-full max-w-4xl flex flex-col lg:flex-row">
           {/* Sidebar */}
