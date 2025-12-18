@@ -17,6 +17,7 @@ import CreateMeal from "../Dashboard/Chef/CreateMeal";
 import PlatformStatistics from "../Dashboard/Admin/PlatformStatistics";
 import ManageUsers from "../Dashboard/Admin/ManageUsers";
 import ManageRequests from "../Dashboard/Admin/ManageRequests";
+import PaymentSuccess from "../Dashboard/Payment/PaymentSuccess";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/statistics", element: <PlatformStatistics /> },
       { path: "/dashboard/manage-users", element: <ManageUsers /> },
       { path: "/dashboard/manage-requests", element: <ManageRequests /> },
+      { path: "/dashboard/payment-success", element: <PaymentSuccess /> },
     ],
   },
 ]);

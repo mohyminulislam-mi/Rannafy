@@ -74,7 +74,6 @@ const Order = () => {
           })
           .then((res) => {
             if (res.data.insertedId) {
-              nevigate("/");
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -82,6 +81,7 @@ const Order = () => {
                 showConfirmButton: false,
                 timer: 1500,
               });
+              nevigate("/dashboard/orders");
             }
           });
       }
@@ -116,7 +116,7 @@ const Order = () => {
           <label className="label">Meals Name</label>
           <input
             type="text"
-            {...register("MealName")}
+            {...register("mealName")}
             defaultValue={order.foodName}
             readOnly
             className="input w-full"

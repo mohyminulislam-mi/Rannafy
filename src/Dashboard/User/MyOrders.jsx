@@ -17,6 +17,18 @@ const MyOrders = () => {
       return res.data;
     },
   });
+  const handlePayment = async (order) => {
+    const paymentInfo = {
+      mealId: order.mealId,
+      orderId: order._id,
+      mealName: order.mealName,
+      userEmail: order.userEmail,
+      price: order.price,
+    };
+    const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+    window.location.href = res.data.url;
+    console.log(res.data.url);
+  };
 
   return (
     <div>
@@ -26,7 +38,7 @@ const MyOrders = () => {
           <div key={order._id} className="bg-white rounded-lg shadow p-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <h3 className="font-semibold text-lg">{order.MealName}</h3>
+                <h3 className="font-semibold text-lg">{order.mealName}</h3>
                 {/* chef details  */}
                 <div>
                   <span className="text-sm font-semibold text-gray-500 mt-1 mb-2 flex">
@@ -72,10 +84,13 @@ const MyOrders = () => {
                   <span className="rannafy-status-success">Paid</span>
                 ) : order.paymentStatus === "payment" ? (
                   <>
-                    <Link to="/" className="rannafy-delete">
+                    <button
+                      onClick={() => handlePayment(order)}
+                      className="rannafy-delete"
+                    >
                       {" "}
                       <RiWechatPayLine /> Make Payment{" "}
-                    </Link>
+                    </button>
                   </>
                 ) : (
                   <span className="rannafy-pending">Make another order</span>

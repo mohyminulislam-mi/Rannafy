@@ -22,7 +22,6 @@ const OrderRequests = () => {
       return res.data;
     },
   });
-
   const handleOrder = (id, status) => {
     Swal.fire({
       title: "Are you sure?",
@@ -67,7 +66,7 @@ const OrderRequests = () => {
               <div className="flex flex-col sm:flex-row justify-between gap-4">
                 {/* Order info */}
                 <div className="flex-1">
-                  <h3 className="font-semibold text-2xl">{order.MealName}</h3>
+                  <h3 className="font-semibold text-2xl">{order.mealName}</h3>
 
                   <p className="text-sm font-semibold mt-1">
                     {order.quantity} items • ${order.price}
