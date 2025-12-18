@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Shared/Loading";
 import { useForm } from "react-hook-form";
-import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useUser from "../../hooks/useUser";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const Order = () => {
   const axiosSecure = useAxiosSecure();
   const { id } = useParams();
-  const { user } = useAuth();
+  const { users } = useUser();
   const nevigate = useNavigate();
+
+  console.log("users?.dispalyName", users?.displayName);
 
   const { register, handleSubmit, setValue, watch } = useForm();
   const { data: order = {}, isLoading } = useQuery({
@@ -23,10 +26,10 @@ const Order = () => {
   });
 
   useEffect(() => {
-    if (user) {
-      setValue("userEmail", user.email);
+    if (users) {
+      setValue("userEmail", users.email);
     }
-  }, [user]);
+  }, [users]);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const quantity = watch("quantity");
@@ -65,7 +68,7 @@ const Order = () => {
         axiosSecure
           .post("/orders", {
             mealId: order._id,
-            chefName: order.chefName,
+            userName: users?.displayName,
             ...data,
             price: finalPrice,
           })
@@ -90,7 +93,10 @@ const Order = () => {
   }
   return (
     <div className="w-8/12 mx-auto p-4">
-      <h1>Order page{order._id} </h1>
+      <div className="my-10">
+        <Link to='/meals' className="flex items-center gap-2 hover:text-primary text-xl font-semibold">
+          <FaArrowLeftLong /> Back to meals</Link>
+      </div>
       <form onSubmit={handleSubmit(handlePlaceOrder)}>
         <fieldset className="fieldset">
           {/* user Email */}
@@ -98,7 +104,7 @@ const Order = () => {
           <input
             type="email"
             {...register("userEmail")}
-            defaultValue={user?.email}
+            defaultValue={users?.email}
             readOnly
             className="input w-full"
           />

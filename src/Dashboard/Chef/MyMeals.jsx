@@ -54,7 +54,9 @@ const MealCard = () => {
   }
   return (
     <>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">My Meals</h1>
+      <div className="mb-6 mt-7 lg:mt-0">
+        <h1 className="text-3xl font-bold text-gray-800 ">My Meals</h1>
+      </div>
       {/* Meal Card */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         {meals.map((meal) => (

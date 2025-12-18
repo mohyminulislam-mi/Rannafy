@@ -20,10 +20,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
+import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user, logOut } = useAuth();
+  const { role } = useRole();
+
   const navigate = useNavigate();
 
   const userMenuItems = [
@@ -63,8 +66,8 @@ const DashboardLayout = () => {
   ];
 
   const getMenuItems = () => {
-    if (user?.role === "chef") return chefMenuItems;
-    if (user?.role === "admin") return adminMenuItems;
+    if (role === "chef") return chefMenuItems;
+    if (role === "admin") return adminMenuItems;
     return userMenuItems;
   };
   const menuItems = getMenuItems();
@@ -115,9 +118,9 @@ const DashboardLayout = () => {
           {/* Logo */}
           <div className="p-6 border-b">
             <h2 className="text-2xl font-bold text-gray-800">
-              {user?.role === "chef"
+              {role === "chef"
                 ? "👨‍🍳 Chef"
-                : user?.role === "admin"
+                : role === "admin"
                 ? "⚙️ Admin"
                 : "🍽️ Food"}
             </h2>

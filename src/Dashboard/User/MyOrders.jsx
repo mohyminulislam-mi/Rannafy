@@ -17,7 +17,6 @@ const MyOrders = () => {
       return res.data;
     },
   });
-  console.log(orders);
 
   return (
     <div>
@@ -32,7 +31,7 @@ const MyOrders = () => {
                 <div>
                   <span className="text-sm font-semibold text-gray-500 mt-1 mb-2 flex">
                     <SiCodechef className="text-xl text-primary mr-1" />{" "}
-                    {order.chefName}
+                    {order.userName}
                   </span>
                   <p className="text-sm text-gray-500 mt-1 mb-2">
                     {order.chefId}
@@ -44,40 +43,43 @@ const MyOrders = () => {
                 <p className=" text-sm text-gray-600">
                   {format(new Date(order.orderTime), "dd MMM yyyy, hh:mm a")}
                 </p>
+                {/* --- order status change buttons --- */}
                 <div className="mt-2">
                   <span className="font-semibold mr-2">Order Status:</span>
                   <span
-                    className={`px-3 py-1  rounded-full text-sm font-medium ${
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${
                       order.orderStatus === "delivered"
-                        ? "bg-green-100 text-green-700"
+                        ? "rannafy-status-success"
                         : order.orderStatus === "rejected"
-                        ? "bg-red-300 text-red-800"
-                        : "bg-yellow-300 text-yellow-800"
+                        ? "rannafy-status"
+                        : order.orderStatus === "cancelled"
+                        ? "rannafy-status"
+                        : "rannafy-pending"
                     }`}
                   >
                     {order.orderStatus}
                   </span>
                 </div>
               </div>
-              <div
-                // className={`px-4 py-2  rounded-full text-sm font-medium ${
-                //   order.paymentStatus === "paid" ? (
-                //     "bg-green-100 text-green-700"
-                //   ) : order.paymentStatus === "pending" ? (
-                //     "bg-orange-300 text-orange-800"
-                //   ) : (
-                //     <Link to="/" className="bg-red-100 text-red-700">
-                //       pay
-                //     </Link>
-                //   )
-                // }`}
-                
-              >
-                <Link to="/" className="rannafy-delete">
-                <RiWechatPayLine />  pay
-                </Link>
 
-                {/* {order.paymentStatus} */}
+              {/* --- payments status change buttons --- */}
+              <div className="px-4 py-2  rounded-full text-sm font-medium ">
+                {order.paymentStatus === "pending" ? (
+                  <span className="rannafy-pending"> Order pending </span>
+                ) : order.paymentStatus === "cancelled" ? (
+                  <span className="rannafy-status">Stock Out</span>
+                ) : order.paymentStatus === "paid" ? (
+                  <span className="rannafy-status-success">Paid</span>
+                ) : order.paymentStatus === "payment" ? (
+                  <>
+                    <Link to="/" className="rannafy-delete">
+                      {" "}
+                      <RiWechatPayLine /> Make Payment{" "}
+                    </Link>
+                  </>
+                ) : (
+                  <span className="rannafy-pending">Make another order</span>
+                )}
               </div>
             </div>
           </div>

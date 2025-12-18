@@ -2,14 +2,13 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
-import useAuth from "../../hooks/useAuth";
-import useChef from "../../hooks/useChef";
+import useUser from "../../hooks/useUser";
+import { useNavigate } from "react-router";
 
 const CreateMeal = () => {
-  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { chefId } = useChef();
-  console.log(chefId);
+  const { users } = useUser();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -35,9 +34,9 @@ const CreateMeal = () => {
 
       //  meal data prepare
       const mealData = {
-        chefEmail: user?.email,
-        chefName: user?.displayName,
-        chefId: "1234",
+        chefEmail: users?.email,
+        chefName: users?.displayName,
+        chefId: users?.chefId,
         foodName: data.foodName,
         foodImage: photoURL,
         price: parseFloat(data.price),
@@ -50,10 +49,9 @@ const CreateMeal = () => {
 
       // save meal to database
       await axiosSecure.post("/meals", mealData);
-
       toast.success("Meal created successfully!");
       reset();
-      console.log(data);
+      navigate("/dashboard/my-meals");
     } catch (error) {
       console.error(error);
       toast.error("Failed to create meal. Try again.");
@@ -63,7 +61,7 @@ const CreateMeal = () => {
   return (
     <div className="min-h-screen flex items-center justify-center py-10">
       <div className="w-full max-w-3xl bg-white shadow-2xl rounded-2xl p-8">
-        <h2 className="text-3xl font-extrabold text-center text-primary mb-6">
+        <h2 className="lg:text-3xl text-2xl font-extrabold text-center text-primary mb-6">
           🍴 Create a New Meal
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
