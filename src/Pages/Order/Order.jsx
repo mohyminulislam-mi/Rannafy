@@ -57,7 +57,7 @@ const Order = () => {
 
     Swal.fire({
       title: "Agree with the Cost?",
-      text: `You will be charged ${finalPrice} taka!`,
+      text: `You will be charged ${finalPrice}$ only`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#CAEB66",
@@ -94,8 +94,12 @@ const Order = () => {
   return (
     <div className="w-8/12 mx-auto p-4">
       <div className="my-10">
-        <Link to='/meals' className="flex items-center gap-2 hover:text-primary text-xl font-semibold">
-          <FaArrowLeftLong /> Back to meals</Link>
+        <Link
+          to="/meals"
+          className="flex items-center gap-2 hover:text-primary text-xl font-semibold"
+        >
+          <FaArrowLeftLong /> Back to meals
+        </Link>
       </div>
       <form onSubmit={handleSubmit(handlePlaceOrder)}>
         <fieldset className="fieldset">

@@ -1,3 +1,4 @@
+import { ChefHat, Clock, Star } from "lucide-react";
 import React from "react";
 import { MdOutlineStar } from "react-icons/md";
 import { SiCodechef } from "react-icons/si";
@@ -5,35 +6,61 @@ import { Link } from "react-router";
 
 const MealCard = ({ meal }) => {
   return (
-    <div className="bg-white overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform">
-      {/* Food Image */}
-      <img
-        src={meal.foodImage}
-        alt={meal.name}
-        className="w-full h-48 object-cover transition-transform duration-700 hover:scale-110"
-      />
+    <div className="max-w-sm w-full bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
+      {/* Image */}
+      <div className="relative h-48 sm:h-56 overflow-hidden">
+        <img
+          src={meal.foodImage}
+          alt={meal.foodName}
+          className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+        />
+        <div className="absolute top-3 right-3 bg-white px-3 py-1 rounded-full shadow-md">
+          <span className="text-lg font-bold text-gray-800">${meal.price}</span>
+        </div>
+      </div>
 
-      {/* Card Content */}
-      <div className="p-4">
+      {/* Content */}
+      <div className="p-4 sm:p-5">
         {/* Chef Info */}
-        <div className="mt-2">
-          <h2 className="text-lg font-semibold text-gray-800 flex items-center">
-            <SiCodechef className="text-xl font-bold text-primary mr-1" /> {meal.chefName}
-          </h2>
-          <p className="text-sm text-gray-500">Chef ID: {meal.chefId}</p>
+        <div className="mb-3 flex items-center gap-2 text-sm">
+          <ChefHat size={16} className="text-gray-600" />
+          <div>
+            <p className="font-semibold text-gray-700">{meal.chefName}</p>
+            <p className="text-xs text-gray-500">Chef ID: {meal.chefId}</p>
+          </div>
         </div>
 
-        {/* Food Info */}
-        <p className="mt-2 text-gray-700 font-medium">Price: ${meal.price}</p>
-        <p className="text-gray-600 flex items-center gap-1">
-          Rating: <MdOutlineStar className="text-orange-500" /> {meal.rating}
+        {/* Rating */}
+        <div className="mb-3">
+          <div className="flex items-center gap-1">
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                size={16}
+                className={
+                  i < meal.rating
+                    ? "fill-yellow-400 text-yellow-400"
+                    : "text-gray-300"
+                }
+              />
+            ))}
+            <span className="ml-2 text-sm text-gray-600">
+              ({meal.rating}/5)
+            </span>
+          </div>
+        </div>
+
+        {/* Location */}
+        <p className="my-1 text-sm font-semibold">
+          Delivery Area:{" "}
+          <span className="text-gray-600">{meal.deliveryArea}</span>{" "}
         </p>
-        <p className="text-gray-600">Delivery Area: {meal.deliveryArea}</p>
+
         {/* See Details Button */}
         <div className="pb-4 mt-5">
           <Link to={`/meals/${meal._id}`} className="rannafy-btn w-full">
-          See Details
-        </Link>
+            See Details
+          </Link>
         </div>
       </div>
     </div>

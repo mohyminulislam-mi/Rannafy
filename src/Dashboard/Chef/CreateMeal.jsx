@@ -183,6 +183,19 @@ const CreateMeal = () => {
             />
           </div>
 
+          {/* deliveryArea */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700">
+              Delivery Area
+            </label>
+            <input
+              type="text"
+              {...register("deliveryArea", { required: true })}
+              className="mt-1 w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2"
+              placeholder="Dhanmondi"
+            />
+          </div>
+
           {/* Chef Experience */}
           <div>
             <label className="block text-sm font-semibold text-gray-700">

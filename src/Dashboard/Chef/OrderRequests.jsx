@@ -125,7 +125,7 @@ const OrderRequests = () => {
                 <div className="flex gap-2 self-center">
                   {/* Cancelled button */}
                   {isCancelled && (
-                    <span className="rannafy-pending">Cancelled</span>
+                    <span className="rannafy-status">Cancelled</span>
                   )}
                   {/* delivered text */}
                   {isDelivered && (
@@ -138,13 +138,13 @@ const OrderRequests = () => {
                     <>
                       {/* Accept button*/}
                       {isAccepted ? (
-                        <button disabled className="rannafy-pending">
+                        <button disabled className="rannafy-status-success">
                           Accepted
                         </button>
                       ) : (
                         <button
                           onClick={() => handleOrder(order._id, "accepted")}
-                          className="rannafy-success"
+                          className="rannafy-primary"
                         >
                           Accept
                         </button>
@@ -162,7 +162,7 @@ const OrderRequests = () => {
                       {!isAccepted && (
                         <button
                           onClick={() => handleOrder(order._id, "cancelled")}
-                          className="rannafy-status"
+                          className="rannafy-delete"
                         >
                           Cancel
                         </button>
