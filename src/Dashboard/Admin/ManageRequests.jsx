@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { format } from "date-fns";
 import Swal from "sweetalert2";
 import Loading from "../../components/Shared/Loading";
@@ -7,6 +6,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const ManageRequests = () => {
   const axiosSecure = useAxiosSecure();
+
   const {
     data: requests = [],
     isLoading,
@@ -14,52 +14,55 @@ const ManageRequests = () => {
   } = useQuery({
     queryKey: ["requests"],
     queryFn: async () => {
-      const response = await axios.get("http://localhost:3000/requests");
-      return response.data;
+      const res = await axiosSecure.get("/requests");
+      return res.data;
     },
   });
 
-  const handleAccept = async (request) => {
+  const handleAccept = (id) => {
     Swal.fire({
       title: "Accept Request?",
-      text: `Are you sure you want to accept ${request.userName}'s request to become ${request.requestType}?`,
+      text: "Are you sure you want to accept this request?",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#10b981",
       cancelButtonColor: "#ef4444",
       confirmButtonText: "Yes, Accept",
-      cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/meals/${id}`).then((res) => {
-          if (res.data.deletedCount) {
-            refetch();
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your meal has been deleted.",
-              icon: "success",
-            });
-          }
-        });
+        axiosSecure
+          .patch(`/requests/${id}`, { requestStatus: "accepted" })
+          .then((res) => {
+            if (res.data.modifiedCount > 0) {
+              refetch();
+              Swal.fire("Accepted!", "Request has been accepted.", "success");
+            }
+          });
       }
     });
   };
 
-  const handleReject = async (request) => {
-    const result = await Swal.fire({
+  const handleReject = (id) => {
+    Swal.fire({
       title: "Reject Request?",
-      text: `Are you sure you want to reject ${request.userName}'s request?`,
+      text: "Are you sure you want to reject this request?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#ef4444",
       cancelButtonColor: "#6b7280",
       confirmButtonText: "Yes, Reject",
-      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`/requests/${id}`, { requestStatus: "rejected" })
+          .then((res) => {
+            if (res.data.modifiedCount > 0) {
+              refetch();
+              Swal.fire("Rejected!", "Request has been rejected.", "success");
+            }
+          });
+      }
     });
-
-    if (result.isConfirmed) {
-      rejectMutation.mutate(request._id);
-    }
   };
 
   if (isLoading) {
@@ -68,7 +71,9 @@ const ManageRequests = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">Manage Requests</h1>
+      <div className="mb-6 mt-7 lg:mt-0">
+        <h1 className="text-3xl font-bold text-gray-800 ">Manage Requests</h1>
+      </div>
 
       {requests.length === 0 ? (
         <div className="bg-white rounded-lg shadow-md p-8 text-center">
@@ -102,12 +107,14 @@ const ManageRequests = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="rannafy-pending">
+                      <span className="rannafy-user">
                         {request.requestType}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="rannafy-pending">{request.requestStatus}</span>
+                      <span className="rannafy-pending">
+                        {request.requestStatus}
+                      </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {format(
@@ -119,13 +126,13 @@ const ManageRequests = () => {
                       {request.requestStatus === "pending" ? (
                         <div className="flex space-x-2">
                           <button
-                            onClick={() => handleAccept(request)}
+                            onClick={() => handleAccept(request._id)}
                             className="rannafy-success"
                           >
                             Accept
                           </button>
                           <button
-                            onClick={() => handleReject(request)}
+                            onClick={() => handleReject(request._id)}
                             className="rannafy-delete"
                           >
                             Reject
@@ -133,18 +140,15 @@ const ManageRequests = () => {
                         </div>
                       ) : (
                         <div className="flex space-x-2">
-                          <button
-                            disabled
-                            className="bg-gray-300 text-gray-500 px-4 py-2 rounded-md cursor-not-allowed"
-                          >
-                            Accept
-                          </button>
-                          <button
-                            disabled
-                            className="bg-gray-300 text-gray-500 px-4 py-2 rounded-md cursor-not-allowed"
-                          >
-                            Reject
-                          </button>
+                          {request.requestStatus === "accepted" ? (
+                            <span className="rannafy-status-success">
+                              This request has been accepted
+                            </span>
+                          ) : (
+                            <span className="rannafy-status">
+                              This request has been rejected{" "}
+                            </span>
+                          )}
                         </div>
                       )}
                     </td>
