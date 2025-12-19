@@ -20,6 +20,7 @@ import ManageRequests from "../Dashboard/Admin/ManageRequests";
 import PaymentSuccess from "../Dashboard/Payment/PaymentSuccess";
 import PrivateRoutes from "../Routes/PrivateRoutes";
 import AdminRoutes from "../Routes/AdminRoutes";
+import ChefRoutes from "../Routes/ChefRoutes";
 import NotFound from "../components/NotFound";
 
 const router = createBrowserRouter([
@@ -56,10 +57,30 @@ const router = createBrowserRouter([
       { path: "/dashboard/orders", element: <MyOrders /> },
       { path: "/dashboard/reviews", element: <MyReviews /> },
       { path: "/dashboard/favorites", element: <FavoriteMeals /> },
-      { path: "/dashboard/my-meals", element: <MyMeals /> },
-      { path: "/dashboard/order-requests", element: <OrderRequests /> },
-      { path: "/dashboard/create-meal", element: <CreateMeal /> },
-      { path: "/dashboard/payment-success", element: <PaymentSuccess /> },
+      {
+        path: "/dashboard/my-meals",
+        element: (
+          <ChefRoutes>
+            <MyMeals />{" "}
+          </ChefRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/order-requests",
+        element: (
+          <ChefRoutes>
+            <OrderRequests />{" "}
+          </ChefRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/create-meal",
+        element: (
+          <ChefRoutes>
+            <CreateMeal />
+          </ChefRoutes>
+        ),
+      },
       {
         path: "/dashboard/statistics",
         element: (
@@ -84,6 +105,7 @@ const router = createBrowserRouter([
           </AdminRoutes>
         ),
       },
+      { path: "/dashboard/payment-success", element: <PaymentSuccess /> },
     ],
   },
 ]);

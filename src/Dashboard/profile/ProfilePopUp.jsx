@@ -105,18 +105,6 @@ const ProfilePopUp = ({ setShowUpdateModal, getUser, refetch }) => {
               </p>
             )}
           </div>
-          {/*  Upload picture*/}
-          {/* <div>
-            <label className="block text-sm font-semibold text-gray-700">
-              Upload profile
-            </label>
-            <input
-              type="file"
-              {...register("photoURL", { required: true })}
-              className="file-input rounded-lg w-full mt-1"
-            />
-            {errors.photoURL && <p className="text-red-500">Photo required</p>}
-          </div> */}
           {/* address  */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -137,13 +125,13 @@ const ProfilePopUp = ({ setShowUpdateModal, getUser, refetch }) => {
           </div>
           {/* button  */}
           <div className="flex gap-3 pt-4">
-            <button type="submit" className="flex-1 rannafy-success">
+            <button type="submit" className="flex-1 rannafy-success text-center">
               Update profile
             </button>
             <button
               type="button"
               onClick={() => setShowUpdateModal(false)}
-              className="flex-1 rannafy-delete"
+              className="flex-1 rannafy-delete text-center"
             >
               Cancel
             </button>
