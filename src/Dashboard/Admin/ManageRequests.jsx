@@ -22,7 +22,6 @@ const ManageRequests = () => {
   const handleAccept = (id) => {
     Swal.fire({
       title: "Accept Request?",
-      text: "Are you sure you want to accept this request?",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#10b981",
@@ -30,14 +29,10 @@ const ManageRequests = () => {
       confirmButtonText: "Yes, Accept",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure
-          .patch(`/requests/${id}`, { requestStatus: "accepted" })
-          .then((res) => {
-            if (res.data.modifiedCount > 0) {
-              refetch();
-              Swal.fire("Accepted!", "Request has been accepted.", "success");
-            }
-          });
+        axiosSecure.patch(`/requests/${id}`, { action: "accept" }).then(() => {
+          refetch();
+          Swal.fire("Approved!", "Request approved successfully.", "success");
+        });
       }
     });
   };
@@ -45,7 +40,6 @@ const ManageRequests = () => {
   const handleReject = (id) => {
     Swal.fire({
       title: "Reject Request?",
-      text: "Are you sure you want to reject this request?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#ef4444",
@@ -53,14 +47,10 @@ const ManageRequests = () => {
       confirmButtonText: "Yes, Reject",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure
-          .patch(`/requests/${id}`, { requestStatus: "rejected" })
-          .then((res) => {
-            if (res.data.modifiedCount > 0) {
-              refetch();
-              Swal.fire("Rejected!", "Request has been rejected.", "success");
-            }
-          });
+        axiosSecure.patch(`/requests/${id}`, { action: "reject" }).then(() => {
+          refetch();
+          Swal.fire("Rejected!", "Request rejected.", "success");
+        });
       }
     });
   };
@@ -140,13 +130,13 @@ const ManageRequests = () => {
                         </div>
                       ) : (
                         <div className="flex space-x-2">
-                          {request.requestStatus === "accepted" ? (
+                          {request.requestStatus === "approved" ? (
                             <span className="rannafy-status-success">
                               This request has been accepted
                             </span>
                           ) : (
                             <span className="rannafy-status">
-                              This request has been rejected{" "}
+                              This request has been rejected
                             </span>
                           )}
                         </div>

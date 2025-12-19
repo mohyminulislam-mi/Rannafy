@@ -18,6 +18,8 @@ import PlatformStatistics from "../Dashboard/Admin/PlatformStatistics";
 import ManageUsers from "../Dashboard/Admin/ManageUsers";
 import ManageRequests from "../Dashboard/Admin/ManageRequests";
 import PaymentSuccess from "../Dashboard/Payment/PaymentSuccess";
+import PrivateRoutes from "../Routes/PrivateRoutes";
+import AdminRoutes from "../Routes/AdminRoutes";
 
 const router = createBrowserRouter([
   {
@@ -26,16 +28,20 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "/meals", element: <Meals /> },
-      { path: "/meals/:id", element: <MealDetails /> },
+      { path: "/meals/:id", element: <PrivateRoutes><MealDetails /></PrivateRoutes> },
+      { path: "/order/:id", element: <Order /> },
       { path: "/login", element: <Login /> },
       { path: "/registration", element: <Registration /> },
-      { path: "/order/:id", element: <Order /> },
     ],
   },
   // Dashboard layout
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoutes>
+        <DashboardLayout />
+      </PrivateRoutes>
+    ),
     children: [
       { path: "/dashboard", element: <MyProfile /> },
       { path: "/dashboard/orders", element: <MyOrders /> },
@@ -44,10 +50,31 @@ const router = createBrowserRouter([
       { path: "/dashboard/my-meals", element: <MyMeals /> },
       { path: "/dashboard/order-requests", element: <OrderRequests /> },
       { path: "/dashboard/create-meal", element: <CreateMeal /> },
-      { path: "/dashboard/statistics", element: <PlatformStatistics /> },
-      { path: "/dashboard/manage-users", element: <ManageUsers /> },
-      { path: "/dashboard/manage-requests", element: <ManageRequests /> },
       { path: "/dashboard/payment-success", element: <PaymentSuccess /> },
+      {
+        path: "/dashboard/statistics",
+        element: (
+          <AdminRoutes>
+            <PlatformStatistics />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/manage-users",
+        element: (
+          <AdminRoutes>
+            <ManageUsers />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/manage-requests",
+        element: (
+          <AdminRoutes>
+            <ManageRequests />
+          </AdminRoutes>
+        ),
+      },
     ],
   },
 ]);
