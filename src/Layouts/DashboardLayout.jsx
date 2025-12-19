@@ -173,7 +173,7 @@ const DashboardLayout = () => {
       </aside>
 
       {/* Main Content */}
-      <div className="lg:ml-64 mt-8 p-8 min-h-screen">
+      <div className="lg:ml-64 mt-8 lg:mt-0 p-8 min-h-screen">
         <Outlet />
       </div>
 
