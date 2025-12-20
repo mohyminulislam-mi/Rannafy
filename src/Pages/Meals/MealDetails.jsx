@@ -13,6 +13,8 @@ import "react-tabs/style/react-tabs.css";
 import Rating from "react-rating";
 import { toast } from "react-toastify";
 import { useForm, Controller } from "react-hook-form";
+import { format } from "date-fns";
+import { Star } from "lucide-react";
 
 const MealDetails = () => {
   const axiosSecure = useAxiosSecure();
@@ -203,7 +205,21 @@ const MealDetails = () => {
                         {review.text}
                       </p>
 
-                      <div className="flex items-center gap-2 mt-7">
+                      <div className="flex gap-1 my-3">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            size={16}
+                            className={
+                              i < review.rating
+                                ? "fill-yellow-400 text-yellow-400"
+                                : "text-gray-300"
+                            }
+                          />
+                        ))}
+                      </div>
+
+                      <div className="flex items-center gap-2 mt-5">
                         <div>
                           <img
                             src={review.UserPhoto}
@@ -214,14 +230,12 @@ const MealDetails = () => {
                         <div>
                           <h4 className="font-semibold">{review.userName}</h4>
                           <span>
-                            {new Date(review.createdAt).toLocaleDateString(
-                              "en-US",
-                              {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                              }
-                            )}
+                            <span>
+                              {format(
+                                new Date(review.createdAt),
+                                "dd MMM yyyy, hh:mm a"
+                              )}
+                            </span>
                           </span>
                         </div>
                       </div>

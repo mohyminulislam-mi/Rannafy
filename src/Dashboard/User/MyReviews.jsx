@@ -74,10 +74,15 @@ const MyReviews = () => {
                       <Star
                         key={i}
                         size={16}
-                        className="fill-yellow-400 text-yellow-400"
+                        className={
+                          i < review.rating
+                            ? "fill-yellow-400 text-yellow-400"
+                            : "text-gray-300"
+                        }
                       />
                     ))}
                   </div>
+
                   <p className="text-gray-600">{review.text}</p>
                   <p className="text-sm text-gray-500 mt-2">
                     Reviewed on{" "}

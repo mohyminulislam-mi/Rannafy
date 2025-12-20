@@ -1,7 +1,6 @@
 import { ChefHat, Clock, Star } from "lucide-react";
 import React from "react";
-import { MdOutlineStar } from "react-icons/md";
-import { SiCodechef } from "react-icons/si";
+import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router";
 
 const MealCard = ({ meal }) => {
@@ -51,8 +50,8 @@ const MealCard = ({ meal }) => {
         </div>
 
         {/* Location */}
-        <p className="my-1 text-sm font-semibold">
-          Delivery Area:{" "}
+        <p className="my-1 text-sm font-semibold flex items-center gap-1">
+          <FaLocationDot className="text-primary"/> Delivery:{" "}
           <span className="text-gray-600">{meal.deliveryArea}</span>{" "}
         </p>
 

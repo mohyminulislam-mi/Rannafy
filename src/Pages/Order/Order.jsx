@@ -52,6 +52,7 @@ const Order = () => {
   }, [quantity, order]);
 
   const handlePlaceOrder = (data) => {
+    j;
     const finalPrice = data.quantity * order.price;
     setTotalPrice(finalPrice);
 
@@ -92,11 +93,12 @@ const Order = () => {
     return <Loading />;
   }
   return (
-    <div className="w-8/12 mx-auto p-4">
-      <div className="my-10">
+    <div className="w-8/12 mx-auto py-10 px-4">
+      <title>Rannafy | Order</title>
+      <div className="my-5">
         <Link
           to="/meals"
-          className="flex items-center gap-2 hover:text-primary text-xl font-semibold"
+          className="flex items-center gap-2 text-primary hover:text-black text-xl font-semibold"
         >
           <FaArrowLeftLong /> Back to meals
         </Link>
