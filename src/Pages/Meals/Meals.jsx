@@ -11,7 +11,7 @@ const Meals = () => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("none");
   const [page, setPage] = useState(1);
-  const limit = 8;
+  const limit = 10;
 
   useEffect(() => {
     window.scrollTo(0, 0);

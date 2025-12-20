@@ -11,7 +11,6 @@ import MyProfile from "../Dashboard/profile/MyProfile";
 import MyOrders from "../Dashboard/User/MyOrders";
 import MyReviews from "../Dashboard/User/MyReviews";
 import FavoriteMeals from "../Dashboard/User/FavoriteMeals";
-import MyMeals from "../Dashboard/Chef/MyMeals";
 import OrderRequests from "../Dashboard/Chef/OrderRequests";
 import CreateMeal from "../Dashboard/Chef/CreateMeal";
 import PlatformStatistics from "../Dashboard/Admin/PlatformStatistics";
@@ -22,6 +21,7 @@ import PrivateRoutes from "../Routes/PrivateRoutes";
 import AdminRoutes from "../Routes/AdminRoutes";
 import ChefRoutes from "../Routes/ChefRoutes";
 import NotFound from "../components/NotFound";
+import MyMeals from "../Dashboard/Chef/MyMeals";
 
 const router = createBrowserRouter([
   {

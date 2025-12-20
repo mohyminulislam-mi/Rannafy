@@ -1,32 +1,22 @@
 import { Star, Quote } from "lucide-react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../components/Shared/Loading";
+import { format } from "date-fns";
+import Marquee from "react-fast-marquee";
 
 const Testimonial = () => {
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      role: "Home Cook & Mom",
-      content:
-        "This is the only recipe app I use now! The recipes are easy to follow, and I love that real people share their family favorites. My kids actually eat dinner now!",
-      rating: 5,
-      avatar: "https://img.icons8.com/doodle/48/girl.png",
+  const axiosSecure = useAxiosSecure();
+
+  const { data: reviews = [], isLoading } = useQuery({
+    queryKey: ["testimonial"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/latest-reviews");
+      return res.data;
     },
-    {
-      name: "Michael Chen",
-      role: "Food Blogger",
-      content:
-        "Finally a recipe platform that feels personal. No more corporate ads — just honest, delicious recipes from passionate cooks. I've found so many hidden gems!",
-      rating: 5,
-      avatar: "https://img.icons8.com/office/40/person-male-skin-type-4.png",
-    },
-    {
-      name: "Emma Williams",
-      role: "Busy Professional",
-      content:
-        "As someone who cooks after long workdays, the '30 minutes or less' filter saved my life. Everything I've tried turned out amazing. Thank you!",
-      rating: 5,
-      avatar: "https://img.icons8.com/color/48/user-female--v3.png",
-    },
-  ];
+  });
+
+  if (isLoading) return <Loading />;
 
   return (
     <section className="py-24 px-6 bg-linear-to-b from-white to-gray-50">
@@ -42,58 +32,60 @@ const Testimonial = () => {
           </p>
         </div>
 
-        {/* Testimonial Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {testimonials.map((t, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300 group"
-            >
-              {/* Quote Icon */}
-              <div className="mb-6">
-                <Quote className="w-12 h-12 text-orange-100 group-hover:text-orange-200 transition" />
-              </div>
+        {/* Marquee Testimonials */}
+        <Marquee pauseOnHover speed={40} gradient={false}>
+          <div className="flex gap-10 px-4 py-10">
+            {reviews.map((review) => (
+              <div
+                key={review._id}
+                className="min-w-[350px] bg-white rounded-3xl shadow-lg p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300"
+              >
+                {/* Quote */}
+                <Quote className="w-12 h-12 text-orange-100 mb-6" />
 
-              {/* Stars */}
-              <div className="flex gap-1 mb-6">
-                {[...Array(t.rating)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-6 h-6 fill-orange-500 text-orange-500"
-                  />
-                ))}
-              </div>
+                {/* Stars */}
+                <div className="flex gap-1 mb-6">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-6 h-6 fill-orange-500 text-orange-500"
+                    />
+                  ))}
+                </div>
 
-              {/* Review Text */}
-              <p className="text-gray-700 text-lg leading-relaxed mb-8 italic">
-                "{t.content}"
-              </p>
+                {/* Review */}
+                <p className="text-gray-700 text-lg leading-relaxed mb-8 italic">
+                  "{review.text}"
+                </p>
 
-              {/* Author */}
-              <div className="flex items-center gap-4">
-                <div className="relative">
+                {/* Author */}
+                <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-full bg-linear-to-br from-orange-400 to-orange-600 p-0.5">
-                    <div className="w-full h-full rounded-full bg-white p-1 flex justify-center items-center">
-                      <img src={t.avatar} alt={t.name} />
+                    <div className="w-full h-full rounded-full bg-white p-1">
+                      <img
+                        src={review.UserPhoto}
+                        alt={review.userName}
+                        className="w-full h-full rounded-full object-cover"
+                      />
                     </div>
                   </div>
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-800">{t.name}</h4>
-                  <p className="text-sm text-gray-500">{t.role}</p>
+                  <div>
+                    <h4 className="font-bold text-gray-800">
+                      {review.userName}
+                    </h4>
+                    <span className="text-sm text-gray-500">
+                      {format(new Date(review.createdAt), "dd MMM yyyy")}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Marquee>
 
-        {/* Trust Badge */}
-        <div className="text-center mt-16">
-          <p className="text-2xl font-bold text-gray-800">1000+ happy cooks</p>
-          <p className="text-gray-600">and growing every day</p>
-        </div>
       </div>
     </section>
   );
 };
+
 export default Testimonial;
