@@ -32,6 +32,7 @@ const MyOrders = () => {
 
   return (
     <div>
+      <title>Rannafy | My Orders</title>
       <h1 className="text-3xl font-bold text-gray-800 mb-6">My Orders</h1>
       <div className="grid gap-4">
         {orders.map((order) => (

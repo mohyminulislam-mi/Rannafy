@@ -3,9 +3,8 @@ import { motion } from "framer-motion";
 import hero from "../../assets/hero.png";
 import { Link } from "react-router";
 
-
 const containerVariants = {
-  hidden: { opacity: 0 }, 
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
@@ -15,14 +14,14 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 50 }, 
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 0.7, 
-      ease: "easeOut"
-    } 
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut",
+    },
   },
 };
 
@@ -40,13 +39,12 @@ const Hero = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }} 
+        viewport={{ once: true, amount: 0.5 }}
       >
         {/* Content Box */}
         <div className="max-w-xl text-white">
-          
           {/* Main Heading */}
-          <motion.h1 
+          <motion.h1
             className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4"
             variants={itemVariants}
           >
@@ -56,18 +54,18 @@ const Hero = () => {
           </motion.h1>
 
           {/* Subtext */}
-          <motion.p 
+          <motion.p
             className="text-lg md:text-xl font-medium mb-8 text-gray-200"
             variants={itemVariants}
           >
-            Explore curated recipes, read detailed instructions, and effortlessly
-            manage your own cooking collection.
+            Explore curated recipes, read detailed instructions, and
+            effortlessly manage your own cooking collection.
           </motion.p>
 
           {/* Action Button */}
           <motion.div variants={itemVariants}>
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="px-8 py-3 text-lg font-bold bg-orange-600 hover:bg-orange-700 text-white rounded-lg shadow-xl transition duration-300 ease-in-out"
             >
               Explore Meals

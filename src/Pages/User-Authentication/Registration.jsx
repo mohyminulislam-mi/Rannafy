@@ -70,6 +70,7 @@ const Registration = () => {
 
   return (
     <div className="w-11/12 mx-auto md:p-6 p-4 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10 my-6">
+      <title>Rannafy | User Registration </title>
       <div className="w-full max-w-7xl grid md:grid-cols-2 gap-12 items-center py-14">
         <div>
           <div className="bg-white p-12 md:p-16 flex flex-col justify-center h-2/3 md:border-r-2 md:border-orange-600">

@@ -20,7 +20,7 @@ const Login = () => {
   const handleLogin = (data) => {
     singInUser(data.email, data.password)
       .then((result) => {
-        toast.success("Welcome back!")
+        toast.success("Welcome back!");
         navigate(location?.state || "/");
       })
       .catch((error) => {
@@ -32,6 +32,7 @@ const Login = () => {
   }, []);
   return (
     <div className="min-h-screen md:p-6 p-4 text-left text-sm">
+      <title>Rannafy | User Login</title>
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10">
         {/* logo and texts */}
         <div className="p-12 md:p-16 flex flex-col justify-center h-2/3 md:border-r-2 md:border-orange-600">

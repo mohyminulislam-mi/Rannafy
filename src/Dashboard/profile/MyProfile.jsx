@@ -46,6 +46,7 @@ const MyProfile = () => {
 
   return (
     <div>
+      <title>Rannafy | My Profile</title>
       <h1 className="text-3xl font-bold text-gray-800 mt-9 lg:mt-0">
         My Profile
       </h1>

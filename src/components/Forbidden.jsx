@@ -3,6 +3,7 @@ import React from "react";
 const Forbidden = () => {
   return (
     <div className="flex items-center justify-center min-h-screen text-white">
+       <title>Forbidden</title>
       <div className="text-center p-8 rounded-xl shadow-2xl bg-black backdrop-blur-md border border-black">
         {/* Icon */}
         <div className="flex justify-center mb-6">

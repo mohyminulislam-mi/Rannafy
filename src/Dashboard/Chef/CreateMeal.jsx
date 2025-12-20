@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ const CreateMeal = () => {
   const axiosSecure = useAxiosSecure();
   const { users } = useUser();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -18,9 +19,11 @@ const CreateMeal = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    toast.warning("Waiting a moments, dont click");
+    setLoading(true);
+    const toastId = toast.loading("Uploading image & saving meal...");
+
     try {
-      //  image upload
+      // image upload
       const profileImg = data.photo[0];
       const formData = new FormData();
       formData.append("image", profileImg);
@@ -32,7 +35,7 @@ const CreateMeal = () => {
       const imgRes = await axiosSecure.post(imageApiUrl, formData);
       const photoURL = imgRes.data.data.url;
 
-      //  meal data prepare
+      //  meal data post
       const mealData = {
         chefEmail: users?.email,
         chefName: users?.displayName,
@@ -44,22 +47,36 @@ const CreateMeal = () => {
         ingredients: data.ingredients.split(",").map((i) => i.trim()),
         estimatedDeliveryTime: data.estimatedDeliveryTime,
         chefExperience: data.chefExperience,
-        createdAt: new Date(),
       };
 
-      // save meal to database
+      //  save meal
       await axiosSecure.post("/meals", mealData);
-      toast.success("Meal created successfully!");
+
+      toast.update(toastId, {
+        render: "Meal created successfully!",
+        type: "success",
+        isLoading: false,
+        autoClose: 2000,
+      });
+
       reset();
       navigate("/dashboard/my-meals");
     } catch (error) {
-      console.error(error);
-      toast.error("Failed to create meal. Try again.");
+      toast.update(toastId, {
+        render:
+          error.response?.data?.message ||
+          "You are a fraud user. You cannot add meals.",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+    } finally {
+      setLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center py-10">
+      <title>Rannafy | Create your Meals</title>
       <div className="w-full max-w-3xl bg-white shadow-2xl rounded-2xl p-8">
         <h2 className="lg:text-3xl text-2xl font-extrabold text-center text-primary mb-6">
           🍴 Create a New Meal
@@ -210,8 +227,16 @@ const CreateMeal = () => {
 
           {/* Submit Button */}
           <div className="text-center">
-            <button type="submit" className="rannafy-btn w-full">
-              Submit Meal
+            <button
+              type="submit"
+              disabled={loading}
+              className={`btn ${
+                loading
+                  ? "bg-gray-600 mt-3 text-white py-2.5 px-3.5 rounded-sm transition-colors duration-200 "
+                  : "rannafy-btn"
+              }`}
+            >
+              {loading ? "Uploading..." : "Add Meal"}
             </button>
           </div>
         </form>

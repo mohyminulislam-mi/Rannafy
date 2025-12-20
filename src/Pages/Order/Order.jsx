@@ -14,8 +14,6 @@ const Order = () => {
   const { users } = useUser();
   const nevigate = useNavigate();
 
-  console.log("users?.dispalyName", users?.displayName);
-
   const { register, handleSubmit, setValue, watch } = useForm();
   const { data: order = {}, isLoading } = useQuery({
     queryKey: ["order", id],
@@ -52,10 +50,8 @@ const Order = () => {
   }, [quantity, order]);
 
   const handlePlaceOrder = (data) => {
-    j;
     const finalPrice = data.quantity * order.price;
     setTotalPrice(finalPrice);
-
     Swal.fire({
       title: "Agree with the Cost?",
       text: `You will be charged ${finalPrice}$ only`,
@@ -70,6 +66,7 @@ const Order = () => {
           .post("/orders", {
             mealId: order._id,
             userName: users?.displayName,
+            email: users?.email,
             ...data,
             price: finalPrice,
           })
@@ -84,6 +81,15 @@ const Order = () => {
               });
               nevigate("/dashboard/orders");
             }
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Order Failed",
+              text:
+                err.response?.data?.message ||
+                "You are a fraud user. You cannot place orders.",
+            });
           });
       }
     });
@@ -94,7 +100,7 @@ const Order = () => {
   }
   return (
     <div className="w-8/12 mx-auto py-10 px-4">
-      <title>Rannafy | Order</title>
+      <title>Rannafy | Place Your Order</title>
       <div className="my-5">
         <Link
           to="/meals"

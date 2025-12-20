@@ -51,6 +51,7 @@ const FavoriteMeals = () => {
   }
   return (
     <div>
+      <title>Rannafy | Favorite Meals</title>
       <div className="mb-6 mt-7 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800 ">Favorite Meals</h1>
       </div>

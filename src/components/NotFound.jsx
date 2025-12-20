@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 const NotFound = () => {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden bg-orange-50 text-white px-4">
+       <title>NotFound this page</title>
       {/* Animated container */}
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}

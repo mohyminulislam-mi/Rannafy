@@ -53,6 +53,7 @@ const PlatformStatistics = () => {
 
   return (
     <div className="p-6 space-y-8">
+      <title>Rannafy | Platform Statistics</title>
       <h1 className="text-3xl font-bold text-gray-800 mb-6">
         Platform Statistics
       </h1>

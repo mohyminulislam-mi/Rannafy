@@ -18,7 +18,7 @@ const ManageUsers = () => {
     },
   });
   const handleMakeFraud = (id) => {
-    const updateStatus = { role: "fraud" };
+    const updateStatus = { userStatus: "fraud" };
     Swal.fire({
       title: "Are you sure?",
       text: "Do you really want to mark this user as fraud?",
@@ -59,6 +59,7 @@ const ManageUsers = () => {
 
   return (
     <div>
+      <title>Rannafy | Manage Users</title>
       <div className="mb-6 mt-7 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800 ">Manage Users</h1>
       </div>
@@ -116,7 +117,7 @@ const ManageUsers = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {user.role === "admin" ? (
                         <span className="rannafy-status-success">Admin</span>
-                      ) : user.role === "fraud" ? (
+                      ) : user.userStatus === "fraud" ? (
                         <span className="rannafy-status">fraud user</span>
                       ) : (
                         <button

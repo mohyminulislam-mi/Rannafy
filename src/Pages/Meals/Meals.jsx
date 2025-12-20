@@ -33,6 +33,7 @@ const Meals = () => {
 
   return (
     <div className="w-11/12 mx-auto">
+      <title>Rannafy | Get Your Meals</title>
       {/* Header */}
       <div className="text-center mt-10 mb-20">
         <h2 className="text-4xl font-bold text-primary mb-3">

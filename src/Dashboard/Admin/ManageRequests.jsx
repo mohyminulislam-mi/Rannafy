@@ -61,6 +61,7 @@ const ManageRequests = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <title>Rannafy | Manage Requests</title>
       <div className="mb-6 mt-7 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800 ">Manage Requests</h1>
       </div>
