@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "/favicon.png";
+import axios from "axios";
 
 const Registration = () => {
   const {
@@ -17,7 +17,6 @@ const Registration = () => {
   const { registerUser, updateUserProfile } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const axiosSecure = useAxiosSecure();
 
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
@@ -41,7 +40,7 @@ const Registration = () => {
           import.meta.env.VITE_image_host
         }`;
 
-        axiosSecure.post(imageApiUrl, formData).then((res) => {
+        axios.post(imageApiUrl, formData).then((res) => {
           const photoURL = res.data.data.url;
 
           const userInfo = {
@@ -51,7 +50,7 @@ const Registration = () => {
             address: data.address,
           };
 
-          axiosSecure.post("/users", userInfo);
+          axios.post("https://rannafy-server.vercel.app/users", userInfo);
 
           updateUserProfile({
             displayName: data.name,
