@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { useForm, Controller } from "react-hook-form";
 import { format } from "date-fns";
 import { Star } from "lucide-react";
+import Reveal from "../../components/Reveal";
 
 const MealDetails = () => {
   const axiosSecure = useAxiosSecure();
@@ -103,217 +104,227 @@ const MealDetails = () => {
 
   return (
     <div className="w-11/12 md:max-w-9/12 mx-auto overflow-hidden">
-      {/* Food Image */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div>
-          <img
-            src={meal.foodImage}
-            alt={meal.foodName}
-            className="w-full h-96 object-cover rounded-2xl"
-          />
-        </div>
-        {/* Meal Info */}
-        <div className="mt-2">
-          <h2 className="text-2xl font-bold text-gray-800">{meal.foodName}</h2>
-
-          <div className="mt-2 space-y-2">
-            <p className="text-lg font-semibold text-primary">
-              Price: ${meal.price}
-            </p>
-            <p className="flex items-center mt-3 font-semibold">
-              <FaStar className="mr-2 text-primary" /> Rating: {meal.rating}
-            </p>
-            <p className="flex items-center text-gray-600">
-              <FaMapMarkerAlt className="mr-2 text-primary" /> Delivery Area:{" "}
-              {meal.deliveryArea}
-            </p>
-            <p className="flex items-center text-gray-600">
-              <FaClock className="mr-2 text-primary" /> Estimated Delivery:{" "}
-              <span className="text-primary ml-2 font-semibold">
-                {meal.estimatedDeliveryTime}
-              </span>
-            </p>
-
-            <p className="text-gray-600 flex">
-              <TbToolsKitchen3 className="mt-0.5 mr-2 text-2xl text-primary" />{" "}
-              Ingredients: {meal.ingredients}
-            </p>
+      <Reveal>
+        {/* Food Image */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <img
+              src={meal.foodImage}
+              alt={meal.foodName}
+              className="w-full h-96 object-cover rounded-2xl"
+            />
           </div>
+          {/* Meal Info */}
+          <div className="mt-2">
+            <h2 className="text-2xl font-bold text-gray-800">
+              {meal.foodName}
+            </h2>
 
-          {/* chef information */}
-          <div className="mt-5 bg-orange-50 py-2 px-1 rounded space-y-1">
-            <p className="text-gray-600 flex items-center">
-              <SiCodechef className="mr-2 text-3xl font-bold text-primary" />{" "}
-              {meal.chefName}{" "}
-              <span className="text-primary ml-2 font-semibold">
-                ID: ({meal.chefId})
-              </span>
-            </p>
-            <p className=" text-gray-600 ml-8">
-              Chef Experience:{" "}
-              <span className="font-semibold">{meal.chefExperience}</span>
-            </p>
-          </div>
+            <div className="mt-2 space-y-2">
+              <p className="text-lg font-semibold text-primary">
+                Price: ${meal.price}
+              </p>
+              <p className="flex items-center mt-3 font-semibold">
+                <FaStar className="mr-2 text-primary" /> Rating: {meal.rating}
+              </p>
+              <p className="flex items-center text-gray-600">
+                <FaMapMarkerAlt className="mr-2 text-primary" /> Delivery Area:{" "}
+                {meal.deliveryArea}
+              </p>
+              <p className="flex items-center text-gray-600">
+                <FaClock className="mr-2 text-primary" /> Estimated Delivery:{" "}
+                <span className="text-primary ml-2 font-semibold">
+                  {meal.estimatedDeliveryTime}
+                </span>
+              </p>
 
-          {/* Order Button */}
-          <div className="grid grid-cols-2 gap-2 mt-5">
-            <Link
-              to={`/order/${meal._id}`}
-              className="mt-4 w-full rannafy-btn text-center"
-            >
-              Order Now
-            </Link>
-            <button
-              className="mt-4 w-full rannafy-btn"
-              onClick={handleAddFavorite}
-            >
-              Add Favorite
-            </button>
-          </div>
-        </div>
-      </div>
+              <p className="text-gray-600 flex">
+                <TbToolsKitchen3 className="mt-0.5 mr-2 text-2xl text-primary" />{" "}
+                Ingredients: {meal.ingredients}
+              </p>
+            </div>
 
-      {/* Review Section */}
-      <div className="py-10 lg:p-6">
-        <h3 className="text-xl font-semibold mb-2">Reviews</h3>
-        <div className="space-y-2">
-          <Tabs>
-            {/* Tab Menu */}
-            <TabList className="flex gap-3">
-              <Tab
-                selectedClassName="rannafy-select-tab"
-                className="bg-orange-200 mt-3 text-orange-600 py-2.5 px-3.5  hover:bg-orange-600 hover:text-white transition-colors cursor-pointer"
+            {/* chef information */}
+            <div className="mt-5 bg-orange-50 py-2 px-1 rounded space-y-1">
+              <p className="text-gray-600 flex items-center">
+                <SiCodechef className="mr-2 text-3xl font-bold text-primary" />{" "}
+                {meal.chefName}{" "}
+                <span className="text-primary ml-2 font-semibold">
+                  ID: ({meal.chefId})
+                </span>
+              </p>
+              <p className=" text-gray-600 ml-8">
+                Chef Experience:{" "}
+                <span className="font-semibold">{meal.chefExperience}</span>
+              </p>
+            </div>
+
+            {/* Order Button */}
+            <div className="grid grid-cols-2 gap-2 mt-5">
+              <Link
+                to={`/order/${meal._id}`}
+                className="mt-4 w-full rannafy-btn text-center"
               >
-                Customer Reviews
-              </Tab>
-              <Tab
-                selectedClassName="rannafy-select-tab"
-                className="bg-orange-200 mt-3 text-orange-600 py-2.5 px-3.5  hover:bg-orange-600 hover:text-white transition-colors cursor-pointer"
+                Order Now
+              </Link>
+              <button
+                className="mt-4 w-full rannafy-btn"
+                onClick={handleAddFavorite}
               >
-                Give Review
-              </Tab>
-            </TabList>
+                Add Favorite
+              </button>
+            </div>
+          </div>
+        </div>
+      </Reveal>
 
-            {/* tab customer review */}
-            <TabPanel>
-              <div className="mt-5 space-y-3">
-                {reviews.length !== 0 ? (
-                  reviews.map((review, idx) => (
-                    <div key={idx} className="p-3 rounded bg-orange-50">
-                      <p className="flex items-center gap-2">
-                        <FaQuoteLeft className="text-primary text-xl" />{" "}
-                        {review.text}
-                      </p>
+      <Reveal>
+        {/* Review Section */}
+        <div className="py-10 lg:p-6">
+          <h3 className="text-xl font-semibold mb-2">Reviews</h3>
+          <div className="space-y-2">
+            <Tabs>
+              {/* Tab Menu */}
+              <TabList className="flex gap-3">
+                <Tab
+                  selectedClassName="rannafy-select-tab"
+                  className="bg-orange-200 mt-3 text-orange-600 py-2.5 px-3.5  hover:bg-orange-600 hover:text-white transition-colors cursor-pointer"
+                >
+                  Customer Reviews
+                </Tab>
+                <Tab
+                  selectedClassName="rannafy-select-tab"
+                  className="bg-orange-200 mt-3 text-orange-600 py-2.5 px-3.5  hover:bg-orange-600 hover:text-white transition-colors cursor-pointer"
+                >
+                  Give Review
+                </Tab>
+              </TabList>
 
-                      <div className="flex gap-1 my-3">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={16}
-                            className={
-                              i < review.rating
-                                ? "fill-yellow-400 text-yellow-400"
-                                : "text-gray-300"
+              {/* tab customer review */}
+              <TabPanel>
+                <div className="mt-5 space-y-3">
+                  {reviews.length !== 0 ? (
+                    reviews.map((review, idx) => (
+                      <div key={idx} className="p-3 rounded bg-orange-50">
+                        <p className="flex items-center gap-2">
+                          <FaQuoteLeft className="text-primary text-xl" />{" "}
+                          {review.text}
+                        </p>
+
+                        <div className="flex gap-1 my-3">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              size={16}
+                              className={
+                                i < review.rating
+                                  ? "fill-yellow-400 text-yellow-400"
+                                  : "text-gray-300"
+                              }
+                            />
+                          ))}
+                        </div>
+
+                        <div className="flex items-center gap-2 mt-5">
+                          <div>
+                            <img
+                              src={review.UserPhoto}
+                              alt="User"
+                              className="h-12 w-12 rounded-full"
+                            />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold">{review.userName}</h4>
+                            <span>
+                              <span>
+                                {format(
+                                  new Date(review.createdAt),
+                                  "dd MMM yyyy, hh:mm a"
+                                )}
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <>No reviews for this product</>
+                  )}
+                </div>
+              </TabPanel>
+
+              {/* tab-2 review from */}
+              <TabPanel>
+                <form
+                  onSubmit={handleSubmit(handleCustomerReviews)}
+                  className="mt-5 space-y-4"
+                >
+                  {/* Star Rating */}
+                  <div>
+                    <div className="flex items-center gap-2 mt-7">
+                      <div>
+                        <img
+                          src={user?.photoURL}
+                          alt="User"
+                          className="h-12 w-12 rounded-full"
+                        />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold">{user?.displayName}</h4>
+                        <span>{user?.email}</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 mt-5">
+                      <span className="font-semibold">Your Rating:</span>
+                      <Controller
+                        name="rating"
+                        control={control}
+                        rules={{ required: "Rating is required" }}
+                        render={({ field }) => (
+                          <Rating
+                            initialRating={field.value}
+                            onChange={field.onChange}
+                            emptySymbol={
+                              <MdOutlineStarOutline className="text-primary text-2xl mt-1.5" />
+                            }
+                            fullSymbol={
+                              <MdOutlineStarPurple500 className="text-primary text-2xl mt-1.5" />
                             }
                           />
-                        ))}
-                      </div>
-
-                      <div className="flex items-center gap-2 mt-5">
-                        <div>
-                          <img
-                            src={review.UserPhoto}
-                            alt="User"
-                            className="h-12 w-12 rounded-full"
-                          />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold">{review.userName}</h4>
-                          <span>
-                            <span>
-                              {format(
-                                new Date(review.createdAt),
-                                "dd MMM yyyy, hh:mm a"
-                              )}
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <>No reviews for this product</>
-                )}
-              </div>
-            </TabPanel>
-
-            {/* tab-2 review from */}
-            <TabPanel>
-              <form
-                onSubmit={handleSubmit(handleCustomerReviews)}
-                className="mt-5 space-y-4"
-              >
-                {/* Star Rating */}
-                <div>
-                  <div className="flex items-center gap-2 mt-7">
-                    <div>
-                      <img
-                        src={user?.photoURL}
-                        alt="User"
-                        className="h-12 w-12 rounded-full"
+                        )}
                       />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold">{user?.displayName}</h4>
-                      <span>{user?.email}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 mt-5">
-                    <span className="font-semibold">Your Rating:</span>
-                    <Controller
-                      name="rating"
-                      control={control}
-                      rules={{ required: "Rating is required" }}
-                      render={({ field }) => (
-                        <Rating
-                          initialRating={field.value}
-                          onChange={field.onChange}
-                          emptySymbol={
-                            <MdOutlineStarOutline className="text-primary text-2xl mt-1.5" />
-                          }
-                          fullSymbol={
-                            <MdOutlineStarPurple500 className="text-primary text-2xl mt-1.5" />
-                          }
-                        />
+                      {errors.rating && (
+                        <p className="text-red-500 text-sm">
+                          {errors.rating.message}
+                        </p>
                       )}
-                    />
-                    {errors.rating && (
-                      <p className="text-red-500 text-sm">
-                        {errors.rating.message}
-                      </p>
-                    )}
+                    </div>
                   </div>
-                </div>
 
-                {/* Input textarea */}
-                <textarea
-                  className="w-full border p-3 rounded"
-                  rows="4"
-                  placeholder="Write your review..."
-                  {...register("text", { required: "Review text is required" })}
-                />
-                {errors.text && (
-                  <p className="text-red-500 text-sm">{errors.text.message}</p>
-                )}
+                  {/* Input textarea */}
+                  <textarea
+                    className="w-full border p-3 rounded"
+                    rows="4"
+                    placeholder="Write your review..."
+                    {...register("text", {
+                      required: "Review text is required",
+                    })}
+                  />
+                  {errors.text && (
+                    <p className="text-red-500 text-sm">
+                      {errors.text.message}
+                    </p>
+                  )}
 
-                <button type="submit" className="rannafy-btn">
-                  Give Review
-                </button>
-              </form>
-            </TabPanel>
-          </Tabs>
+                  <button type="submit" className="rannafy-btn">
+                    Give Review
+                  </button>
+                </form>
+              </TabPanel>
+            </Tabs>
+          </div>
         </div>
-      </div>
+      </Reveal>
     </div>
   );
 };

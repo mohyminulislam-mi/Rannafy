@@ -1,5 +1,6 @@
 import React from "react";
 import MealCard from "../../../components/MealCard";
+import Reveal from "../../../components/Reveal";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
@@ -27,12 +28,14 @@ const LatestMeals = () => {
           cooks!
         </p>
       </div>
-      {/* Meals Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        {meals.map((meal) => (
-          <MealCard key={meal._id} meal={meal} />
-        ))}
-      </div>
+      <Reveal>
+        {/* Meals Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {meals.map((meal) => (
+            <MealCard key={meal._id} meal={meal} />
+          ))}
+        </div>
+      </Reveal>
       <div className="text-center">
         <Link to="/meals" className="rannafy-btn">
           View More

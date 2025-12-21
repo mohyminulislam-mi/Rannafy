@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import hero from "../../assets/hero.png";
+import hero from "../../../assets/hero.png";
 import { Link } from "react-router";
 
 const containerVariants = {

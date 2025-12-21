@@ -24,6 +24,22 @@ body {
   font-style: normal;
 }
 
+/* Mobile device toast fix */
+@media (max-width: 768px) {
+  .Toastify__toast-container {
+    width: auto !important;
+    left: 30% !important;
+    transform: translateX(-50%);
+    padding: 0 12px;
+  }
+
+  .Toastify__toast {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 8px;
+  }
+}
+
 /* Button for rannafy  */
 .rannafy-btn {
   @apply bg-[#ff6900] hover:bg-orange-600 mt-3 text-white py-2.5 px-3.5 rounded-sm transition-colors duration-200 cursor-pointer

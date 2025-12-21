@@ -1,4 +1,5 @@
 import { Clock, Heart, Share2, Users, Sparkles, ChefHat } from "lucide-react";
+import Reveal from "../../../components/Reveal";
 
 export default function FeaturesSection() {
   const features = [
@@ -38,6 +39,7 @@ export default function FeaturesSection() {
     <section className="py-14 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
+        <Reveal>
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
             Why You'll Love
@@ -47,26 +49,24 @@ export default function FeaturesSection() {
             Everything you need to cook confidently and enjoy every meal
           </p>
         </div>
-
-        {/* Features Grid section here */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="group bg-linear-to-br from-orange-50 to-white p-8 rounded-3xl border border-orange-100 hover:border-orange-300 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-            >
-              <div className="mb-6 p-4 w-fit bg-white rounded-2xl shadow-lg group-hover:scale-110 transition">
-                {feature.icon}
+          {/* Features Grid section here */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="group bg-linear-to-br from-orange-50 to-white p-8 rounded-3xl border border-orange-100 hover:border-orange-300 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+              >
+                <div className="mb-6 p-4 w-fit bg-white rounded-2xl shadow-lg group-hover:scale-110 transition">
+                  {feature.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
               </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                {feature.desc}
-              </p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

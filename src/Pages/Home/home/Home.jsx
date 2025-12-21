@@ -1,8 +1,7 @@
 import React from "react";
-import Hero from "../Hero";
-
-import FeaturesSection from "../FeaturesSection";
-import Testimonial from "../Testimonial.jsx";
+import Hero from "./Hero.jsx";
+import FeaturesSection from "./FeaturesSection.jsx";
+import Testimonial from "./Testimonial.jsx";
 import LatestMeals from "./LatestMeals.jsx";
 
 const Home = () => {

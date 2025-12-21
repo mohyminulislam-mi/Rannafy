@@ -5,6 +5,7 @@ import Loading from "../../components/Shared/Loading";
 import MealCard from "../../components/MealCard";
 import SearchNotFound from "../../components/SearchNotFound";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import Reveal from "../../components/Reveal";
 
 const Meals = () => {
   const axiosSecure = useAxiosSecure();
@@ -32,123 +33,128 @@ const Meals = () => {
   const totalPages = Math.ceil(total / limit);
 
   return (
-    <div className="w-11/12 mx-auto">
-      <title>Rannafy | Get Your Meals</title>
-      {/* Header */}
-      <div className="text-center mt-10 mb-20">
-        <h2 className="text-4xl font-bold text-primary mb-3">
-          Discover Your Next Favorite Recipe
-        </h2>
-        <p className="text-gray-600">
-          Thousands of tried-and-tested recipes, from quick dinners to desserts.
-        </p>
-      </div>
-
-      {/* Filter Section */}
-      <div className="grid grid-cols-12 gap-5 items-center mb-16">
-        {/* Count */}
-        <div className="col-span-4 md:col-span-3 lg:col-span-2">
-          <h1 className="lg:font-bold text-primary lg:text-xl">
-            ({total}) Available
-          </h1>
+    <Reveal>
+      <div className="w-11/12 mx-auto">
+        <title>Rannafy | Get Your Meals</title>
+        {/* Header */}
+        <div className="text-center mt-10 mb-20">
+          <h2 className="text-4xl font-bold text-primary mb-3">
+            Discover Your Next Favorite Recipe
+          </h2>
+          <p className="text-gray-600">
+            Thousands of tried-and-tested recipes, from quick dinners to
+            desserts.
+          </p>
         </div>
 
-        {/* Search */}
-        <div className="col-span-8 md:col-span-6 lg:col-span-8 mx-auto flex items-center border pl-4 gap-2 bg-white border-gray-500/30 h-[46px] rounded-full max-w-md w-full">
-          <input
-            type="search"
-            placeholder="Search meals..."
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              setPage(1);
-            }}
-            className="w-full h-full outline-none text-sm text-gray-500"
-          />
-          <button className="bg-primary w-32 h-9 rounded-full text-sm text-white mr-1">
-            Search
-          </button>
-        </div>
-
-        {/* Sort */}
-        <div className=" col-span-12 md:col-span-3 lg:col-span-2">
-          <select
-            className="select select-bordered cursor-pointer w-full"
-            value={sort}
-            onChange={(e) => {
-              setSort(e.target.value);
-              setPage(1);
-            }}
-          >
-            <option value="none">Sort by price</option>
-            <option value="low">Low - High</option>
-            <option value="high">High - Low</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Content */}
-      {isLoading ? (
-        <Loading />
-      ) : meals.length > 0 ? (
-        <>
-          {/* Meals Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {meals.map((meal) => (
-              <MealCard key={meal._id} meal={meal} />
-            ))}
+        {/* Filter Section */}
+        <div className="grid grid-cols-12 gap-5 items-center mb-16">
+          {/* Count */}
+          <div className="col-span-4 md:col-span-3 lg:col-span-2">
+            <h1 className="lg:font-bold text-primary lg:text-xl">
+              ({total}) Available
+            </h1>
           </div>
 
-          {/* Pagination */}
-          <div className="flex justify-center items-center gap-2 mb-16 flex-wrap">
-            {/* Previous Button */}
-            <button
-              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-              disabled={page === 1}
-              className={`p-2 rounded transition ${
-                page === 1
-                  ? "bg-gray-200 cursor-not-allowed"
-                  : "bg-primary text-white hover:bg-orange-700 cursor-pointer"
-              }`}
-            >
-              <FaChevronLeft />
+          {/* Search */}
+          <div className="col-span-8 md:col-span-6 lg:col-span-8 mx-auto flex items-center border pl-4 gap-2 bg-white border-gray-500/30 h-[46px] rounded-full max-w-md w-full">
+            <input
+              type="search"
+              placeholder="Search meals..."
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPage(1);
+              }}
+              className="w-full h-full outline-none text-sm text-gray-500"
+            />
+            <button className="bg-primary w-32 h-9 rounded-full text-sm text-white mr-1">
+              Search
             </button>
+          </div>
 
-            {/* Page Numbers */}
-            {[...Array(totalPages).keys()].map((num) => (
+          {/* Sort */}
+          <div className=" col-span-12 md:col-span-3 lg:col-span-2">
+            <select
+              className="select select-bordered cursor-pointer w-full"
+              value={sort}
+              onChange={(e) => {
+                setSort(e.target.value);
+                setPage(1);
+              }}
+            >
+              <option value="none">Sort by price</option>
+              <option value="low">Low - High</option>
+              <option value="high">High - Low</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Content */}
+        {isLoading ? (
+          <Loading />
+        ) : meals.length > 0 ? (
+          <>
+            {/* Meals Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              {meals.map((meal) => (
+                <MealCard key={meal._id} meal={meal} />
+              ))}
+            </div>
+
+            {/* Pagination */}
+            <div className="flex justify-center items-center gap-2 mb-16 flex-wrap">
+              {/* Previous Button */}
               <button
-                key={num}
-                onClick={() => setPage(num + 1)}
-                className={`px-4 py-2 rounded transition ${
-                  page === num + 1
-                    ? "bg-primary text-white"
-                    : "bg-gray-200 hover:bg-gray-300 cursor-pointer"
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                disabled={page === 1}
+                className={`p-2 rounded transition ${
+                  page === 1
+                    ? "bg-gray-200 cursor-not-allowed"
+                    : "bg-primary text-white hover:bg-orange-700 cursor-pointer"
                 }`}
               >
-                {num + 1}
+                <FaChevronLeft />
               </button>
-            ))}
 
-            {/* Next Button */}
-            <button
-              onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-              disabled={page === totalPages}
-              className={`p-2 rounded transition ${
-                page === totalPages
-                  ? "bg-gray-200 cursor-not-allowed"
-                  : "bg-primary text-white hover:bg-orange-700 cursor-pointer"
-              }`}
-            >
-              <FaChevronRight />
-            </button>
+              {/* Page Numbers */}
+              {[...Array(totalPages).keys()].map((num) => (
+                <button
+                  key={num}
+                  onClick={() => setPage(num + 1)}
+                  className={`px-4 py-2 rounded transition ${
+                    page === num + 1
+                      ? "bg-primary text-white"
+                      : "bg-gray-200 hover:bg-gray-300 cursor-pointer"
+                  }`}
+                >
+                  {num + 1}
+                </button>
+              ))}
+
+              {/* Next Button */}
+              <button
+                onClick={() =>
+                  setPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={page === totalPages}
+                className={`p-2 rounded transition ${
+                  page === totalPages
+                    ? "bg-gray-200 cursor-not-allowed"
+                    : "bg-primary text-white hover:bg-orange-700 cursor-pointer"
+                }`}
+              >
+                <FaChevronRight />
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="p-10">
+            <SearchNotFound />
           </div>
-        </>
-      ) : (
-        <div className="p-10">
-          <SearchNotFound />
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </Reveal>
   );
 };
 
