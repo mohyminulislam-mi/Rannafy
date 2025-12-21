@@ -35,7 +35,7 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <section className="py-30 px-6 bg-white">
+    <section className="py-14 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-16">

@@ -156,7 +156,7 @@ const MealDetails = () => {
           </div>
 
           {/* Order Button */}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2 mt-5">
             <Link
               to={`/order/${meal._id}`}
               className="mt-4 w-full rannafy-btn text-center"

@@ -45,16 +45,16 @@ const Meals = () => {
       </div>
 
       {/* Filter Section */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center mb-16">
+      <div className="grid grid-cols-12 gap-5 items-center mb-16">
         {/* Count */}
-        <div className="col-span-2">
+        <div className="col-span-4 md:col-span-3 lg:col-span-2">
           <h1 className="lg:font-bold text-primary lg:text-xl">
             ({total}) Available
           </h1>
         </div>
 
         {/* Search */}
-        <div className="col-span-8 mx-auto flex items-center border pl-4 gap-2 bg-white border-gray-500/30 h-[46px] rounded-full max-w-md w-full">
+        <div className="col-span-8 md:col-span-6 lg:col-span-8 mx-auto flex items-center border pl-4 gap-2 bg-white border-gray-500/30 h-[46px] rounded-full max-w-md w-full">
           <input
             type="search"
             placeholder="Search meals..."
@@ -71,7 +71,7 @@ const Meals = () => {
         </div>
 
         {/* Sort */}
-        <div className="col-span-2">
+        <div className=" col-span-12 md:col-span-3 lg:col-span-2">
           <select
             className="select select-bordered cursor-pointer w-full"
             value={sort}
@@ -93,7 +93,7 @@ const Meals = () => {
       ) : meals.length > 0 ? (
         <>
           {/* Meals Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {meals.map((meal) => (
               <MealCard key={meal._id} meal={meal} />
             ))}

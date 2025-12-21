@@ -19,7 +19,7 @@ const Testimonial = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <section className="py-24 px-6 bg-linear-to-b from-white to-gray-50">
+    <section className="py-14 px-6 bg-linear-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-16">

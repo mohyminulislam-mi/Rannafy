@@ -15,7 +15,7 @@ const LatestMeals = () => {
   });
 
   return (
-    <div className="py-14 mt-14">
+    <div className="py-14">
       {/* Heading & Subheading */}
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-6xl font-extrabold text-gray-800 mb-4">
@@ -28,7 +28,7 @@ const LatestMeals = () => {
         </p>
       </div>
       {/* Meals Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         {meals.map((meal) => (
           <MealCard key={meal._id} meal={meal} />
         ))}

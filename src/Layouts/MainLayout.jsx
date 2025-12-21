@@ -8,7 +8,7 @@ import { Outlet } from "react-router";
 const MainLayout = () => {
   return (
     <section>
-      <header className="w-11/12 mx-auto bg-white sticky top-0 z-50">
+      <header className="bg-white sticky top-0 z-50">
         <Header />
       </header>
       <div>
