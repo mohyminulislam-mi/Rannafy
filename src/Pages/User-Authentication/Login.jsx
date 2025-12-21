@@ -31,28 +31,28 @@ const Login = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="min-h-screen md:p-6 p-4 text-left text-sm">
+    <div className="min-h-screen lg:p-6 p-4 text-left text-sm">
       <title>Rannafy | User Login</title>
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2  gap-6 lg:gap-12 items-center rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10">
         {/* logo and texts */}
-        <div className="p-12 md:p-16 flex flex-col justify-center h-2/3 md:border-r-2 md:border-orange-600">
+        <div className="lg:p-12 p-6 flex flex-col justify-center h-2/3 md:border-r-2 md:border-orange-600">
           {/* logo  */}
-          <div className="mb-10 mx-auto">
+          <div className="mb-3 lg:mb-10 mx-auto">
             <img src={logo} alt="logo" className="h-48 w-48" />
           </div>
 
-          <h1 className="text-5xl text-center md:text-left font-bold leading-tight mb-6">
+          <h1 className="text-3xl lg:text-5xl text-center md:text-left font-bold leading-tight mb-6">
             Welcome Back to,
             <br />
             <span className="text-orange-600">RannaFy</span>
           </h1>
 
-          <p className="text-xl md:text-2xl md:text-left text-center opacity-95 leading-relaxed">
+          <p className="text-xl lg:text-2xl md:text-left text-center opacity-95 leading-relaxed">
             Discover thousands of delicious recipes, save your favorites, and
             share your own culinary creations.
           </p>
         </div>
-        <div className="w-8/12 mx-auto">
+        <div className="w-11/12 lg:w-8/12 mx-auto">
           <h2 className="text-3xl font-semibold mb-6 text-primary">
             Login RannaFy
           </h2>
@@ -115,7 +115,7 @@ const Login = () => {
               Log in
             </button>
           </form>
-          <p className="text-center mt-4">
+          <p className="text-center mt-4 mb-4">
             Don’t have an account?{" "}
             <Link
               state={location.state}

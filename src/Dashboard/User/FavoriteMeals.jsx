@@ -55,42 +55,50 @@ const FavoriteMeals = () => {
       <div className="mb-6 mt-12 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800 ">Favorite Meals</h1>
       </div>
-      <div className="grid gap-4">
-        {favorites.map((favorite) => (
-          <div key={favorite._id} className="bg-white rounded-lg shadow p-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <div className="flex items-start gap-4">
-                <div className="flex-1">
-                  <h3 className="font-semibold text-lg mb-2">
-                    {favorite.mealName}
-                  </h3>
+      {favorites.length === 0 ? (
+        <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <p className="text-gray-500 text-lg">No Favorite Meals found</p>
+        </div>
+      ) : (
+        <div className="grid gap-4">
+          {favorites.map((favorite) => (
+            <div key={favorite._id} className="bg-white rounded-lg shadow p-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div className="flex items-start gap-4">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-lg mb-2">
+                      {favorite.mealName}
+                    </h3>
 
-                  <p className="text-gray-600">
-                    {favorite.chefName} ({favorite.chefId})
-                  </p>
+                    <p className="text-gray-600">
+                      {favorite.chefName} ({favorite.chefId})
+                    </p>
 
-                  <p className="text-sm text-gray-500 mt-1">
-                    Date:{" "}
-                    {format(
-                      new Date(favorite.createdAt),
-                      "dd MMM yyyy, hh:mm a"
-                    )}
-                  </p>
-                  <p className="font-semibold mt-2">Price: ${favorite.price}</p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      Date:{" "}
+                      {format(
+                        new Date(favorite.createdAt),
+                        "dd MMM yyyy, hh:mm a"
+                      )}
+                    </p>
+                    <p className="font-semibold mt-2">
+                      Price: ${favorite.price}
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <button
+                    onClick={() => handleFavoriteDelete(favorite._id)}
+                    className="rannafy-delete"
+                  >
+                    <FaTrashAlt /> Delete
+                  </button>
                 </div>
               </div>
-              <div>
-                <button
-                  onClick={() => handleFavoriteDelete(favorite._id)}
-                  className="rannafy-delete"
-                >
-                  <FaTrashAlt /> Delete
-                </button>
-              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

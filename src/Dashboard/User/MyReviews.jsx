@@ -61,57 +61,66 @@ const MyReviews = () => {
       <div className="mb-6 mt-12 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800 ">My Reviews</h1>
       </div>
-      <div className="grid gap-4">
-        {reviews.map((review) => (
-          <div key={review._id} className="bg-white rounded-lg shadow p-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <div className="flex items-start gap-4">
-                <div className="flex-1">
-                  <h3 className="font-semibold text-lg mb-2">
-                    {review.mealName}
-                  </h3>
-                  <div className="flex gap-1 mb-2">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        size={16}
-                        className={
-                          i < review.rating
-                            ? "fill-yellow-400 text-yellow-400"
-                            : "text-gray-300"
-                        }
-                      />
-                    ))}
-                  </div>
+      {reviews.length === 0 ? (
+        <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <p className="text-gray-500 text-lg">No My Reviews found</p>
+        </div>
+      ) : (
+        <div className="grid gap-4">
+          {reviews.map((review) => (
+            <div key={review._id} className="bg-white rounded-lg shadow p-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div className="flex items-start gap-4">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-lg mb-2">
+                      {review.mealName}
+                    </h3>
+                    <div className="flex gap-1 mb-2">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={16}
+                          className={
+                            i < review.rating
+                              ? "fill-yellow-400 text-yellow-400"
+                              : "text-gray-300"
+                          }
+                        />
+                      ))}
+                    </div>
 
-                  <p className="text-gray-600">{review.text}</p>
-                  <p className="text-sm text-gray-500 mt-2">
-                    Reviewed on{" "}
-                    {format(new Date(review.createdAt), "dd MMM yyyy, hh:mm a")}
-                  </p>
+                    <p className="text-gray-600">{review.text}</p>
+                    <p className="text-sm text-gray-500 mt-2">
+                      Reviewed on{" "}
+                      {format(
+                        new Date(review.createdAt),
+                        "dd MMM yyyy, hh:mm a"
+                      )}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      setShowUpdateModal(true), setSelectedReview(review);
+                    }}
+                    className="rannafy-success"
+                  >
+                    {" "}
+                    <FaRegEdit /> Update
+                  </button>
+                  <button
+                    onClick={() => handleReviewDelete(review._id)}
+                    className="rannafy-delete"
+                  >
+                    <FaTrashAlt /> Delete
+                  </button>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => {
-                    setShowUpdateModal(true), setSelectedReview(review);
-                  }}
-                  className="rannafy-success"
-                >
-                  {" "}
-                  <FaRegEdit /> Update
-                </button>
-                <button
-                  onClick={() => handleReviewDelete(review._id)}
-                  className="rannafy-delete"
-                >
-                  <FaTrashAlt /> Delete
-                </button>
-              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
       {showUpdateModal && (
         <ReviewUpdatePopup
           review={selectedReview}

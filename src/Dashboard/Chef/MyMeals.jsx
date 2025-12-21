@@ -46,13 +46,17 @@ const MyMeals = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <>
+    <div>
       <title>Rannafy | My Meals</title>
       <div className="mb-6 mt-12 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800">My Meals</h1>
       </div>
 
-      {/* Meal Cards */}
+      {data.length === 0 ? (
+        <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <p className="text-gray-500 text-lg">No Meals found</p>
+        </div>
+       ) : (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         {meals.map((meal) => (
           <div
@@ -143,6 +147,7 @@ const MyMeals = () => {
           </div>
         ))}
       </div>
+    )}
 
       {showUpdateModal && (
         <MealsPopUp
@@ -151,7 +156,7 @@ const MyMeals = () => {
           setShowUpdateModal={setShowUpdateModal}
         />
       )}
-    </>
+    </div>
   );
 };
 

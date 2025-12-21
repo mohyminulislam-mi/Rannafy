@@ -102,7 +102,7 @@ const MealDetails = () => {
   }
 
   return (
-    <div className="max-w-9/12 mx-auto overflow-hidden">
+    <div className="w-11/12 md:max-w-9/12 mx-auto overflow-hidden">
       {/* Food Image */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div>

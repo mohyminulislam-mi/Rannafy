@@ -55,126 +55,135 @@ const OrderRequests = () => {
         <h1 className="text-3xl font-bold text-gray-800">Order Requests</h1>
       </div>
 
-      <div className="grid gap-4">
-        {chefOrders.map((order) => {
-          const isPending = order.orderStatus === "pending";
-          const isAccepted = order.orderStatus === "accepted";
-          const isCancelled = order.orderStatus === "cancelled";
-          const isDelivered = order.orderStatus === "delivered";
+      {chefOrders.length === 0 ? (
+        <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <p className="text-gray-500 text-lg">No Order Requests found</p>
+        </div>
+      ) : (
+        <div className="grid gap-4">
+          {chefOrders.map((order) => {
+            const isPending = order.orderStatus === "pending";
+            const isAccepted = order.orderStatus === "accepted";
+            const isCancelled = order.orderStatus === "cancelled";
+            const isDelivered = order.orderStatus === "delivered";
 
-          return (
-            <div key={order._id} className="bg-white rounded-lg shadow p-6">
-              <div className="flex flex-col sm:flex-row justify-between gap-4">
-                {/* Order info */}
-                <div className="flex-1">
-                  <h3 className="font-semibold text-2xl">{order.mealName}</h3>
+            return (
+              <div key={order._id} className="bg-white rounded-lg shadow p-6">
+                <div className="flex flex-col sm:flex-row justify-between gap-4">
+                  {/* Order info */}
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-2xl">{order.mealName}</h3>
 
-                  <p className="text-sm font-semibold mt-1">
-                    {order.quantity} items • ${order.price}
-                  </p>
-                  {/* order Status actons */}
-                  <p className="text-sm mt-1">
-                    Status:
-                    <span
-                      className={`ml-2 font-semibold ${
-                        order.orderStatus === "delivered"
-                          ? "rannafy-status-success"
-                          : order.orderStatus === "rejected"
-                          ? "rannafy-status"
-                          : order.orderStatus === "cancelled"
-                          ? "rannafy-status"
-                          : "rannafy-pending"
-                      }`}
-                    >
-                      {order.orderStatus}
-                    </span>
-                  </p>
-
-                  <p className="text-sm text-gray-500 mt-2">
-                    Email: {order.userEmail}
-                  </p>
-
-                  <p className="text-sm mt-1">
-                    Delivery address:
-                    <span className="font-semibold ml-1">
-                      {order.deliveryAddress}
-                    </span>
-                  </p>
-
-                  <p className="text-sm text-gray-500 mt-1">
-                    {format(new Date(order.orderTime), "dd MMM yyyy, hh:mm a")}
-                  </p>
-                  {/* payment Status actions */}
-                  <p className="text-sm mt-2">
-                    Payment:
-                    <span
-                      className={`ml-2 font-semibold ${
-                        order.paymentStatus === "paid"
-                          ? "rannafy-status-success"
-                          : order.paymentStatus === "cancelled"
-                          ? "rannafy-status"
-                          : "rannafy-pending"
-                      }`}
-                    >
-                      {order.paymentStatus}
-                    </span>
-                  </p>
-                </div>
-
-                {/* actions buttons */}
-                <div className="flex gap-2 self-center mt-8 md:mt-0">
-                  {/* Cancelled button */}
-                  {isCancelled && (
-                    <span className="rannafy-status">Cancelled</span>
-                  )}
-                  {/* delivered text */}
-                  {isDelivered && (
-                    <span className="rannafy-status-success">
-                      Order delivered
-                    </span>
-                  )}
-                  {/* Accept / Pending */}
-                  {!isCancelled && !isDelivered && (
-                    <>
-                      {/* Accept button*/}
-                      {isAccepted ? (
-                        <button disabled className="rannafy-status-success">
-                          Accepted
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => handleOrder(order._id, "accepted")}
-                          className="rannafy-primary"
-                        >
-                          Accept
-                        </button>
-                      )}
-
-                      {/* Deliver button */}
-                      <button
-                        onClick={() => handleOrder(order._id, "delivered")}
-                        className="rannafy-success"
+                    <p className="text-sm font-semibold mt-1">
+                      {order.quantity} items • ${order.price}
+                    </p>
+                    {/* order Status actons */}
+                    <p className="text-sm mt-1">
+                      Status:
+                      <span
+                        className={`ml-2 font-semibold ${
+                          order.orderStatus === "delivered"
+                            ? "rannafy-status-success"
+                            : order.orderStatus === "rejected"
+                            ? "rannafy-status"
+                            : order.orderStatus === "cancelled"
+                            ? "rannafy-status"
+                            : "rannafy-pending"
+                        }`}
                       >
-                        Deliver
-                      </button>
+                        {order.orderStatus}
+                      </span>
+                    </p>
 
-                      {/* Cancel  */}
-                      {!isAccepted && (
-                        <button
-                          onClick={() => handleOrder(order._id, "cancelled")}
-                          className="rannafy-delete"
-                        >
-                          Cancel
-                        </button>
+                    <p className="text-sm text-gray-500 mt-2">
+                      Email: {order.userEmail}
+                    </p>
+
+                    <p className="text-sm mt-1">
+                      Delivery address:
+                      <span className="font-semibold ml-1">
+                        {order.deliveryAddress}
+                      </span>
+                    </p>
+
+                    <p className="text-sm text-gray-500 mt-1">
+                      {format(
+                        new Date(order.orderTime),
+                        "dd MMM yyyy, hh:mm a"
                       )}
-                    </>
-                  )}
+                    </p>
+                    {/* payment Status actions */}
+                    <p className="text-sm mt-2">
+                      Payment:
+                      <span
+                        className={`ml-2 font-semibold ${
+                          order.paymentStatus === "paid"
+                            ? "rannafy-status-success"
+                            : order.paymentStatus === "cancelled"
+                            ? "rannafy-status"
+                            : "rannafy-pending"
+                        }`}
+                      >
+                        {order.paymentStatus}
+                      </span>
+                    </p>
+                  </div>
+
+                  {/* actions buttons */}
+                  <div className="flex gap-2 self-center mt-8 md:mt-0">
+                    {/* Cancelled button */}
+                    {isCancelled && (
+                      <span className="rannafy-status">Cancelled</span>
+                    )}
+                    {/* delivered text */}
+                    {isDelivered && (
+                      <span className="rannafy-status-success">
+                        Order delivered
+                      </span>
+                    )}
+                    {/* Accept / Pending */}
+                    {!isCancelled && !isDelivered && (
+                      <>
+                        {/* Accept button*/}
+                        {isAccepted ? (
+                          <button disabled className="rannafy-status-success">
+                            Accepted
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => handleOrder(order._id, "accepted")}
+                            className="rannafy-primary"
+                          >
+                            Accept
+                          </button>
+                        )}
+
+                        {/* Deliver button */}
+                        <button
+                          onClick={() => handleOrder(order._id, "delivered")}
+                          className="rannafy-success"
+                        >
+                          Deliver
+                        </button>
+
+                        {/* Cancel  */}
+                        {!isAccepted && (
+                          <button
+                            onClick={() => handleOrder(order._id, "cancelled")}
+                            className="rannafy-delete"
+                          >
+                            Cancel
+                          </button>
+                        )}
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

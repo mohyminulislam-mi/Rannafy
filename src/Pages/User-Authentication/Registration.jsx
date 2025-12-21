@@ -68,17 +68,17 @@ const Registration = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto md:p-6 p-4 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10 my-6">
+    <div className="w-11/12 mx-auto text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10 my-6">
       <title>Rannafy | User Registration </title>
-      <div className="w-full max-w-7xl grid md:grid-cols-2 gap-12 items-center py-14">
+      <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-14">
         <div>
-          <div className="bg-white p-12 md:p-16 flex flex-col justify-center h-2/3 md:border-r-2 md:border-orange-600">
+          <div className="bg-white p-4 lg:p-12 md:p-16 flex flex-col justify-center h-2/3 lg:border-r-2 md:border-orange-600">
             {/* logo  */}
             <div className="mb-10 mx-auto">
               <img src={logo} alt="logo" className="h-48 w-48" />
             </div>
 
-            <h1 className="text-5xl text-center md:text-left font-bold leading-tight mb-6">
+            <h1 className="text-5xl text-center mx-auto lg:mx-0 md:text-left font-bold leading-tight mb-6">
               Join With
               <br />
               <span className="text-orange-600 text-7xl">RannaFy</span>
@@ -91,8 +91,8 @@ const Registration = () => {
           </div>
         </div>
 
-        <div className="w-8/12 mx-auto">
-          <h2 className="text-3xl font-semibold mb-6 text-primary">
+        <div className="w-11/12 md:w-8/12 mx-auto">
+          <h2 className="text-2xl lg:text-3xl font-semibold mb-6 text-primary">
             Create Rannafy Account
           </h2>
           <form onSubmit={handleSubmit(handleRegister)}>

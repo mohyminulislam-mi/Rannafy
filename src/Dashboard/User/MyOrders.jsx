@@ -36,6 +36,10 @@ const MyOrders = () => {
       <div className="mb-6 mt-12 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800 ">My Orders</h1>
       </div>
+      {
+        orders.length === 0? <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <p className="text-gray-500 text-lg">No My Orders found</p>
+        </div> : 
       <div className="grid gap-4">
         {orders.map((order) => (
           <div key={order._id} className="bg-white rounded-lg shadow p-6">
@@ -103,6 +107,7 @@ const MyOrders = () => {
           </div>
         ))}
       </div>
+      }
     </div>
   );
 };

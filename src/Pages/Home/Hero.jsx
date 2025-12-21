@@ -25,7 +25,7 @@ const Hero = () => {
     <section className="w-full">
       <div
         className="relative overflow-hidden rounded-2xl 
-        h-[40vh] sm:h-[55vh] md:h-[70vh] lg:h-[80vh] xl:h-[85vh]"
+        h-[40vh] md:h-[70vh] lg:h-[80vh] xl:h-[85vh]"
       >
         {/* Background Image */}
         <img
