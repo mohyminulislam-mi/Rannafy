@@ -48,6 +48,9 @@ const Order = () => {
       setValue("price", updated);
     }
   }, [quantity, order]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handlePlaceOrder = (data) => {
     const finalPrice = data.quantity * order.price;

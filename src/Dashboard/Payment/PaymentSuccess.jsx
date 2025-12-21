@@ -29,7 +29,7 @@ const PaymentSuccess = () => {
   }
 
   return (
-    <div className="max-w-xl mx-auto p-8 bg-white shadow rounded">
+    <div className="max-w-xl mx-auto mt-5 p-8 bg-white shadow rounded">
       <title>Rannafy | Payment Successful</title>
       <h1 className="text-2xl font-bold text-green-600 mb-4">
         Payment Successful 🎉

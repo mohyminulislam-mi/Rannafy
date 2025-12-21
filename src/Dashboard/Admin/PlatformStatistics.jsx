@@ -65,7 +65,7 @@ const PlatformStatistics = () => {
           <div className="flex items-center justify-between mb-4">
             <BarChart3 className="text-orange-600" size={32} />
           </div>
-          <h3 className="text-2xl font-bold text-gray-800">{`$${totalPayment}`}</h3>
+          <h3 className="text-2xl font-bold text-gray-800">{`$${totalPayment.toFixed(2)}`}</h3>
           <p className="text-gray-600">Total Payment</p>
         </div>
         {/* total Users */}

@@ -20,60 +20,37 @@ const CreateMeal = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    const toastId = toast.loading("Uploading image & saving meal...");
 
     try {
-      // image upload
-      const profileImg = data.photo[0];
-      const formData = new FormData();
-      formData.append("image", profileImg);
-
-      const imageApiUrl = `https://api.imgbb.com/1/upload?key=${
-        import.meta.env.VITE_image_host
-      }`;
-
-      const imgRes = await axiosSecure.post(imageApiUrl, formData);
-      const photoURL = imgRes.data.data.url;
-
-      //  meal data post
+      // Meal data
       const mealData = {
         chefEmail: users?.email,
         chefName: users?.displayName,
         chefId: users?.chefId,
         foodName: data.foodName,
-        foodImage: photoURL,
+        foodImage: data.photoURL, // <-- now using URL input
         price: parseFloat(data.price),
         rating: Number(data.rating) || 0,
         ingredients: data.ingredients.split(",").map((i) => i.trim()),
         estimatedDeliveryTime: data.estimatedDeliveryTime,
+        deliveryArea: data.deliveryArea,
         chefExperience: data.chefExperience,
       };
 
-      //  save meal
+      // Save meal
       await axiosSecure.post("/meals", mealData);
 
-      toast.update(toastId, {
-        render: "Meal created successfully!",
-        type: "success",
-        isLoading: false,
-        autoClose: 2000,
-      });
-
+      toast.success("Meal created successfully!");
       reset();
       navigate("/dashboard/my-meals");
     } catch (error) {
-      toast.update(toastId, {
-        render:
-          error.response?.data?.message ||
-          "You are a fraud user. You cannot add meals.",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
+      console.log("error", error);
+      toast.error("Error creating meal");
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center py-10">
       <title>Rannafy | Create your Meals</title>
@@ -82,43 +59,6 @@ const CreateMeal = () => {
           🍴 Create a New Meal
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Chef Name */}
-          {/* <div>
-            <label className="block text-sm font-semibold text-gray-700">
-              Chef Name
-            </label>
-            <input
-              type="text"
-              {...register("chefName", { required: true })}
-              className="mt-1 w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2"
-              placeholder="e.g. John Doe"
-            />
-          </div> */}
-          {/* User Email */}
-          {/* <div>
-            <label className="block text-sm font-semibold text-gray-700">
-              User Email
-            </label>
-            <input
-              type="email"
-              value={userEmail}
-              readOnly
-              className="mt-1 w-full rounded-lg border-gray-300 shadow-sm px-4 py-2 bg-gray-100 text-gray-600"
-            />
-          </div> */}
-          {/* Chef ID */}
-          {/* <div>
-            <label className="block text-sm font-semibold text-gray-700">
-              Chef ID
-            </label>
-            <input
-              type="text"
-              {...register("chefId", { required: true })}
-              className="mt-1 w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2"
-              placeholder="chef_123456"
-            />
-          </div> */}
-
           {/* Food Name */}
           <div>
             <label className="block text-sm font-semibold text-gray-700">
@@ -135,17 +75,20 @@ const CreateMeal = () => {
             )}
           </div>
 
-          {/* Food Image Upload */}
+          {/* Food Image URL */}
           <div>
             <label className="block text-sm font-semibold text-gray-700">
-              Food Image
+              Food Image URL
             </label>
             <input
-              type="file"
-              {...register("photo", { required: true })}
-              className="file-input rounded-lg w-full mt-1"
+              type="text"
+              {...register("photoURL", { required: true })}
+              className="mt-1 w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2"
+              placeholder="https://example.com/image.jpg"
             />
-            {errors.photo && <p className="text-red-500">Photo required</p>}
+            {errors.photoURL && (
+              <p className="text-red-500">Image URL required</p>
+            )}
           </div>
 
           {/* Price */}
@@ -200,7 +143,7 @@ const CreateMeal = () => {
             />
           </div>
 
-          {/* deliveryArea */}
+          {/* Delivery Area */}
           <div>
             <label className="block text-sm font-semibold text-gray-700">
               Delivery Area
@@ -232,11 +175,11 @@ const CreateMeal = () => {
               disabled={loading}
               className={`btn ${
                 loading
-                  ? "bg-gray-600 mt-3 text-white py-2.5 px-3.5 rounded-sm transition-colors duration-200 "
+                  ? "bg-gray-600 mt-3 text-white py-2.5 px-3.5 rounded-sm transition-colors duration-200"
                   : "rannafy-btn"
               }`}
             >
-              {loading ? "Uploading..." : "Add Meal"}
+              {loading ? "Saving..." : "Add Meal"}
             </button>
           </div>
         </form>

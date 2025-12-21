@@ -68,7 +68,7 @@ const Hero = () => {
 
             <motion.div variants={itemVariants}>
               <Link
-                to="/"
+                to="/meals"
                 className="inline-block
                   px-3 sm:px-3 py-2 sm:py-2
                   text-sm sm:text-base font-semibold lg:font-bold
