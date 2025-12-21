@@ -183,7 +183,7 @@ const CreateMeal = () => {
             <textarea
               {...register("ingredients", { required: true })}
               className="mt-1 w-full rounded-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2"
-              placeholder="Chicken breast, Lettuce, Tomatoes..."
+              placeholder="Chicken, Lettuce, Tomatoes..."
             />
           </div>
 

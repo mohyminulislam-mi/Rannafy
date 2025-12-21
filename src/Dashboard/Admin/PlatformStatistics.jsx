@@ -54,9 +54,11 @@ const PlatformStatistics = () => {
   return (
     <div className="p-6 space-y-8">
       <title>Rannafy | Platform Statistics</title>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
-        Platform Statistics
-      </h1>
+      <div className="mb-6 mt-12 lg:mt-0">
+        <h1 className="text-3xl font-bold text-gray-800 ">
+          Platform Statistics
+        </h1>
+      </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         {/* total Payment */}
         <div className="bg-white rounded-lg shadow p-6">

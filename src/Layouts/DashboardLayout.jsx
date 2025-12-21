@@ -21,6 +21,7 @@ import { NavLink, Outlet, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import useRole from "../hooks/useRole";
+import DashboardLogo from "../components/Shared/DashboardLogo";
 
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -101,7 +102,9 @@ const DashboardLayout = () => {
       {/* Mobile Header */}
       <div className="lg:hidden bg-white shadow-sm fixed top-0 left-0 right-0 z-20">
         <div className="flex items-center justify-between p-4">
-          <h1 className="text-xl font-bold text-gray-800">Dashboard</h1>
+          <div>
+            <DashboardLogo />
+          </div>
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
             {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

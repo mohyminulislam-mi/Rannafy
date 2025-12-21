@@ -58,7 +58,7 @@ const MyReviews = () => {
   return (
     <div>
       <title>Rannafy | My Reviews</title>
-      <div className="mb-6 mt-7 lg:mt-0">
+      <div className="mb-6 mt-12 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800 ">My Reviews</h1>
       </div>
       <div className="grid gap-4">

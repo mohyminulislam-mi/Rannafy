@@ -60,9 +60,9 @@ const ManageRequests = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div>
       <title>Rannafy | Manage Requests</title>
-      <div className="mb-6 mt-7 lg:mt-0">
+      <div className="mb-6 mt-12 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800 ">Manage Requests</h1>
       </div>
 
@@ -73,7 +73,7 @@ const ManageRequests = () => {
       ) : (
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
+            <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
                   <th className="my-th">User Name</th>

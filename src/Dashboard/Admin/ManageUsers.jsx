@@ -60,7 +60,7 @@ const ManageUsers = () => {
   return (
     <div>
       <title>Rannafy | Manage Users</title>
-      <div className="mb-6 mt-7 lg:mt-0">
+      <div className="mb-6 mt-12 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800 ">Manage Users</h1>
       </div>
       {users.length === 0 ? (

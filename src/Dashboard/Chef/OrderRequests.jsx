@@ -51,7 +51,7 @@ const OrderRequests = () => {
   return (
     <div>
       <title>Rannafy | Order Requests</title>
-      <div className="mb-6 mt-7 lg:mt-0">
+      <div className="mb-6 mt-12 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800">Order Requests</h1>
       </div>
 
@@ -122,7 +122,7 @@ const OrderRequests = () => {
                 </div>
 
                 {/* actions buttons */}
-                <div className="flex gap-2 self-center">
+                <div className="flex gap-2 self-center mt-8 md:mt-0">
                   {/* Cancelled button */}
                   {isCancelled && (
                     <span className="rannafy-status">Cancelled</span>
@@ -158,7 +158,7 @@ const OrderRequests = () => {
                         Deliver
                       </button>
 
-                      {/* Cancel (order not accepted) */}
+                      {/* Cancel  */}
                       {!isAccepted && (
                         <button
                           onClick={() => handleOrder(order._id, "cancelled")}

@@ -47,10 +47,11 @@ const MyProfile = () => {
   return (
     <div>
       <title>Rannafy | My Profile</title>
-      <h1 className="text-3xl font-bold text-gray-800 mt-9 lg:mt-0">
-        My Profile
-      </h1>
-      <div className="flex justify-center items-center pt-[12%] px-4">
+      <div className="mb-6 mt-12 lg:mt-0">
+        <h1 className="text-3xl font-bold text-gray-800 ">My Profile</h1>
+      </div>
+
+      <div className="flex justify-center items-center pt-0 lg:pt-[12%] px-4">
         <div className="bg-white shadow-xl rounded-xl overflow-hidden w-full max-w-4xl flex flex-col lg:flex-row">
           {/* Sidebar */}
           <div className="bg-linear-to-b from-primary to-orange-600 text-white flex flex-col items-center p-6 lg:w-1/3 relative">

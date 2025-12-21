@@ -48,7 +48,7 @@ const MyMeals = () => {
   return (
     <>
       <title>Rannafy | My Meals</title>
-      <div className="mb-6 mt-7 lg:mt-0">
+      <div className="mb-6 mt-12 lg:mt-0">
         <h1 className="text-3xl font-bold text-gray-800">My Meals</h1>
       </div>
 
@@ -127,14 +127,14 @@ const MyMeals = () => {
                     setSelectedMeal(meal);
                     setShowUpdateModal(true);
                   }}
-                  className="rannafy-btn flex-1"
+                  className="rannafy-btn flex items-center gap-2 flex-1 text-center"
                 >
                   <Edit size={16} /> Update
                 </button>
 
                 <button
                   onClick={() => handleDelete(meal._id)}
-                  className="rannafy-delete-btn flex-1"
+                  className="rannafy-delete-btn flex items-center gap-2 flex-1 text-center"
                 >
                   <Trash2 size={16} /> Delete
                 </button>

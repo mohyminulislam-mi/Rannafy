@@ -33,7 +33,9 @@ const MyOrders = () => {
   return (
     <div>
       <title>Rannafy | My Orders</title>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">My Orders</h1>
+      <div className="mb-6 mt-12 lg:mt-0">
+        <h1 className="text-3xl font-bold text-gray-800 ">My Orders</h1>
+      </div>
       <div className="grid gap-4">
         {orders.map((order) => (
           <div key={order._id} className="bg-white rounded-lg shadow p-6">
@@ -76,7 +78,7 @@ const MyOrders = () => {
               </div>
 
               {/* --- payments status change buttons --- */}
-              <div className="px-4 py-2  rounded-full text-sm font-medium ">
+              <div className="px-4 py-2  rounded-full text-sm font-medium mt-6 md:mt-0">
                 {order.paymentStatus === "pending" ? (
                   <span className="rannafy-pending"> Order pending </span>
                 ) : order.paymentStatus === "cancelled" ? (
