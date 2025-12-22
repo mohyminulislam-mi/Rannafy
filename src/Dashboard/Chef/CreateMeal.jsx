@@ -20,15 +20,14 @@ const CreateMeal = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-
+    const toastId = toast.loading("Uploading image & saving meal...");
     try {
-      // Meal data
       const mealData = {
         chefEmail: users?.email,
         chefName: users?.displayName,
         chefId: users?.chefId,
         foodName: data.foodName,
-        foodImage: data.photoURL, // <-- now using URL input
+        foodImage: data.photoURL,
         price: parseFloat(data.price),
         rating: Number(data.rating) || 0,
         ingredients: data.ingredients.split(",").map((i) => i.trim()),
@@ -44,8 +43,14 @@ const CreateMeal = () => {
       reset();
       navigate("/dashboard/my-meals");
     } catch (error) {
-      console.log("error", error);
-      toast.error("Error creating meal");
+      toast.update(toastId, {
+        render:
+          error.response?.data?.message ||
+          "You are a fraud user. You cannot add meals.",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     } finally {
       setLoading(false);
     }
