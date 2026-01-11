@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import logo from "/favicon.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import SocialLogin from "./SocialLogin";
 
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
@@ -145,6 +146,11 @@ const Login = () => {
               Signup
             </Link>
           </p>
+          {/* singIn With Google */}
+          <p className="mt-5 font-semibold text-lg text-center ">Or</p>
+          <div className="w-full mt-2">
+            <SocialLogin />
+          </div>
         </div>
       </div>
     </div>
