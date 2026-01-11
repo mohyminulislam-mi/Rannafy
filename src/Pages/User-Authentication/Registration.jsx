@@ -108,7 +108,7 @@ const Registration = () => {
             {errors.name && <p className="text-red-500">Name is required</p>}
 
             {/* Photo */}
-            <label className="block text-sm font-semibold text-gray-700 ml-2 mt-3">
+            {/* <label className="block text-sm font-semibold text-gray-700 ml-2 mt-3">
               Upload Profile
             </label>
 
@@ -117,7 +117,7 @@ const Registration = () => {
               {...register("photo", { required: true })}
               className="file-input rounded-full w-full mt-1"
             />
-            {errors.photo && <p className="text-red-500">Photo required</p>}
+            {errors.photo && <p className="text-red-500">Photo required</p>} */}
 
             {/* Email */}
             <label className="block text-sm font-semibold text-gray-700 mt-3 ml-2">

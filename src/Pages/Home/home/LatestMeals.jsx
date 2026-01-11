@@ -4,10 +4,11 @@ import Reveal from "../../../components/Reveal";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
+import Skeleton from "../../../components/Shared/Loading/Skeleton";
 
 const LatestMeals = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: meals = [] } = useQuery({
+  const { data: meals = [], isLoading } = useQuery({
     queryKey: ["latest-meals"],
     queryFn: async () => {
       const res = await axiosSecure.get("latest-meals");
@@ -15,6 +16,9 @@ const LatestMeals = () => {
     },
   });
 
+  if (isLoading) {
+    return <Skeleton />
+  }
   return (
     <div className="py-14">
       {/* Heading & Subheading */}

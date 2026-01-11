@@ -140,7 +140,7 @@ const MealDetails = () => {
 
               <p className="text-gray-600 flex">
                 <TbToolsKitchen3 className="mt-0.5 mr-2 text-2xl text-primary" />{" "}
-                Ingredients: {meal.ingredients}
+                Ingredients: {meal.ingredients.join(" , ")}
               </p>
             </div>
 
@@ -178,6 +178,13 @@ const MealDetails = () => {
         </div>
       </Reveal>
 
+      <div className="py-10 lg:p-6">
+        <h3 className="text-xl">Description</h3>
+        <p className="mt-2">
+          Your daily dose of delicious recipes made by real home cooks — just
+          like you.
+        </p>
+      </div>
       <Reveal>
         {/* Review Section */}
         <div className="py-10 lg:p-6">

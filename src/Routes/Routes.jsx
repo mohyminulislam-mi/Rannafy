@@ -5,6 +5,7 @@ import Login from "../Pages/User-Authentication/Login";
 import Registration from "../Pages/User-Authentication/Registration";
 import Meals from "../Pages/Meals/Meals";
 import MealDetails from "../Pages/Meals/MealDetails";
+import Contact from "../Pages/Contact/Contact";
 import Order from "../Pages/Order/Order";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import MyProfile from "../Dashboard/profile/MyProfile";
@@ -33,15 +34,12 @@ const router = createBrowserRouter([
       { path: "/meals", element: <Meals /> },
       {
         path: "/meals/:id",
-        element: (
-          <PrivateRoutes>
-            <MealDetails />
-          </PrivateRoutes>
-        ),
+        element: <MealDetails />,
       },
       { path: "/order/:id", element: <Order /> },
       { path: "/login", element: <Login /> },
       { path: "/registration", element: <Registration /> },
+      { path: "/contact", element: <Contact /> },
     ],
   },
   // Dashboard layout

@@ -6,6 +6,7 @@ import MealCard from "../../components/MealCard";
 import SearchNotFound from "../../components/SearchNotFound";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Reveal from "../../components/Reveal";
+import Skeleton from "../../components/Shared/Loading/Skeleton";
 
 const Meals = () => {
   const axiosSecure = useAxiosSecure();
@@ -32,6 +33,9 @@ const Meals = () => {
   const total = data.total || 0;
   const totalPages = Math.ceil(total / limit);
 
+  if (isLoading) {
+    return <Skeleton />;
+  }
   return (
     <Reveal>
       <div className="w-11/12 mx-auto">

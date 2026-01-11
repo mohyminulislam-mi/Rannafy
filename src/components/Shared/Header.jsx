@@ -12,6 +12,7 @@ import { IoHome } from "react-icons/io5";
 import Logo from "./Logo";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
+import { MdContactSupport } from "react-icons/md";
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -50,6 +51,7 @@ const Header = () => {
   const menuItems = [
     { name: "Home", path: "/", icon: IoHome },
     { name: "Meals", path: "/meals", icon: CookingPot },
+    { name: "Contact", path: "/contact", icon: MdContactSupport },
     ...(user
       ? [{ name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" }]
       : []),
