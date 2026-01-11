@@ -23,6 +23,7 @@ import AdminRoutes from "../Routes/AdminRoutes";
 import ChefRoutes from "../Routes/ChefRoutes";
 import NotFound from "../components/NotFound";
 import MyMeals from "../Dashboard/Chef/MyMeals";
+import ForgetPassword from "../Pages/User-Authentication/ForgetPassword";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
       { path: "/order/:id", element: <Order /> },
       { path: "/login", element: <Login /> },
       { path: "/registration", element: <Registration /> },
+      { path: "/forget-password", element: <ForgetPassword /> },
       { path: "/contact", element: <Contact /> },
     ],
   },

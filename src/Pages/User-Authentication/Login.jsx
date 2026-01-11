@@ -10,118 +10,138 @@ const Login = () => {
   const [showPass, setShowPass] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
+
   const { singInUser } = useAuth();
 
-  const handleLogin = (data) => {
-    singInUser(data.email, data.password)
-      .then((result) => {
-        toast.success("Welcome back!");
-        navigate(location?.state || "/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleLogin = async (data) => {
+    try {
+      await singInUser(data.email, data.password);
+      toast.success("Welcome back!");
+      navigate(location?.state || "/");
+    } catch (error) {
+      //  Email + password mismatch
+      if (
+        error.code === "auth/invalid-credential" ||
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/user-not-found"
+      ) {
+        toast.error("Email or password does not match");
+        return;
+      }
+
+      //  Invalid email (Firebase level)
+      if (error.code === "auth/invalid-email") {
+        setError("email", {
+          type: "manual",
+          message: "Please enter a valid email address",
+        });
+        return;
+      }
+
+      //  Any other error
+      toast.error("Something went wrong. Please try again.");
+    }
   };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
-    <div className="min-h-screen lg:p-6 p-4 text-left text-sm">
+    <div className="min-h-screen lg:p-6 p-4 text-sm">
       <title>Rannafy | User Login</title>
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2  gap-6 lg:gap-12 items-center rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10">
-        {/* logo and texts */}
-        <div className="lg:p-12 p-6 flex flex-col justify-center h-2/3 md:border-r-2 md:border-orange-600">
-          {/* logo  */}
-          <div className="mb-3 lg:mb-10 mx-auto">
+
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10">
+        {/* LEFT */}
+        <div className="lg:p-12 p-6 flex flex-col justify-center md:border-r-2 border-orange-600">
+          <div className="mb-10 mx-auto">
             <img src={logo} alt="logo" className="h-48 w-48" />
           </div>
 
-          <h1 className="text-3xl lg:text-5xl text-center md:text-left font-bold leading-tight mb-6">
-            Welcome Back to,
-            <br />
+          <h1 className="text-5xl font-bold mb-6">
+            Welcome Back to <br />
             <span className="text-orange-600">RannaFy</span>
           </h1>
 
-          <p className="text-xl lg:text-2xl md:text-left text-center opacity-95 leading-relaxed">
-            Discover thousands of delicious recipes, save your favorites, and
-            share your own culinary creations.
+          <p className="text-xl">
+            Discover thousands of delicious recipes and share your creations.
           </p>
         </div>
-        <div className="w-11/12 lg:w-8/12 mx-auto">
-          <h2 className="text-3xl font-semibold mb-6 text-primary">
-            Login RannaFy
-          </h2>
+
+        {/* RIGHT */}
+        <div className="w-11/12 lg:w-8/12 mx-auto py-10">
+          <h2 className="text-3xl font-semibold mb-6">Login</h2>
+
           <form onSubmit={handleSubmit(handleLogin)}>
-            {/* Email */}
-            <label className="block text-sm font-semibold text-gray-700 mt-3 ml-2">
-              Email Address
-            </label>
+            {/* EMAIL */}
+            <label className="ml-2 mt-3 block">Email Address</label>
             <input
-              id="email"
-              {...register("email", { required: true })}
-              className="w-full bg-transparent border mt-3 border-gray-500/30 outline-none rounded-full py-2.5 px-4"
-              type="email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Please enter a valid email",
+                },
+              })}
+              className={`w-full border rounded-full px-4 py-2 mt-1 outline-none ${
+                errors.email ? "border-red-500" : "border-gray-400"
+              }`}
               placeholder="Enter your email"
-              required
             />
-            {errors.email?.type === "required" && (
-              <p className="text-red-500">email is required</p>
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1 ml-2">
+                {errors.email.message}
+              </p>
             )}
-            {/* Password */}
-            <label className="block text-sm font-semibold text-gray-700 mt-3 ml-2">
-              Password
-            </label>
+
+            {/* PASSWORD */}
+            <label className="ml-2 mt-3 block">Password</label>
             <div className="relative">
               <input
                 type={showPass ? "text" : "password"}
                 {...register("password", {
-                  required: true,
-                  minLength: 6,
-                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{6,}$/,
+                  required: "Password is required",
                 })}
-                className="w-full bg-transparent border mt-1 border-gray-500/30 outline-none rounded-full py-2.5 px-4"
-                placeholder="Enter your Password"
+                className={`w-full border rounded-full px-4 py-2 mt-1 outline-none ${
+                  errors.password ? "border-red-500" : "border-gray-400"
+                }`}
+                placeholder="Enter password"
               />
               <span
-                className="absolute right-4 bottom-3.5 cursor-pointer text-gray-600"
+                className="absolute right-4 top-3 cursor-pointer"
                 onClick={() => setShowPass(!showPass)}
               >
                 {showPass ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
 
-            {errors.password?.type === "minLength" && (
-              <p className="text-red-500">
-                Password must be at least 6 characters
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1 ml-2">
+                {errors.password.message}
               </p>
             )}
-            {errors.password?.type === "pattern" && (
-              <p className="text-red-500">Use strong password like AaBb2@</p>
-            )}
+
             <div className="text-right py-4">
-              <Link to={"/forget-password"} className="text-primary underline">
-                Forgot Password
+              <Link to="/forget-password" className="underline text-primary">
+                Forgot Password?
               </Link>
             </div>
-            <button
-              type="submit"
-              className="w-full rounded-full bg-orange-500 mt-3 text-white py-3 px-2 hover:bg-orange-600 transition-colors cursor-pointer"
-            >
+
+            <button className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-full py-3 cursor-pointer">
               Log in
             </button>
           </form>
-          <p className="text-center mt-4 mb-4">
+
+          <p className="text-center mt-4">
             Don’t have an account?{" "}
-            <Link
-              state={location.state}
-              to={"/registration"}
-              className="text-primary underline"
-            >
+            <Link to="/registration" className="underline text-orange-600">
               Signup
             </Link>
           </p>
