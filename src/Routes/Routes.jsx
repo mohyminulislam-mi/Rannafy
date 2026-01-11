@@ -24,6 +24,7 @@ import ChefRoutes from "../Routes/ChefRoutes";
 import NotFound from "../components/NotFound";
 import MyMeals from "../Dashboard/Chef/MyMeals";
 import ForgetPassword from "../Pages/User-Authentication/ForgetPassword";
+import About from "../Pages/About/About";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       { path: "/registration", element: <Registration /> },
       { path: "/forget-password", element: <ForgetPassword /> },
       { path: "/contact", element: <Contact /> },
+      { path: "/about", element: <About /> },
     ],
   },
   // Dashboard layout

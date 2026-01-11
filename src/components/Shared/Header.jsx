@@ -1,18 +1,9 @@
 import { useState, useRef, useEffect, useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import {
-  Menu,
-  X,
-  LogOut,
-  LayoutDashboard,
-  UserCircle,
-  CookingPot,
-} from "lucide-react";
-import { IoHome } from "react-icons/io5";
+import { Menu, X, LogOut, LayoutDashboard, UserCircle } from "lucide-react";
 import Logo from "./Logo";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
-import { MdContactSupport } from "react-icons/md";
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -49,12 +40,11 @@ const Header = () => {
 
   // Public menu
   const menuItems = [
-    { name: "Home", path: "/", icon: IoHome },
-    { name: "Meals", path: "/meals", icon: CookingPot },
-    { name: "Contact", path: "/contact", icon: MdContactSupport },
-    ...(user
-      ? [{ name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" }]
-      : []),
+    { name: "Home", path: "/" },
+    { name: "Meals", path: "/meals" },
+    { name: "Contact", path: "/contact" },
+    { name: "About", path: "/about" },
+    ...(user ? [{ name: "Dashboard", path: "/dashboard" }] : []),
   ];
 
   useEffect(() => {
@@ -84,9 +74,8 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex space-x-5">
           {menuItems.map((item) => {
-            const Icon = item.icon;
             return (
               <Link
                 key={item.name}
@@ -97,14 +86,13 @@ const Header = () => {
                     : "text-gray-700 hover:text-orange-500"
                 }`}
               >
-                <Icon className="w-4 h-4 mr-1" />
                 {item.name}
               </Link>
             );
           })}
         </nav>
 
-        {/* Right Icons */}
+        {/* Right  */}
         <div className="flex items-center space-x-4">
           <div className="hidden sm:block relative" ref={userDropdownRef}>
             {user ? (
@@ -178,7 +166,6 @@ const Header = () => {
         <div className="md:hidden py-4 border-t border-gray-200">
           <nav className="flex flex-col space-y-3">
             {menuItems.map((item) => {
-              const Icon = item.icon;
               return (
                 <Link
                   key={item.name}
@@ -190,7 +177,6 @@ const Header = () => {
                       : "text-gray-700 hover:bg-orange-50 hover:text-orange-500"
                   }`}
                 >
-                  <Icon className="w-5 h-5 mr-2" />
                   {item.name}
                 </Link>
               );
