@@ -26,22 +26,22 @@ export default function Footer() {
             <h3 className="text-xl font-bold text-white mb-6">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/" className="hover:text-primary transition">
+                <Link to="/about" className="hover:text-primary transition">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/" className="hover:text-primary transition">
+                <Link to="/contact" className="hover:text-primary transition">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="/" className="hover:text-primary transition">
+                <Link to="/" className="hover:text-primary transition">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/" className="hover:text-primary transition">
+                <Link to="/" className="hover:text-primary transition">
                   Terms of Service
                 </Link>
               </li>
