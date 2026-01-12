@@ -20,14 +20,21 @@ const MealCard = ({ meal }) => {
 
       {/* Content */}
       <div className="p-4 sm:p-5">
-        {/* Chef Info */}
+        {/* meals Info */}
         <div className="mb-3 flex items-center gap-2 text-sm">
+          <div>
+            <p className="font-semibold text-gray-700">{meal.foodName}</p>
+          </div>
+        </div>
+
+        {/* Chef Info */}
+        {/* <div className="mb-3 flex items-center gap-2 text-sm">
           <ChefHat size={16} className="text-gray-600" />
           <div>
             <p className="font-semibold text-gray-700">{meal.chefName}</p>
             <p className="text-xs text-gray-500">Chef ID: {meal.chefId}</p>
           </div>
-        </div>
+        </div> */}
 
         {/* Rating */}
         <div className="mb-3">
@@ -51,7 +58,7 @@ const MealCard = ({ meal }) => {
 
         {/* Location */}
         <p className="my-1 text-sm font-semibold flex items-center gap-1">
-          <FaLocationDot className="text-primary"/> Delivery:{" "}
+          <FaLocationDot className="text-primary" /> Delivery:{" "}
           <span className="text-gray-600">{meal.deliveryArea}</span>{" "}
         </p>
 
