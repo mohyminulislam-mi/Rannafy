@@ -2,11 +2,11 @@ import React from "react";
 
 const Partnership = () => {
   return (
-    <div>
-      <h3 className="text-lg text-gray-800 text-center">
-        Leading companies rely on Prebuiltui to make their website beautiful.
-      </h3>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-5 mt-12 max-md:px-4 max-w-5xl mx-auto">
+    <div className="mt-10">
+      <h1 className="text-4xl font-bold text-orange-600 text-center">
+       Our Partners
+      </h1>
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-5 mt-5 mb-16 max-md:px-4 max-w-5xl mx-auto">
         <div className="flex items-center justify-center border rounded-lg shadow hover:shadow-lg transition-all border-slate-200 p-5">
           <svg
             width="90"

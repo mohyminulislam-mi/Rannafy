@@ -1,51 +1,47 @@
 import React from "react";
+import Meals from "../../../assets/meals.jpg";
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = React.useState(null);
 
   const faqs = [
     {
-      question: "How to use this component?",
+      question: "How do I order a meal?",
       answer:
-        "To use this component, you need to import it in your project and use it in your JSX code. Here's an example of how to use it:",
+        "To order a meal, simply browse the available home chefs in your area, select your favorite dish, and add it to your cart. You can then proceed to checkout and choose your preferred delivery or pickup time.",
     },
     {
-      question: "Are there any other components available?",
+      question: "Are there different cuisines available?",
       answer:
-        "Yes, there are many other components available in this library. You can find them in the 'Components' section of the website.",
+        "Yes, Rannafy features a wide variety of local home chefs offering everything from traditional comfort foods to authentic international cuisines. You can explore them all in the 'Explore Meals' section of the platform.",
     },
     {
-      question: "Are components responsive?",
+      question: "Is the food prepared fresh?",
       answer:
-        "Yes, all components are responsive and can be used on different screen sizes.",
+        "Yes, all meals are prepared fresh by local home cooks upon receiving your order, ensuring you get high-quality, authentic flavors delivered straight to your door.",
     },
     {
-      question: "Can I customize the components?",
+      question: "Can I customize my order for dietary needs?",
       answer:
-        "Yes, you can customize the components by passing props to them. You can find more information about customizing components in the 'Customization' section of the website.",
+        "Yes, you can customize your meals by leaving specific instructions for the chef or selecting dietary preferences (like vegan or gluten-free) where available. For more details, check the 'Special Requests' section on the meal's page.",
     },
   ];
   return (
     <>
-      <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-            
-                * {
-                    font-family: 'Poppins', sans-serif;
-                }
-            `}</style>
-      <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-start justify-center gap-8 px-4 md:px-0">
+      <div className="w-8/12 mx-auto flex flex-col md:flex-row items-start justify-center gap-8 px-4 md:px-0 my-10">
         <img
-          className="max-w-sm w-full rounded-xl h-auto"
-          src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?q=80&w=830&h=844&auto=format&fit=crop"
-          alt=""
+          className="max-w-sm w-full rounded-xl h-96"
+          src={Meals}
+          alt="Meals"
         />
         <div>
           <p className="text-indigo-600 text-sm font-medium">FAQ's</p>
-          <h1 className="text-3xl font-semibold">Looking for answer?</h1>
+          <h1 className="text-3xl font-semibold">
+            Authentic Meals, Made Simple.
+          </h1>
           <p className="text-sm text-slate-500 mt-2 pb-4">
-            Ship Beautiful Frontends Without the Overhead — Customizable,
-            Scalable and Developer-Friendly UI Components.
+            Taste the Best Your Community Has to Offer — Handcrafted, Freshly
+            Prepared, and Ready Whenever You Are.
           </p>
           {faqs.map((faq, index) => (
             <div
