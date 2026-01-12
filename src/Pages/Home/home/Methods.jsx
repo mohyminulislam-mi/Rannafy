@@ -1,9 +1,10 @@
 import React from "react";
 import Card from "../../../assets/card.png";
+import Reveal from "../../../components/Reveal";
 
 const Methods = () => {
   return (
-    <>
+    <Reveal>
       {/* Heading */}
       <div className="text-center mb-4">
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
@@ -11,7 +12,7 @@ const Methods = () => {
           <span className="text-orange-600"> Rannafy</span>
         </h2>
       </div>
-      <div className="flex flex-col md:flex-row items-center">
+      <div className="flex flex-col lg:flex-row items-center">
         <img className="max-w-2xl w-full" src={Card} alt="Card" />
         <div className="space-y-10 px-4 md:px-0">
           <div className="flex items-center justify-center gap-6 max-w-md">
@@ -113,7 +114,7 @@ const Methods = () => {
           </div>
         </div>
       </div>
-    </>
+    </Reveal>
   );
 };
 

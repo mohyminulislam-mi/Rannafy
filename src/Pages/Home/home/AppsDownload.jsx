@@ -1,9 +1,11 @@
 import React from "react";
 import Chef from "../../../assets/chef.png";
+import Reveal from "../../../components/Reveal";
 
 const AppsDownload = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-around mx-auto text-sm border border-gray-300 rounded-lg my-7 p-2 max-w-5xl w-full bg-white">
+    <Reveal>
+    <div className="flex flex-col-reverse md:flex-row items-center justify-around mx-auto text-sm border border-gray-300 rounded-lg my-7 p-2 max-w-5xl w-full bg-white">
       <div className="flex flex-col text-center md:text-left items-center md:items-start pt-14 md:p-10">
         <h2 className="md:text-4xl text-2xl font-semibold text-gray-800">
           Download Mobile App
@@ -44,6 +46,7 @@ const AppsDownload = () => {
 
       <img className="w-[200px] pt-10 md:p-0" src={Chef} alt="Chef" />
     </div>
+    </Reveal>
   );
 };
 

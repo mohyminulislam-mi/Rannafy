@@ -1,4 +1,5 @@
 import React from "react";
+import Reveal from "../../../components/Reveal";
 
 const blogData = [
   {
@@ -29,39 +30,41 @@ const blogData = [
 
 const Blogs = () => {
   return (
-    <section className="py-12 px-4">
-      {/* Heading */}
-      <div className="text-center mb-4">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
-          Rannafy
-          <span className="text-orange-600"> Food Journal</span>
-        </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Tips, tricks, and stories from the heart of local kitchens. Learn how
-          to eat better and support your community.
-        </p>
-      </div>
+    <Reveal>
+      <section className="py-12 px-4">
+        {/* Heading */}
+        <div className="text-center mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
+            Rannafy
+            <span className="text-orange-600"> Food Journal</span>
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Tips, tricks, and stories from the heart of local kitchens. Learn
+            how to eat better and support your community.
+          </p>
+        </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-8 pt-12">
-        {blogData.map((post) => (
-          <div key={post.id} className="max-w-72 w-full group cursor-pointer">
-            <div className="overflow-hidden rounded-xl">
-              <img
-                className="h-48 w-full object-cover transition duration-500 group-hover:scale-110"
-                src={post.img}
-                alt={post.title}
-              />
+        <div className="flex flex-wrap items-center justify-center gap-8 pt-12">
+          {blogData.map((post) => (
+            <div key={post.id} className="max-w-72 w-full group cursor-pointer">
+              <div className="overflow-hidden rounded-xl">
+                <img
+                  className="h-48 w-full object-cover transition duration-500 group-hover:scale-110"
+                  src={post.img}
+                  alt={post.title}
+                />
+              </div>
+              <p className="text-xs text-orange-600 font-bold mt-4 uppercase tracking-widest">
+                {post.category}
+              </p>
+              <h3 className="text-base text-slate-900 font-bold mt-2 leading-tight group-hover:text-orange-600 transition duration-300">
+                {post.title}
+              </h3>
             </div>
-            <p className="text-xs text-orange-600 font-bold mt-4 uppercase tracking-widest">
-              {post.category}
-            </p>
-            <h3 className="text-base text-slate-900 font-bold mt-2 leading-tight group-hover:text-orange-600 transition duration-300">
-              {post.title}
-            </h3>
-          </div>
-        ))}
-      </div>
-    </section>
+          ))}
+        </div>
+      </section>
+    </Reveal>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from "react";
 import Meals from "../../../assets/meals.jpg";
+import Reveal from "../../../components/Reveal";
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = React.useState(null);
@@ -27,8 +28,8 @@ const FAQ = () => {
     },
   ];
   return (
-    <>
-      <div className="w-8/12 mx-auto flex flex-col md:flex-row items-start justify-center gap-8 px-4 md:px-0 my-10">
+    <Reveal>
+      <div className="lg:w-8/12 mx-auto flex flex-col md:flex-row items-start justify-center gap-8 px-4 md:px-0 my-10">
         <img
           className="max-w-sm w-full rounded-xl h-96"
           src={Meals}
@@ -83,7 +84,7 @@ const FAQ = () => {
           ))}
         </div>
       </div>
-    </>
+    </Reveal>
   );
 };
 

@@ -1,8 +1,9 @@
 import React from "react";
+import Reveal from "../../../components/Reveal";
 
 const Newsletter = () => {
   return (
-    <>
+    <Reveal>
       <div className="w-full bg-slate-900 px-2 text-center text-white py-20 flex flex-col items-center justify-center rounded-2xl mb-2">
         <p className="text-primary font-medium">Get updated</p>
         <h1 className="max-w-lg font-semibold text-4xl/[44px] mt-2">
@@ -14,12 +15,12 @@ const Newsletter = () => {
             className="bg-transparent outline-none rounded-full px-4 h-full flex-1"
             placeholder="Enter your email address"
           />
-          <button className="bg-primary text-white rounded-full h-11 mr-1 px-8 flex items-center justify-center cursor-pointer">
+          <button className="bg-primary text-white rounded-full h-11 mr-1 px-2 md:px-8 flex items-center justify-center cursor-pointer">
             Subscribe now
           </button>
         </div>
       </div>
-    </>
+    </Reveal>
   );
 };
 
