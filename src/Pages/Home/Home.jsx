@@ -8,7 +8,6 @@ import Methods from "./home/Methods.jsx";
 import Newsletter from "./home/Newsletter.jsx";
 import Partnership from "./home/Partnership.jsx";
 import Blogs from "./home/Blogs.jsx";
-import AppsDownload from "./home/AppsDownload.jsx";
 
 const Home = () => {
   return (
@@ -19,10 +18,8 @@ const Home = () => {
       <Methods />
       <Partnership />
       <Testimonial />
-      <FAQ />
-      <Blogs />
       <Newsletter />
-      <AppsDownload />
+      <Blogs />
     </div>
   );
 };

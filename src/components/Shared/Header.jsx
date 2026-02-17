@@ -41,9 +41,9 @@ const Header = () => {
   // Public menu
   const menuItems = [
     { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
     { name: "Meals", path: "/meals" },
     { name: "Contact", path: "/contact" },
-    { name: "About", path: "/about" },
     ...(user ? [{ name: "Dashboard", path: "/dashboard" }] : []),
   ];
 

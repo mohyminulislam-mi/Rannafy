@@ -63,7 +63,7 @@ const MealCard = ({ meal }) => {
         </p>
 
         {/* See Details Button */}
-        <div className="pb-4 mt-5">
+        <div className="pb-4 mt-7 text-center">
           <Link to={`/meals/${meal._id}`} className="rannafy-btn w-full">
             See Details
           </Link>

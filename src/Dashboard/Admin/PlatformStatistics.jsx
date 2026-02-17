@@ -36,7 +36,6 @@ const PlatformStatistics = () => {
   if (isLoading) {
     return <Loading />;
   }
-  console.log("data", data);
   const { totalPayment, totalUsers, deliveredOrders, pendingOrders } = data;
 
   const orderStatusData = [

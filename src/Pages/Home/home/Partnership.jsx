@@ -5,9 +5,9 @@ const Partnership = () => {
   return (
     <Reveal>
       <div className="mt-10">
-        <h1 className="text-4xl font-bold text-orange-600 text-center">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 text-center">
           Our Partners
-        </h1>
+        </h2>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-5 mt-5 mb-16 max-md:px-4 max-w-5xl mx-auto">
           <div className="flex items-center justify-center border rounded-lg shadow hover:shadow-lg transition-all border-slate-200 p-5">
             <svg
