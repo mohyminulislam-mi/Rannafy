@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import Loading from "../../components/Shared/Loading";
 import MealCard from "../../components/MealCard";
 import SearchNotFound from "../../components/SearchNotFound";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import Reveal from "../../components/Reveal";
 import Skeleton from "../../components/Shared/Loading/Skeleton";
+import Loading from "../../components/Shared/Loading";
+import Reveal from "../../components/Reveal";
 
 const Meals = () => {
   const axiosSecure = useAxiosSecure();
   const [search, setSearch] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [sort, setSort] = useState("none");
   const [page, setPage] = useState(1);
-  const limit = 10;
+  const limit = 12;
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const { data = {}, isLoading } = useQuery({
-    queryKey: ["meals", search, sort, page],
+    queryKey: ["meals", searchQuery, sort, page],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/meals?search=${search}&sort=${sort}&page=${page}&limit=${limit}`
+        `/meals?search=${searchQuery}&sort=${sort}&page=${page}&limit=${limit}`,
       );
       return res.data;
     },
@@ -33,9 +34,16 @@ const Meals = () => {
   const total = data.total || 0;
   const totalPages = Math.ceil(total / limit);
 
+  // Search button
+  const handleSearch = () => {
+    setSearchQuery(search);
+    setPage(1);
+  };
+
   if (isLoading) {
     return <Skeleton />;
   }
+
   return (
     <Reveal>
       <div className="w-11/12 mx-auto">
@@ -60,19 +68,27 @@ const Meals = () => {
             </h1>
           </div>
 
-          {/* Search */}
+          {/* Search Section */}
           <div className="col-span-8 md:col-span-6 lg:col-span-8 mx-auto flex items-center border pl-4 gap-2 bg-white border-gray-500/30 h-[46px] rounded-full max-w-md w-full">
             <input
               type="search"
-              placeholder="Search meals..."
+              placeholder="Search meals or chef name"
               value={search}
               onChange={(e) => {
-                setSearch(e.target.value);
-                setPage(1);
+                const value = e.target.value;
+                setSearch(value);
+                if (value === "") {
+                  setSearchQuery("");
+                  setPage(1);
+                }
               }}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               className="w-full h-full outline-none text-sm text-gray-500"
             />
-            <button className="bg-primary w-32 h-9 rounded-full text-sm text-white mr-1">
+            <button
+              onClick={handleSearch}
+              className="bg-primary w-32 h-9 rounded-full text-sm text-white mr-1 cursor-pointer"
+            >
               Search
             </button>
           </div>
