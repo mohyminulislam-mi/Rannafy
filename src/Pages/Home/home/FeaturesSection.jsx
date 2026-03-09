@@ -40,15 +40,15 @@ export default function FeaturesSection() {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <Reveal>
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
-            Why You'll Love
-            <span className="text-orange-600"> Cooking With Us</span>
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Everything you need to cook confidently and enjoy every meal
-          </p>
-        </div>
+          <div className="text-center mb-16">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
+              Why You'll Love
+              <span className="text-orange-600"> Cooking With Us</span>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Everything you need to cook confidently and enjoy every meal
+            </p>
+          </div>
           {/* Features Grid section here */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {features.map((feature, index) => (

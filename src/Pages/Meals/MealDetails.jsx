@@ -103,7 +103,7 @@ const MealDetails = () => {
   }
 
   return (
-    <div className="w-11/12 md:max-w-9/12 mx-auto overflow-hidden">
+    <section className="w-11/12 md:max-w-9/12 mx-auto overflow-hidden">
       <Reveal>
         {/* Food Image */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -186,7 +186,7 @@ const MealDetails = () => {
         </p>
       </div>
       <Reveal>
-        {/* Review Section */}
+        {/* Review  */}
         <div className="py-10 lg:p-6">
           <h3 className="text-xl font-semibold mb-2">Reviews</h3>
           <div className="space-y-2">
@@ -246,7 +246,7 @@ const MealDetails = () => {
                               <span>
                                 {format(
                                   new Date(review.createdAt),
-                                  "dd MMM yyyy, hh:mm a"
+                                  "dd MMM yyyy, hh:mm a",
                                 )}
                               </span>
                             </span>
@@ -332,7 +332,7 @@ const MealDetails = () => {
           </div>
         </div>
       </Reveal>
-    </div>
+    </section>
   );
 };
 

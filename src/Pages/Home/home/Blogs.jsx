@@ -34,10 +34,10 @@ const Blogs = () => {
       <section className="py-12 px-4">
         {/* Heading */}
         <div className="text-center mb-4">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
             Rannafy
             <span className="text-orange-600"> Food Journal</span>
-          </h2>
+          </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Tips, tricks, and stories from the heart of local kitchens. Learn
             how to eat better and support your community.

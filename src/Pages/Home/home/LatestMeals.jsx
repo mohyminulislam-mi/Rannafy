@@ -17,16 +17,16 @@ const LatestMeals = () => {
   });
 
   if (isLoading) {
-    return <Skeleton />
+    return <Skeleton />;
   }
   return (
-    <div className="py-14">
+    <section className="py-14">
       {/* Heading & Subheading */}
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-6xl font-extrabold text-gray-800 mb-4">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-gray-800 mb-4">
           Fresh & New
           <span className="text-orange-600"> Recipes</span>
-        </h2>
+        </h1>
         <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
           Check out the latest creations from our amazing community of home
           cooks!
@@ -45,7 +45,7 @@ const LatestMeals = () => {
           View More
         </Link>
       </div>
-    </div>
+    </section>
   );
 };
 

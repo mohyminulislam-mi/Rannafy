@@ -4,7 +4,7 @@ import Reveal from "../../../components/Reveal";
 const Newsletter = () => {
   return (
     <Reveal>
-      <div className="w-full bg-slate-900 px-2 text-center text-white py-20 flex flex-col items-center justify-center rounded-2xl mb-2">
+      <section className="w-full bg-slate-900 px-2 text-center text-white py-20 flex flex-col items-center justify-center rounded-2xl mb-2">
         <p className="text-primary font-medium">Get updated</p>
         <h1 className="max-w-lg font-semibold text-4xl/[44px] mt-2">
           Subscribe to our newsletter & get the latest news
@@ -19,7 +19,7 @@ const Newsletter = () => {
             Subscribe now
           </button>
         </div>
-      </div>
+      </section>
     </Reveal>
   );
 };

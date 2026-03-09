@@ -46,20 +46,20 @@ const Meals = () => {
 
   return (
     <Reveal>
-      <div className="w-11/12 mx-auto">
+      <section className="w-11/12 mx-auto">
         <title>Rannafy | Get Your Meals</title>
         {/* Header */}
         <div className="text-center mt-10 mb-20">
-          <h2 className="text-4xl font-bold text-primary mb-3">
+          <h1 className="text-4xl font-bold text-primary mb-3">
             Discover Your Next Favorite Recipe
-          </h2>
+          </h1>
           <p className="text-gray-600">
             Thousands of tried-and-tested recipes, from quick dinners to
             desserts.
           </p>
         </div>
 
-        {/* Filter Section */}
+        {/* Filter  */}
         <div className="grid grid-cols-12 gap-5 items-center mb-16">
           {/* Count */}
           <div className="col-span-4 md:col-span-3 lg:col-span-2">
@@ -68,7 +68,7 @@ const Meals = () => {
             </h1>
           </div>
 
-          {/* Search Section */}
+          {/* Search  */}
           <div className="col-span-8 md:col-span-6 lg:col-span-8 mx-auto flex items-center border pl-4 gap-2 bg-white border-gray-500/30 h-[46px] rounded-full max-w-md w-full">
             <input
               type="search"
@@ -173,7 +173,7 @@ const Meals = () => {
             <SearchNotFound />
           </div>
         )}
-      </div>
+      </section>
     </Reveal>
   );
 };

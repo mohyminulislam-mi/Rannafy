@@ -102,7 +102,7 @@ const Order = () => {
     return <Loading />;
   }
   return (
-    <div className="w-11/12 md:w-8/12 mx-auto py-10 px-4">
+    <section className="w-11/12 md:w-8/12 mx-auto py-10 px-4">
       <title>Rannafy | Place Your Order</title>
       <div className="my-5">
         <Link
@@ -174,7 +174,7 @@ const Order = () => {
           Submit
         </button>
       </form>
-    </div>
+    </section>
   );
 };
 

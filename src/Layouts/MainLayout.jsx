@@ -7,13 +7,13 @@ import { Outlet } from "react-router";
 
 const MainLayout = () => {
   return (
-    <section>
+    <>
       <header className="bg-white sticky top-0 z-50">
         <Header />
       </header>
-      <div>
+      <main>
         <Outlet></Outlet>
-      </div>
+      </main>
       <footer>
         <Footer />
       </footer>
@@ -28,7 +28,7 @@ const MainLayout = () => {
         draggable
         theme="light"
       />
-    </section>
+    </>
   );
 };
 

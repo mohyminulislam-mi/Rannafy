@@ -4,7 +4,7 @@ import Reveal from "../../../components/Reveal";
 const Partnership = () => {
   return (
     <Reveal>
-      <div className="mt-10">
+      <section className="mt-10">
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 text-center">
           Our Partners
         </h2>
@@ -108,7 +108,7 @@ const Partnership = () => {
             </svg>
           </div>
         </div>
-      </div>
+      </section>
     </Reveal>
   );
 };

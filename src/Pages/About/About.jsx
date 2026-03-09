@@ -3,9 +3,9 @@ import { Users, Heart, ShieldCheck, Utensils, ArrowRight } from "lucide-react";
 
 const About = () => {
   return (
-    <div className="min-h-screen font-sans antialiased">
+    <section className="min-h-screen font-sans antialiased">
       {/* Hero Section - Dynamic Gradient & Modern Typography */}
-      <section className="relative py-20 lg:py-26 overflow-hidden">
+      <div className="relative py-20 lg:py-26 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <span className="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-wide text-orange-600 uppercase bg-orange-50 rounded-full">
             Our Journey
@@ -21,7 +21,7 @@ const About = () => {
             meaningful connections right in your neighborhood.
           </p>
         </div>
-      </section>
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-24">
         {/* Mission & Image Split Section */}
@@ -114,7 +114,7 @@ const About = () => {
           <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 w-64 h-64 bg-orange-600/20 rounded-full blur-3xl"></div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
