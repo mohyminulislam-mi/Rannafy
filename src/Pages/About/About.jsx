@@ -39,15 +39,13 @@ const About = () => {
               warmth of homemade food.
             </p>
           </div>
-          <div >
-        
-              <img
-                src="https://i.ibb.co.com/TMp5fBdt/rannafy.png"
-                alt="Rannafy"
-                className="rounded"
-              />
-            
-        </div>
+          <div>
+            <img
+              src="https://i.ibb.co.com/jvcBVdsW/rannafy-about.webp"
+              alt="Rannafy"
+              className="rounded"
+            />
+          </div>
         </div>
 
         {/* Values Grid - Refined Cards */}

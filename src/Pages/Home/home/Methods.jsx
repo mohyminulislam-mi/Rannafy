@@ -1,5 +1,4 @@
 import React from "react";
-import Card from "../../../assets/card.png";
 import Reveal from "../../../components/Reveal";
 
 const Methods = () => {
@@ -13,7 +12,11 @@ const Methods = () => {
         </h2>
       </div>
       <div className="flex flex-col lg:flex-row items-center">
-        <img className="max-w-2xl w-full" src={Card} alt="Card" />
+        <img
+          className="max-w-2xl w-full"
+          src="https://i.ibb.co.com/3mvq53Y1/card.png"
+          alt="Card"
+        />
         <div className="space-y-10 px-4 md:px-0">
           <div className="flex items-center justify-center gap-6 max-w-md">
             <div className="p-6 aspect-square bg-violet-100 rounded-full">

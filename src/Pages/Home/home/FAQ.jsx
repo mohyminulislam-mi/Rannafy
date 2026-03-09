@@ -1,5 +1,4 @@
 import React from "react";
-import Meals from "../../../assets/meals.jpg";
 import Reveal from "../../../components/Reveal";
 
 const FAQ = () => {
@@ -32,7 +31,7 @@ const FAQ = () => {
       <div className="lg:w-8/12 mx-auto flex flex-col md:flex-row items-start justify-center gap-8 px-4 md:px-0 my-10">
         <img
           className="max-w-sm w-full rounded-xl h-96"
-          src={Meals}
+          src="https://i.ibb.co.com/ycZhPFHD/meals.webp"
           alt="Meals"
         />
         <div>

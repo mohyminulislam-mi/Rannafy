@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import hero from "../../../assets/hero.png";
 import { Link } from "react-router";
 
 const containerVariants = {
@@ -29,8 +28,17 @@ const Hero = () => {
       >
         {/* Background Image */}
         <img
-          src={hero}
-          alt="hero"
+          src="https://i.ibb.co.com/s9nZ63rJ/rannafy-hero.webp"
+          srcSet="
+                https://i.ibb.co.com/s9nZ63rJ/rannafy-hero.webp 1200w,
+                https://i.ibb.co.com/s9nZ63rJ/rannafy-hero.webp 800w,
+                https://i.ibb.co.com/s9nZ63rJ/rannafy-hero.webp 480w
+              "
+          sizes="(max-width: 640px) 100vw,
+         (max-width: 1024px) 100vw,
+         1200px"
+          alt="Rannafy Banner"
+          loading="eager"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/40" />

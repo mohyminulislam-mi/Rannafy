@@ -6,25 +6,25 @@ const blogData = [
     id: 1,
     title: "From Grandma’s Kitchen: The Art of Slow-Cooked Spiced Curry",
     category: "Heritage Recipes",
-    img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&auto=format&fit=crop&q=60",
+    img: "https://i.ibb.co.com/wrKYZdYc/photo-1547592166-23ac45744acd.avif",
   },
   {
     id: 2,
     title: "5 Simple Ways to Make Your Weekly Meal Prep More Nutritious",
     category: "Nutrition & Wellness",
-    img: "https://allnutritious.com/wp-content/uploads/2020/09/30-Healthy-Meal-Prep-Ideas-That-Are-Super-Easy.jpg",
+    img: "https://i.ibb.co.com/pBQqPBCF/thai-chicken-basil-recipe.webp",
   },
   {
     id: 3,
     title: "How Rannafy Home Chefs Source Fresh Local Ingredients",
     category: "Community Spotlight",
-    img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&auto=format&fit=crop&q=60",
+    img: "https://i.ibb.co.com/wrKYZdYc/photo-1547592166-23ac45744acd.avif",
   },
   {
     id: 4,
     title: "The Zero-Waste Kitchen: Using Every Part of Your Veggies",
     category: "Vegetables",
-    img: "https://tse2.mm.bing.net/th/id/OIP.45SqsEvmzgaGTe0-zaP34wHaFj?cb=defcachec2&rs=1&pid=ImgDetMain&o=7&rm=3",
+    img: "https://i.ibb.co.com/DxSbY6q/photo-1547592166-23ac45744ac.webp",
   },
 ];
 
