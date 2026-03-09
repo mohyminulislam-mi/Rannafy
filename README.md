@@ -1,109 +1,268 @@
-**Rannafy**
+# 🍲 Rannafy – Marketplace for Local Home-Cooked Meals
 
-Rannafy is a modern marketplace for local home-cooked meals — a platform where cooks can share their authentic dishes and users can explore, order, and enjoy homemade food from their community. It’s built with a powerful React-based frontend, styled with Tailwind CSS, and enriched with useful libraries like React Query, Firebase, and more.
+Rannafy is a modern **community-based marketplace for homemade food** where local cooks can sell authentic dishes and users can explore and order fresh homemade meals.
 
+The platform connects **home chefs and food lovers** in a single ecosystem.
+Chefs can create digital storefronts, list dishes, and manage orders while users can discover authentic meals from their community.
 
+Built with a **modern React ecosystem and Node.js backend**, Rannafy focuses on performance, clean architecture, and smooth user experience.
 
-🧠 **Features**
+---
 
-Rannafy includes frontend features such as:
+# 🌐 Live Project
 
-  - Interactive UI using React and Tailwind CSS
+**Live Website**
+https://rannafy.vercel.app
 
-  - Smooth animations & interactions using Framer Motion
+---
 
-  - Asynchronous data fetching & caching with TanStack React-Query
+# 📂 Repositories
 
-  - Form handling using React Hook Form
+Frontend Repository
+https://github.com/mohyminulislam-mi/Rannafy
 
-  - Ratings and reviews UI integrated with React Rating
+Backend Repository
+https://github.com/mohyminulislam-mi/Rannafy-Server
 
-  - Visual components via React Icons & Lucide React
+---
 
-  - Carousels & sliders with Swiper
+# 📸 Project Screenshots
 
-  - User notifications with React Toastify and SweetAlert2
+```
+/screenshots
+home-page.png
+```
+![Homepage](./screenshots/home-page.png)
 
-  - Charts & visual data via Recharts
+---
 
-  - Fast site navigation through React Router
+# ✨ Core Features
 
-  - Marquee UI using React Fast Marquee
+• Community marketplace for homemade meals
+• Role-based dashboard system
+• Chef digital storefront
+• Food listing and management system
+• Secure authentication with Firebase
+• Order management system
+• Real-time data fetching with React Query
+• Responsive mobile-first design
+• Smooth UI animations using Framer Motion
 
-  - Tabbed content using React Tabs
+---
 
+# 👥 User Roles
 
-  - **Discover Recipes**: Browse fresh and trending meals from real home cooks. 
-  - **Save Favorites**: Build your personal cookbook with one click. 
-  - **Add Your Own Recipes**: Share family secrets and signature dishes. 
-  - **Community Driven**: Connect with foodies and exchange ideas. 
-  - **Responsive Design**: Optimized for all devices with modern UI/UX. 
-  - **Real-time Updates**: New recipes added daily.
+### 🧑 User
 
+Users can explore the marketplace and order homemade meals.
 
-  --- ## 🚀 Tech Stack 
-  
-  RannaFy is built using the **MERN ecosystem** and modern frontend tooling: 
-  - **Frontend**: React, TailwindCSS, DaisyUI, Framer Motion 
-  - **Backend**: Node.js, Express, Firebase (authentication & hosting) 
-  - **Database**: MongoDB 
-  - **State Management**: TanStack React Query 
-  - **Routing**: React Router 
-  - **Deployment**: Vercel ---
+Features:
 
+• Browse dishes from local chefs
+• View chef profiles
+• Place food orders
+• Manage personal profile
 
-  ## 📦 Dependencies Used This project leverages a wide range of packages to deliver a polished experience: 
-  
-  | Package                   | Purpose  
-  |---------------------------|------------------------------------------------------------------------- 
-  | **tailwindcss/vite**      | Utility-first CSS framework with Vite integration for fast builds  
-  | **tanstack/react-query**  | Data fetching, caching, and synchronization 
-  | **axios**                 | Promise-based HTTP client for API requests  
-  | **date-fns**              | Modern JavaScript date utility library  
-  | **firebase**              | Authentication, hosting, and backend services 
-  | **framer-motion**         | Smooth animations and transitions  
-  | **lucide-react**          | Icon library for clean, modern UI 
-  | **react / react-dom**     | Core React libraries for building UI  
-  | **react-fast-marquee**    | Scrolling marquee component for highlights  
-  | **react-hook-form**       | Form validation and management  
-  | **react-icons**           | Popular icon sets for UI  
-  | **react-rating**          | Star rating component for meals  
-  | **react-router**          | Client-side routing 
-  | **react-tabs**            | Tabbed navigation components  
-  | **react-toastify**        | Toast notifications for feedback  
-  | **recharts**              | Charting library for data visualization  
-  | **sweetalert2**           | Stylish alerts and confirmation dialogs  
-  | **swiper**                | Modern slider/carousel library  
-  | **tailwindcss**           | Utility-first CSS framework  ---
+---
 
+### 👨‍🍳 Chef
 
+Chefs can sell their homemade food by creating their own storefront.
 
-  ## 🛠️ Installation & Setup 
-  Clone the repository and install dependencies: 
+Features:
 
+• Create and manage chef profile
+• Add, update, and delete dishes
+• Manage orders
+• Track food listings
 
-  ```bash 
-  git clone https://github.com/yourusername/rannafy.git 
-  cd rannafy 
-  npm install
+---
 
+### 🛡️ Admin
 
-  📂 Project Structure:
+Admin controls the whole platform.
 
-src/
-    ├── components/     # Reusable UI components
-    ├── pages/          # Application pages (Home, Meals, Login, Signup)
-    ├── hooks/          # Custom React hooks
-    ├── context/        # Context providers
-    ├── assets/         # Images and static files
-    └── utils/          # Helper functions
+Features:
 
+• Manage users and chefs
+• Monitor platform activities
+• Maintain marketplace integrity
 
- 👨‍💻 Developer
-    Developed by Mohyminul Islam  
-    Professional MERN Stack Developer | Passionate about accessible, responsive, and modern web apps.
+---
 
+# 🛠️ Tech Stack
 
- 📜 License
-    © 2025 RannaFy. All rights reserved.
-    This project is licensed under the MIT License.
+### Frontend
+
+React
+TailwindCSS
+DaisyUI
+Framer Motion
+React Router
+Axios
+swiper
+TanStack React Query
+React Hook Form
+React Rating
+React Toastify & sweetalert2
+
+---
+
+### Backend
+
+Node.js
+Express.js
+Nodemon
+Firebase Authentication
+
+---
+
+### Database
+
+MongoDB
+
+---
+
+### Deployment
+
+Frontend → Vercel
+Backend → Vercel
+
+---
+
+# 🏗️ Project Architecture
+
+The system follows a **client-server architecture**.
+
+Frontend (React)
+
+Handles UI, routing, authentication state, and API communication.
+
+Backend (Node.js + Express)
+
+Handles business logic, authentication verification, and database operations.
+
+Database (MongoDB)
+
+Stores users, chefs, dishes, and order data.
+
+---
+
+# 🔐 Authentication System
+
+Authentication is handled using **Firebase Authentication**.
+
+Supported methods:
+
+• Email & Password login
+• Secure token verification
+• Protected routes for dashboards
+• Role-based access control
+
+---
+
+# ⚙️ Installation & Setup
+
+Follow these steps to run the project locally.
+
+---
+
+## 1️⃣ Clone the Repositories
+
+Clone both frontend and backend.
+
+Frontend
+
+```
+git clone https://github.com/mohyminulislam-mi/Rannafy.git
+```
+
+Backend
+
+```
+git clone https://github.com/mohyminulislam-mi/Rannafy-Server.git
+```
+
+---
+
+## 2️⃣ Install Dependencies
+
+Frontend
+
+```
+cd Rannafy
+npm install
+```
+
+Backend
+
+```
+cd ../Rannafy-Server
+npm install
+```
+
+---
+
+## 3️⃣ Environment Variables
+
+Create a **.env** file in both frontend and backend folders.
+
+Example:
+
+Frontend
+
+```
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+```
+
+Backend
+
+```
+MONGODB_URI=
+JWT_SECRET=
+STRIPE_SECRET_KEY=
+```
+
+---
+
+## 4️⃣ Run the Project
+
+Run both servers.
+
+Frontend
+
+```
+npm run dev
+```
+
+Backend
+
+```
+npm start
+```
+
+---
+
+# 📊 Future Improvements
+
+Possible future upgrades:
+
+• Payment integration
+• Food delivery tracking
+• Rating and review system
+• Real-time order notifications
+• Chef analytics dashboard
+
+---
+
+# 👨‍💻 Developer
+
+Mohyminul Islam
+
+Email: [mohyminulislam2020@gmail.com](mailto:mohyminulislam2020@gmail.com)
+
+Portfolio: https://mohyminulislam.vercel.app
+
+LinkedIn: https://linkedin.com/in/mohyminulislam/

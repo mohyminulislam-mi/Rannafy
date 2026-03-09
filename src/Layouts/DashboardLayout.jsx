@@ -98,7 +98,7 @@ const DashboardLayout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50">
       {/* Mobile Header */}
       <div className="lg:hidden bg-white shadow-sm fixed top-0 left-0 right-0 z-20">
         <div className="flex items-center justify-between p-4">
@@ -124,8 +124,8 @@ const DashboardLayout = () => {
               {role === "chef"
                 ? "👨‍🍳 Chef"
                 : role === "admin"
-                ? "⚙️ Admin"
-                : "🍽️ Food"}
+                  ? "⚙️ Admin"
+                  : "🍽️ Food"}
             </h2>
             <p className="text-sm text-primary font-semibold mt-1">
               {user?.displayName || "Profile"}
@@ -176,9 +176,9 @@ const DashboardLayout = () => {
       </aside>
 
       {/* Main Content */}
-      <div className="lg:ml-64 mt-8 lg:mt-0 p-8 min-h-screen">
+      <section className="lg:ml-64 mt-8 lg:mt-0 p-8 min-h-screen">
         <Outlet />
-      </div>
+      </section>
 
       {/* Overlay */}
       {sidebarOpen && (
@@ -189,7 +189,7 @@ const DashboardLayout = () => {
       )}
 
       <ToastContainer position="top-right" autoClose={3000} />
-    </div>
+    </main>
   );
 };
 
