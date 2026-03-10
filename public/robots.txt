@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block private routes
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /chef/
+Disallow: /login
+Disallow: /register
+
+# Sitemap location
+Sitemap: https://rannafy.vercel.app/sitemap.xml

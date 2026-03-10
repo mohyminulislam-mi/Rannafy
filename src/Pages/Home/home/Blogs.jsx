@@ -12,13 +12,13 @@ const blogData = [
     id: 2,
     title: "5 Simple Ways to Make Your Weekly Meal Prep More Nutritious",
     category: "Nutrition & Wellness",
-    img: "https://i.ibb.co.com/pBQqPBCF/thai-chicken-basil-recipe.webp",
+    img: "https://i.ibb.co.com/8ghFfqwL/thai-chicken-basil-recipe.webp",
   },
   {
     id: 3,
     title: "How Rannafy Home Chefs Source Fresh Local Ingredients",
     category: "Community Spotlight",
-    img: "https://i.ibb.co.com/wrKYZdYc/photo-1547592166-23ac45744acd.avif",
+    img: "https://i.ibb.co.com/fVhzWFtK/photo-1556910103-1c02745aae4d.avif",
   },
   {
     id: 4,
