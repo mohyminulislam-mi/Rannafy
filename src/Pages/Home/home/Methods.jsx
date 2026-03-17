@@ -15,7 +15,7 @@ const Methods = () => {
         <div className="flex flex-col lg:flex-row items-center">
           <img
             className="max-w-2xl w-full"
-            src="https://i.ibb.co.com/3mvq53Y1/card.png"
+            src="https://i.ibb.co.com/Hfck50vt/card.webp"
             alt="Card"
           />
           <div className="space-y-10 px-4 md:px-0">

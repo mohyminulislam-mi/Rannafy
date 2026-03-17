@@ -12,7 +12,7 @@ const blogData = [
     id: 2,
     title: "5 Simple Ways to Make Your Weekly Meal Prep More Nutritious",
     category: "Nutrition & Wellness",
-    img: "https://i.ibb.co.com/8ghFfqwL/thai-chicken-basil-recipe.webp",
+    img: "https://i.ibb.co.com/HLX675GD/thai-chicken-basil-recipe.webp",
   },
   {
     id: 3,
